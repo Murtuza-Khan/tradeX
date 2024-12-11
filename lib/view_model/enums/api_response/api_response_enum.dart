@@ -1,0 +1,1 @@
+enum ApiResult { success, fail }
