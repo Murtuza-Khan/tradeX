@@ -2,7 +2,7 @@
 part of 'constants.dart';
 
 class Strings {
-  static const String APP_NAME = "";
+  static const String APP_NAME = "IGNITE";
   static const String CACHE_BOX_KEY = 'cacheBoxKey';
 
   // Fonts Name
@@ -20,6 +20,14 @@ class Strings {
   static const String OPEN_WIFI_SETTINGS = 'Open Wifi Settings';
   static const String YOU_ARE_OFFLINE = "You're Offline.";
 
+// On Boarding
+  static const String YOUR_GATEWAY = "Your Gateway to Exclusive Offers";
+  static const String UNLOCK_REWARDS = "Unlock Rewards Effortlessly";
+  static const String DISCOVER_AND_REDEEM = "Discover and Redeem Rewards Instantly";
+  static const String REWARDZONE_BRINGS = "RewardZone brings all your favorite brand rewards to one convenient place. Discover exclusive deals, track your points, and redeem rewards with just a few taps. Start saving and enjoying more today!";
+  static const String CLAIMIT_MAKES = "ClaimIt makes redeeming rewards simple and stress-free. Browse offers from top companies, save them to your wallet, and redeem directly from the app. Turning points into perks has never been easier!";
+  static const String WITH_PERKPOINT = "With PerkPoint, access a world of rewards from different companies in one app. From dining deals to shopping discounts, enjoy exclusive perks and maximize your loyalty benefits like never before.";
+
 // Dashboard
   static const String CONTACT_US = "Contact Us";
   static const String ABOUT = "About";
@@ -29,6 +37,7 @@ class Strings {
   static const String DISCLAIMER = "Disclaimer";
   static const String LOGOUT = "Logout";
   static const String WELCOME = "Welcome";
+  static const String TO_IGNITE = "To IGNITE";
   static const String CLOSE_MENU = "Close Menu";
 
 // Home
@@ -108,6 +117,7 @@ class Strings {
 // Cart
   static const String CART = "Cart";
   static const String PROCEED_TO_CHECKOUT = "Proceed To Checkout";
+  static const String PROCEED = "Proceed";
   static const String TOTAL = "Total";
   static const String YOUR_CART_IS_EMPTY = "Your Cart Is Empty";
   static const String LOOKS_LIKE =

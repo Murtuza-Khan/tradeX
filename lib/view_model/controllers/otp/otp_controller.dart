@@ -25,7 +25,6 @@ class OtpController extends GetxController {
   Future<void> verfyOtp() async {}
 
   void startTimer() {
-    update(["resend_otp"]);
     otpTimer = Timer.periodic(
       const Duration(seconds: 1),
       (_) {

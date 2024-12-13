@@ -9,23 +9,34 @@ class LoginForm extends GetView<LoginController> {
       key: controller.loginFormKey,
       child: Column(
         children: [
-          CustomTextFormField(
-            controller: controller.emailCtrl,
-            textCapitalization: TextCapitalization.none,
-            isRequired: true,
-            height: Sizes.HEIGHT_20,
-            labelText: Strings.EMAIL,
-            labelColor: AppColors.black,
-            prefixIcon: EneftyIcons.sms_outline,
-            prefixIconColor: AppColors.black,
-            textColor: AppColors.black,
-            cursorColor: AppColors.black,
-            enableBorderColor: AppColors.black,
-            focusBorderColor: AppColors.primary,
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.emailAddress,
-            autofillHints: const [AutofillHints.email],
-            validator: Validators.emailValidator.call,
+          Stack(
+            children: [
+              IntlPhoneField(
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(vertical: 20.0),
+                  labelText: Strings.PHONE_NUMBER,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    borderSide: BorderSide(color: AppColors.secondary),
+                  ),
+                ),
+                autovalidateMode: AutovalidateMode.disabled,
+                controller: controller.phoneCtrl,
+                keyboardType: TextInputType.number,
+                initialCountryCode: 'PK',
+                languageCode: "en",
+                onChanged: (phone) {
+                  controller.update(['update_save_profile_btn']);
+                },
+                onCountryChanged: (country) => controller.country = country,
+                inputFormatters: InputFormat.onlyNumber,
+              ),
+              Container(
+                width: 95,
+                height: 57,
+                color: Colors.transparent,
+              ),
+            ],
           ),
           const SpaceH10(),
           Obx(
@@ -65,28 +76,6 @@ class LoginForm extends GetView<LoginController> {
             onTapAsync: () async => controller.login(),
             radius: Sizes.RADIUS_12,
             constraints: const BoxConstraints(minHeight: 55),
-          ),
-          const SpaceH30(),
-          GestureDetector(
-            onTap: () => Get.offNamed(Routes.SIGNUP),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  Strings.DONT_HAVE_ACCOUNT,
-                  style: context.titleMedium.copyWith(color: AppColors.black),
-                ),
-                const SpaceW10(),
-                Text(
-                  Strings.SIGNUP,
-                  style: context.titleLarge.copyWith(
-                    color: AppColors.primary,
-                    decoration: TextDecoration.underline,
-                    decorationColor: AppColors.primary,
-                  ),
-                ),
-              ],
-            ),
           ),
           const SpaceH16(),
         ],

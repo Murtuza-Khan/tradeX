@@ -1,8 +1,26 @@
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
+
 import '../../../resources/exports/index.dart';
 
 class GlobalHelper {
   static Set<int> setOfInts = {};
+
+  static Widget loadingWidget({Color? color}) {
+    return Platform.isAndroid
+        ? Center(
+            child: CircularProgressIndicator(
+              color: color ?? AppColors.white,
+              strokeWidth: 2,
+            ),
+          )
+        : Center(
+            child: CupertinoActivityIndicator(
+              color: color ?? AppColors.white,
+              radius: 12,
+            ),
+          );
+  }
 
   static int getRandomId() {
     int value = Random().nextInt(99999999);

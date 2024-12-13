@@ -72,13 +72,22 @@ class OtpScreen extends GetView<OtpController> {
                     ],
                   ),
                   const SpaceH20(),
-                  CustomButton.solid(
-                    backgroundColor: AppColors.primary,
-                    textColor: AppColors.white,
-                    text: Strings.CONTINUE,
-                    onTapAsync: () => controller.verfyOtp(),
-                    radius: 6,
-                    constraints: const BoxConstraints(minHeight: 55),
+                  GetBuilder<OtpController>(
+                    id: 'confirm_otp_button',
+                    builder: (_) {
+                      return CustomButton.solid(
+                        backgroundColor:
+                            (controller.otpTimer?.isActive ?? false)
+                                ? AppColors.primary
+                                : AppColors.disabled,
+                        textColor: AppColors.white,
+                        text: Strings.CONTINUE,
+                        isEnabled: controller.otpTimer?.isActive ?? false,
+                        onTapAsync: () => controller.verfyOtp(),
+                        radius: 6,
+                        constraints: const BoxConstraints(minHeight: 55),
+                      );
+                    },
                   ),
                 ],
               ),

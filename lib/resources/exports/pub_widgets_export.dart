@@ -48,3 +48,4 @@ export 'package:url_launcher/url_launcher.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:firebase_messaging/firebase_messaging.dart';
 export 'package:flutter_local_notifications/flutter_local_notifications.dart';
+export 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';

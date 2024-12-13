@@ -19,19 +19,12 @@ class Pages {
           binding: LandingBinding(),
           transition: _routeTransition,
         );
-      
+
       case Routes.LOGIN:
         return GetPageRoute(
           settings: settings,
           page: () => const Login(),
           binding: LoginBinding(),
-          transition: _routeTransition,
-        );
-      case Routes.SIGNUP:
-        return GetPageRoute(
-          settings: settings,
-          page: () => const SignUp(),
-          binding: SignUpBinding(),
           transition: _routeTransition,
         );
       case Routes.HOME:
@@ -46,6 +39,13 @@ class Pages {
           settings: settings,
           page: () => const OtpScreen(),
           binding: OtpBinding(),
+          transition: _routeTransition,
+        );
+      case Routes.ON_BOARDING:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const OnBoarding(),
+          binding: OnBoardingBinding(),
           transition: _routeTransition,
         );
 

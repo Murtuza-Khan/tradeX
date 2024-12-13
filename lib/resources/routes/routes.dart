@@ -4,8 +4,8 @@ class Routes {
   static const String OFFLINE = "/offline";
   static const String AUTHENTICATION = "/authentication";
   static const String LOGIN = "/login";
-  static const String SIGNUP = "/sign_up";
   static const String HOME = "/home";
   static const String LANDING = "/landing";
   static const String OTP = "/otp";
+  static const String ON_BOARDING = "/on_boarding";
 }
