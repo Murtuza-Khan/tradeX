@@ -22,7 +22,13 @@ class OtpController extends GetxController {
     update(['confirm_otp_button']);
   }
 
-  Future<void> verfyOtp() async {}
+  Future<void> verfyOtp() async {
+    if (Get.previousRoute == Routes.LOGIN) {
+      Get.offAllNamed(Routes.LANDING);
+    } else {
+      Get.offNamed(Routes.PASSWORD_RESET);
+    }
+  }
 
   void startTimer() {
     otpTimer = Timer.periodic(

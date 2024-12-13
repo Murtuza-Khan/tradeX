@@ -117,7 +117,7 @@ class LoginForm extends GetView<LoginController> {
         ),
         const Spacer(),
         TextButton(
-          onPressed: () {},
+          onPressed: ()=> Get.toNamed(Routes.FORGOT_PASSWORD),
           child: Text(
             Strings.FORGOT_PASSWORD.tr,
             style: context.bodyLarge.copyWith(

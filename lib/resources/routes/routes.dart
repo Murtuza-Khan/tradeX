@@ -4,6 +4,8 @@ class Routes {
   static const String OFFLINE = "/offline";
   static const String AUTHENTICATION = "/authentication";
   static const String LOGIN = "/login";
+  static const String FORGOT_PASSWORD = "/forgot_password";
+  static const String PASSWORD_RESET = "/password_reset";
   static const String HOME = "/home";
   static const String LANDING = "/landing";
   static const String OTP = "/otp";

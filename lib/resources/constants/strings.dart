@@ -23,10 +23,14 @@ class Strings {
 // On Boarding
   static const String YOUR_GATEWAY = "Your Gateway to Exclusive Offers";
   static const String UNLOCK_REWARDS = "Unlock Rewards Effortlessly";
-  static const String DISCOVER_AND_REDEEM = "Discover and Redeem Rewards Instantly";
-  static const String REWARDZONE_BRINGS = "RewardZone brings all your favorite brand rewards to one convenient place. Discover exclusive deals, track your points, and redeem rewards with just a few taps. Start saving and enjoying more today!";
-  static const String CLAIMIT_MAKES = "ClaimIt makes redeeming rewards simple and stress-free. Browse offers from top companies, save them to your wallet, and redeem directly from the app. Turning points into perks has never been easier!";
-  static const String WITH_PERKPOINT = "With PerkPoint, access a world of rewards from different companies in one app. From dining deals to shopping discounts, enjoy exclusive perks and maximize your loyalty benefits like never before.";
+  static const String DISCOVER_AND_REDEEM =
+      "Discover and Redeem Rewards Instantly";
+  static const String REWARDZONE_BRINGS =
+      "RewardZone brings all your favorite brand rewards to one convenient place. Discover exclusive deals, track your points, and redeem rewards with just a few taps. Start saving and enjoying more today!";
+  static const String CLAIMIT_MAKES =
+      "ClaimIt makes redeeming rewards simple and stress-free. Browse offers from top companies, save them to your wallet, and redeem directly from the app. Turning points into perks has never been easier!";
+  static const String WITH_PERKPOINT =
+      "With PerkPoint, access a world of rewards from different companies in one app. From dining deals to shopping discounts, enjoy exclusive perks and maximize your loyalty benefits like never before.";
 
 // Dashboard
   static const String CONTACT_US = "Contact Us";
@@ -64,12 +68,21 @@ class Strings {
   static const String EMAIL = "Email";
   static const String ENTER_A_VALID = "Enter a valid email";
   static const String PASSWORD = "Password";
+  static const String NEW_PASSWORD = "New Password";
   static const String CONFIRM_PASSWORD = "Confirm Password";
-  static const String FORGOT_PASSWORD = "Forget Password";
+  static const String CONFIRM = "Confirm";
+  static const String FORGOT_PASSWORD = "Forgot Password";
   static const String REMEMBER_ME = "Remember Me";
   static const String ARE_YOU_SURE = "Are you sure you want to logout ?";
   static const String ENTER_YOUR_EMAIL =
       "Enter your Email or Phone in the field below to proceed";
+
+  // Forget Password
+  static const String PLEASE_ENTER_PHONE =
+      "Please enter your phone number to reset password.";
+
+  // Reset Password
+  static const String RESET_PASSWORD = "Reset password";
 
   // Sign Up
   static const String SIGNUP_CREATE_ACCOUNT = "Sign up - Create Account";
@@ -82,8 +95,11 @@ class Strings {
 
 // OTP
   static const String CONTINUE = "Continue";
+  static const String VERIFY_OTP = "Verify Otp";
   static const String RESEND = "Resend";
   static const String ENTER_OTP = "Enter Otp";
+  static const String FILL_THE_DETAILS =
+      "Fill the details below to reset your password";
   static const String ONE_TIME_PASS =
       "Enter the One-Time Password (OTP) sent to your registered phone/Email to verify your account.";
 
@@ -213,4 +229,6 @@ class Strings {
       'Are you sure you want to delete your account?';
   static const String PLEASE_VERIFY =
       'An otp has been sent to your registered phone number, please verify';
+  static const String PASSWORD_RESET_SUCCESSFULLY =
+      'Password reset successfully';
 }

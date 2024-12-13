@@ -19,12 +19,25 @@ class Pages {
           binding: LandingBinding(),
           transition: _routeTransition,
         );
-
       case Routes.LOGIN:
         return GetPageRoute(
           settings: settings,
           page: () => const Login(),
           binding: LoginBinding(),
+          transition: _routeTransition,
+        );
+      case Routes.FORGOT_PASSWORD:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const ForgotPassword(),
+          binding: ForgotPasswordBinding(),
+          transition: _routeTransition,
+        );
+      case Routes.PASSWORD_RESET:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const PasswordReset(),
+          binding: PasswordResetBinding(),
           transition: _routeTransition,
         );
       case Routes.HOME:

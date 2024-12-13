@@ -81,7 +81,7 @@ class OtpScreen extends GetView<OtpController> {
                                 ? AppColors.primary
                                 : AppColors.disabled,
                         textColor: AppColors.white,
-                        text: Strings.CONTINUE,
+                        text: Strings.VERIFY_OTP,
                         isEnabled: controller.otpTimer?.isActive ?? false,
                         onTapAsync: () => controller.verfyOtp(),
                         radius: 6,
