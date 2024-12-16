@@ -46,6 +46,9 @@ class Strings {
 
 // Home
   static const String BACK = "Back";
+  static const String HI = "Hi";
+  static const String ACCOUNT = "Account";
+  static const String HERE_YOU = "Here you can find all your E-Gift Cards";
   static const String FROM_CAMERA = "From Camera";
   static const String FROM_GALLERY = "From Gallery";
   static const String VIEW_ALL = "View All";
@@ -57,6 +60,12 @@ class Strings {
   static const String LOGIN_SIGNUP = "Login / Signup";
   static const String PROFILE = "Profile";
   static const String USER_DASHBOARD = "User Dashboard";
+  static const String TOTAL_POINTS = "Total Points";
+  static const String SWITCH_ACCOUNT = "Switch\nAccount";
+  static const String REDEEM_POINTS = "Redeem\nPoints";
+
+  // Switch Account
+  static const String SWITCH_ACCOUNT_WBSN = "Switch Account";
 
   // Login
   static const String PLEASE_LOGIN = "Please Login";
@@ -66,6 +75,7 @@ class Strings {
   static const String SIGNUP = "Sign up";
   static const String LOGIN_INTO_YOUR_ACCOUNT = "Login to your account";
   static const String EMAIL = "Email";
+  static const String CNIC = "Cnic";
   static const String ENTER_A_VALID = "Enter a valid email";
   static const String PASSWORD = "Password";
   static const String NEW_PASSWORD = "New Password";
@@ -229,6 +239,7 @@ class Strings {
       'Are you sure you want to delete your account?';
   static const String PLEASE_VERIFY =
       'An otp has been sent to your registered phone number, please verify';
+  static const String PROVIDED_DATA = 'Provided data is null';
   static const String PASSWORD_RESET_SUCCESSFULLY =
       'Password reset successfully';
 }

@@ -9,33 +9,26 @@ class LoginForm extends GetView<LoginController> {
       key: controller.loginFormKey,
       child: Column(
         children: [
-          Stack(
-            children: [
-              IntlPhoneField(
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 20.0),
-                  labelText: Strings.PHONE_NUMBER,
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                    borderSide: BorderSide(color: AppColors.secondary),
-                  ),
-                ),
-                autovalidateMode: AutovalidateMode.disabled,
-                controller: controller.phoneCtrl,
-                keyboardType: TextInputType.number,
-                initialCountryCode: 'PK',
-                languageCode: "en",
-                onChanged: (phone) {
-                  controller.update(['update_save_profile_btn']);
-                },
-                onCountryChanged: (country) => controller.country = country,
-                inputFormatters: InputFormat.onlyNumber,
-              ),
-              Container(
-                width: 95,
-                height: 57,
-                color: Colors.transparent,
-              ),
+          CustomTextFormField(
+            controller: controller.cnicCtrl,
+            fillColor: AppColors.white,
+            textCapitalization: TextCapitalization.none,
+            isRequired: true,
+            height: Sizes.HEIGHT_20,
+            labelText: Strings.CNIC,
+            labelColor: AppColors.black,
+            prefixIcon: EneftyIcons.card_outline,
+            prefixIconColor: AppColors.black,
+            textColor: AppColors.black,
+            cursorColor: AppColors.black,
+            enableBorderColor: AppColors.black,
+            focusBorderColor: AppColors.primary,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.emailAddress,
+            autofillHints: const [AutofillHints.email],
+            inputFormatters: [
+              ...InputFormat.cnicCount,
+              CnicInputFormatter(),
             ],
           ),
           const SpaceH10(),
@@ -86,40 +79,40 @@ class LoginForm extends GetView<LoginController> {
   Row _buildRememberMe(BuildContext context) {
     return Row(
       children: [
-        Obx(
-          () => Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Transform.scale(
-                scale: 1.3,
-                child: Checkbox(
-                  checkColor: Colors.white,
-                  side: const BorderSide(color: Colors.black),
-                  visualDensity: const VisualDensity(horizontal: -4),
-                  activeColor: AppColors.primary,
-                  value: AuthManager.instance.rememberCredentials.value,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(Sizes.RADIUS_2),
-                  ),
-                  onChanged: controller.toggleRememberCredentials,
-                ),
-              ),
-              const SpaceW8(),
-              Text(
-                Strings.REMEMBER_ME.tr,
-                style: context.bodyLarge.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ),
-        const Spacer(),
+        // Obx(
+        //   () => Row(
+        //     crossAxisAlignment: CrossAxisAlignment.center,
+        //     children: [
+        //       Transform.scale(
+        //         scale: 1.3,
+        //         child: Checkbox(
+        //           checkColor: Colors.white,
+        //           side: const BorderSide(color: Colors.black),
+        //           visualDensity: const VisualDensity(horizontal: -4),
+        //           activeColor: AppColors.primary,
+        //           value: AuthManager.instance.rememberCredentials.value,
+        //           shape: RoundedRectangleBorder(
+        //             borderRadius: BorderRadius.circular(Sizes.RADIUS_2),
+        //           ),
+        //           onChanged: controller.toggleRememberCredentials,
+        //         ),
+        //       ),
+        //       const SpaceW8(),
+        //       Text(
+        //         Strings.REMEMBER_ME.tr,
+        //         style: context.bodyLarge.copyWith(
+        //           color: Colors.black,
+        //           fontWeight: FontWeight.w600,
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        // const Spacer(),
         TextButton(
-          onPressed: ()=> Get.toNamed(Routes.FORGOT_PASSWORD),
+          onPressed: () => Get.toNamed(Routes.FORGOT_PASSWORD),
           child: Text(
-            Strings.FORGOT_PASSWORD.tr,
+            "${Strings.FORGOT_PASSWORD} ?",
             style: context.bodyLarge.copyWith(
               color: AppColors.primary,
               fontWeight: FontWeight.w600,

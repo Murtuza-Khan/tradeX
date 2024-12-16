@@ -61,6 +61,13 @@ class Pages {
           binding: OnBoardingBinding(),
           transition: _routeTransition,
         );
+      case Routes.SWITCH_ACCOUNT:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const SwitchAccount(),
+          binding: SwitchAccountBinding(),
+          transition: _routeTransition,
+        );
 
       default:
         return null;

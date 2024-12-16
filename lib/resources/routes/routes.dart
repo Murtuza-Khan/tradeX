@@ -10,4 +10,5 @@ class Routes {
   static const String LANDING = "/landing";
   static const String OTP = "/otp";
   static const String ON_BOARDING = "/on_boarding";
+  static const String SWITCH_ACCOUNT = "/switch_account";
 }

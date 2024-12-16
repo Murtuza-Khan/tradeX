@@ -2,7 +2,7 @@ import '../../../resources/exports/index.dart';
 
 class LoginController extends GetxController {
   late GlobalKey<FormState> loginFormKey;
-  late TextEditingController phoneCtrl;
+  late TextEditingController cnicCtrl;
   late TextEditingController passCtrl;
 
   Country? country;
@@ -25,7 +25,7 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     loginFormKey = GlobalKey<FormState>();
-    phoneCtrl = TextEditingController();
+    cnicCtrl = TextEditingController();
     passCtrl = TextEditingController();
     super.onInit();
   }

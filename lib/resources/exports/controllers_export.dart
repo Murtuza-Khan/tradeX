@@ -6,3 +6,4 @@ export '../../view_model/controllers/home/home_controller.dart';
 export '../../view_model/controllers/on_boarding/on_boarding_controller.dart';
 export '../../view_model/controllers/forgot_password/forgot_password_controller.dart';
 export '../../view_model/controllers/password_reset/password_reset_controller.dart';
+export '../../view_model/controllers/switch_account/switch_account_controller.dart';

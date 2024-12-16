@@ -11,6 +11,11 @@ class AppColors {
   static const Color warning = Color(0xFFEC7C1D);
   static const Color information = Color(0xFF1FA2D4);
 
+  static const Color pointsCard = Color(0xFFd61339);
+  static const Color switchAccCard = Colors.blue;
+  static const Color redeemedCard = Color(0xFF4da14d);
+  static const Color profileCard = Color(0xFF19007c);
+
   static const Color scaffoldBackground = Color(0xFFEBF2F8);
   static const Color white = Colors.white;
   static const Color black = Colors.black;

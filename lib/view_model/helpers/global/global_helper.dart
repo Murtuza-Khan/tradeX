@@ -22,6 +22,13 @@ class GlobalHelper {
           );
   }
 
+  static String formatedNumber({int? value}) {
+    int? points = value ?? 0;
+    return points < 99999999
+        ? points.getFormattedCurrency(showSymbol: false)
+        : points.getCompactCurrency();
+  }
+
   static int getRandomId() {
     int value = Random().nextInt(99999999);
     while (setOfInts.contains(value)) {

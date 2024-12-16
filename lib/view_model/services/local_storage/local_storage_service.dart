@@ -72,17 +72,23 @@ class LocalStorageService extends GetxService {
   }
 
   Session? getSessionData() {
-    final box = GetStorage(Strings.CACHE_BOX_KEY);
-    if (Platform.isAndroid) {
-      log.w("RESTORE SESSION : ${Session.fromJson(
-        box.read(CacheManagerKeys.sessionData.toString()),
-      ).toJson()}");
-    } else {
-      MacLog.printG(("RESTORE SESSION : ${Session.fromJson(
-        box.read(CacheManagerKeys.sessionData.toString()),
-      ).toJson()}"));
+    try {
+      final box = GetStorage(Strings.CACHE_BOX_KEY);
+      if (Platform.isAndroid) {
+        log.w("RESTORE SESSION : ${Session.fromJson(
+          box.read(CacheManagerKeys.sessionData.toString()),
+        ).toJson()}");
+      } else {
+        MacLog.printG(("RESTORE SESSION : ${Session.fromJson(
+          box.read(CacheManagerKeys.sessionData.toString()),
+        ).toJson()}"));
+      }
+      return Session.fromJson(
+          box.read(CacheManagerKeys.sessionData.toString()));
+    } catch (e) {
+      MacLog.printR("Session is empty!");
+      return null;
     }
-    return Session.fromJson(box.read(CacheManagerKeys.sessionData.toString()));
   }
 
   Future<void> removeToken() async {
