@@ -101,6 +101,41 @@ class Landing extends GetView<LandingController> {
         onTap: () => controller.toggleSideMenu.call(),
         child: const Icon(Icons.menu, color: AppColors.primary, size: 28),
       ),
+      actions: Row(
+        children: [
+          _buildAppBarActions(context, onTap: () {}),
+          GetBuilder<LandingController>(
+            id: "redeem_history",
+            builder: (_) => controller.selectedIndex == 1
+                ? _buildAppBarActions(
+                    context,
+                    icon: EneftyIcons.book_outline,
+                    onTap: () {},
+                  ).showUp()
+                : SizedBox(),
+          ),
+          SpaceW8(),
+        ],
+      ).showUp(),
+    );
+  }
+
+  Widget _buildAppBarActions(
+    BuildContext context, {
+    VoidCallback? onTap,
+    IconData? icon,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        color: Colors.transparent,
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+        child: Icon(
+          icon ?? EneftyIcons.shop_outline,
+          color: AppColors.primary,
+          size: 35,
+        ),
+      ),
     );
   }
 

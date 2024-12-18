@@ -48,7 +48,7 @@ class LandingController extends GetxController
       ScaffoldMessenger.of(Get.context!).clearSnackBars();
       selectedIndex = index;
       Get.offNamed(route, id: Strings.GET_NESTED_KEY_1);
-      update(['bottom_nav_bar', 'cart_count_badge']);
+      update(['bottom_nav_bar', 'cart_count_badge', 'redeem_history']);
     }
   }
 

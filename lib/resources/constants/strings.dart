@@ -2,7 +2,7 @@
 part of 'constants.dart';
 
 class Strings {
-  static const String APP_NAME = "IGNITE";
+  static const String APP_NAME = "TradeX";
   static const String CACHE_BOX_KEY = 'cacheBoxKey';
 
   // Fonts Name
@@ -126,6 +126,10 @@ class Strings {
 
   // Search
   static const String SEARCH = "Search";
+
+  // Redeem Rewards
+  static const String REDEEM_POINTS_INTO = "Redeem points into Giftkarte";
+  static const String REDEEM_A_GIFTKARET = "Redeem a Giftkaret voucher and unlock shopping across 170+ top brands! Simply enter your points below and click 'Proceed' to get started.";
 
   // Voucher Details
   static const String PKR = "PKR ";

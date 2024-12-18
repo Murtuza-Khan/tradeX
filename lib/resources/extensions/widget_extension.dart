@@ -12,7 +12,7 @@ extension WidgetExtensions on Widget {
       animationDuration: Duration(milliseconds: durationInMilli),
       curve: Curves.linear,
       direction: Direction.horizontal,
-      offset: -0.5,
+      offset: 0.5,
       child: this,
     );
   }
