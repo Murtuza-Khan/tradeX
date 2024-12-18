@@ -12,7 +12,7 @@ class HomeRepository {
   }
 
   static Future<ReceivedPointsModel> getReceivedPoints() async {
-    return Future.delayed(Durations.medium2, () {
+    return Future.delayed(Durations.medium3, () {
       return ReceivedPointsModel.fromMap(receivedPointsData);
     });
   }

@@ -15,6 +15,10 @@ class Home extends GetView<HomeController> {
           builder: (_) {
             return CustomFutureBuilder(
               future: HomeRepository.getReceivedPoints(),
+              customLoader: SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
+                child: HomeShimmer().paddingAll(16.0),
+              ),
               data: (receivedPoints) => controller.receivedPoints =
                   receivedPoints ?? ReceivedPointsModel(),
               hasDataBuilder: (_, __) => _buildReceivedPointsList(context),
@@ -245,4 +249,5 @@ class Home extends GetView<HomeController> {
       ),
     ).shadow(radius: 12.0, offset: Offset(0.0, 2.0));
   }
+
 }
