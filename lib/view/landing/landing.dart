@@ -39,7 +39,7 @@ class Landing extends GetView<LandingController> {
                 ? _buildAppBarActions(
                     context,
                     icon: EneftyIcons.book_outline,
-                    onTap: () {},
+                    onTap: () => Get.toNamed(Routes.REDEEM_REWARDS_HISTORY),
                   ).showUp()
                 : SizedBox(),
           ),

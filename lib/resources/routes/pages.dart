@@ -89,6 +89,13 @@ class Pages {
           binding: ProfileBinding(),
           transition: _routeTransition,
         );
+      case Routes.REDEEM_REWARDS_HISTORY:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const RedeemRewardsHistory(),
+          binding: RedeemRewardsHistoryBinding(),
+          transition: _routeTransition,
+        );
 
       default:
         return null;

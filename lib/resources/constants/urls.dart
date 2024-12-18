@@ -3,6 +3,8 @@
 part of 'constants.dart';
 
 class Urls {
+  static const int PAGESIZE = 50;
+  
 // Home
   static const String NEWS = 'api/v3/news';
   static const String VOUCHERS = '/api/v3/vouchers';

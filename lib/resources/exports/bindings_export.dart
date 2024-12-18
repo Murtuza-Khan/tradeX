@@ -9,3 +9,4 @@ export '../../view_model/bindings/switch_account/switch_account_binding.dart';
 export '../../view_model/bindings/redeem_rewards/redeem_rewards_binding.dart';
 export '../../view_model/bindings/user_dashboard/user_dashboard_binding.dart';
 export '../../view_model/bindings/profile/profile_binding.dart';
+export '../../view_model/bindings/redeem_rewards_history/redeem_rewards_history_binding.dart';

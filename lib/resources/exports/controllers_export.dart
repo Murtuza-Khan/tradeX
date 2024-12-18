@@ -10,3 +10,4 @@ export '../../view_model/controllers/switch_account/switch_account_controller.da
 export '../../view_model/controllers/redeem_rewards/redeem_rewards_controller.dart';
 export '../../view_model/controllers/user_dashboard/user_dashboard_controller.dart';
 export '../../view_model/controllers/profile/profile_controller.dart';
+export '../../view_model/controllers/redeem_rewards_history/redeem_rewards_history_controller.dart';

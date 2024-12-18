@@ -64,6 +64,7 @@ class Strings {
   static const String TOTAL_POINTS = "Total Points";
   static const String REDEEMED_POINTS = "Redeemed Points";
   static const String REDEEME = "Redeeme";
+  static const String REDEEME_HISTORY = "Redeeme History";
   static const String SWITCH_ACCOUNT = "Switch\nAccount";
   static const String REDEEM_POINTS = "Redeem\nPoints";
   static const String DATE = "Date";
@@ -73,6 +74,15 @@ class Strings {
 
   // Switch Account
   static const String SWITCH_ACCOUNT_WBSN = "Switch Account";
+  
+  // Received Points
+  static const String SENDER_NAME = "Sender Name";
+
+  // Redeemed Rewards History
+  static const String HISTORY = "History";
+  static const String REQUEST_ID = "Request ID";
+  static const String POINTS_REDEEMED = "Points redeemed";
+  static const String VOUCHER_CODE = "Voucher Code";
 
   // Login
   static const String PLEASE_LOGIN = "Please Login";

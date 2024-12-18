@@ -8,3 +8,4 @@ export '../../model/on_boarding/on_boarding_model.dart';
 export '../../model/companies/companies_model.dart';
 export '../../model/received_points/received_points_model.dart';
 export '../../model/profile/profile_model.dart';
+export '../../model/redeem_history/redeem_history_model.dart';
