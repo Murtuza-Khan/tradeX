@@ -96,6 +96,13 @@ class Pages {
           binding: RedeemRewardsHistoryBinding(),
           transition: _routeTransition,
         );
+      case Routes.ALL_RECEIVED_POINTS:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const AllReceivedPoints(),
+          binding: AllReceivedPointsBinding(),
+          transition: _routeTransition,
+        );
 
       default:
         return null;

@@ -86,7 +86,7 @@ class Home extends GetView<HomeController> {
             style: context.titleLarge.copyWith(color: AppColors.primary),
           ).expanded(),
           GestureDetector(
-            onTap: () {},
+            onTap: () => Get.toNamed(Routes.ALL_RECEIVED_POINTS),
             child: Container(
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(

@@ -11,3 +11,4 @@ export '../../view_model/controllers/redeem_rewards/redeem_rewards_controller.da
 export '../../view_model/controllers/user_dashboard/user_dashboard_controller.dart';
 export '../../view_model/controllers/profile/profile_controller.dart';
 export '../../view_model/controllers/redeem_rewards_history/redeem_rewards_history_controller.dart';
+export '../../view_model/controllers/all_received_points/all_received_points_controller.dart';

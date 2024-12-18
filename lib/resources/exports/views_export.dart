@@ -11,3 +11,4 @@ export '../../view/redeem_rewards/redeem_rewards.dart';
 export '../../view/user_dashboard/user_dashboard.dart';
 export '../../view/profile/profile.dart';
 export '../../view/redeem_rewards_history/redeem_rewards_history.dart';
+export '../../view/all_received_points/all_received_points.dart';
