@@ -9,3 +9,4 @@ export '../../view/password_reset/password_reset.dart';
 export '../../view/switch_account/switch_account.dart';
 export '../../view/redeem_rewards/redeem_rewards.dart';
 export '../../view/user_dashboard/user_dashboard.dart';
+export '../../view/profile/profile.dart';

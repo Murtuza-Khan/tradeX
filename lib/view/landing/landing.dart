@@ -8,79 +8,20 @@ class Landing extends GetView<LandingController> {
     return PopScope(
       onPopInvokedWithResult: (_, __) => controller.onBackTap(context),
       canPop: false,
-      child: Container(
-        color: AppColors.scaffoldBackground,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            GetBuilder<LandingController>(
-              id: "side_menu",
-              builder: (_) {
-                return AnimatedPositioned(
-                  duration: const Duration(milliseconds: 350),
-                  left: controller.isSideMenuClosed ? -300 : 0,
-                  curve: Curves.fastOutSlowIn,
-                  top: 0,
-                  bottom: 0,
-                  width: 300,
-                  child: const AppDrawer().shadow(
-                    offset: const Offset(0.0, 0.0),
-                    radius: 24.0,
-                    blurRadius: 8.0,
-                  ),
-                );
-              },
-            ),
-            GetBuilder<LandingController>(
-              id: "side_menu",
-              builder: (_) {
-                return Transform.translate(
-                  offset: Offset(controller.animation.value * (280), 0),
-                  child: Transform.scale(
-                    scale: controller.scaleAnimation.value,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          controller.isSideMenuClosed ? 0 : 24.0,
-                        ),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(
-                            controller.isSideMenuClosed ? 0 : 24.0,
-                          ),
-                        ),
-                        child: _buildContent(context),
-                      ),
-                    ).shadow(
-                      offset: const Offset(0.0, 0.0),
-                      radius: 24.0,
-                      blurRadius: 8.0,
-                    ),
-                  ).repaintBoundary,
-                ).repaintBoundary;
-              },
-            ),
-          ],
+      child: Scaffold(
+        extendBody: true,
+        appBar: _buildAppBar(context),
+        body: GestureDetector(
+          onTap: () => controller.isSideMenuClosed
+              ? () {}
+              : controller.toggleSideMenu.call(),
+          child: AbsorbPointer(
+            absorbing: !controller.isSideMenuClosed,
+            child: _buildNavigator(),
+          ).constrainedBox(maxHeight: double.maxFinite),
         ),
+        bottomNavigationBar: _buildBottomNavigationBar(context),
       ),
-    );
-  }
-
-  Widget _buildContent(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      appBar: _buildAppBar(context),
-      body: GestureDetector(
-        onTap: () => controller.isSideMenuClosed
-            ? () {}
-            : controller.toggleSideMenu.call(),
-        child: AbsorbPointer(
-          absorbing: !controller.isSideMenuClosed,
-          child: _buildNavigator(),
-        ).constrainedBox(maxHeight: double.maxFinite),
-      ),
-      bottomNavigationBar: _buildBottomNavigationBar(context),
     );
   }
 
@@ -97,13 +38,13 @@ class Landing extends GetView<LandingController> {
       title: '',
       onTap: () {},
       showLogo: true,
-      leading: GestureDetector(
-        onTap: () => controller.toggleSideMenu.call(),
-        child: const Icon(Icons.menu, color: AppColors.primary, size: 28),
-      ),
+      leading: SizedBox(),
       actions: Row(
         children: [
-          _buildAppBarActions(context, onTap: () {}),
+          _buildAppBarActions(
+            context,
+            onTap: () => Get.toNamed(Routes.SWITCH_ACCOUNT),
+          ),
           GetBuilder<LandingController>(
             id: "redeem_history",
             builder: (_) => controller.selectedIndex == 1

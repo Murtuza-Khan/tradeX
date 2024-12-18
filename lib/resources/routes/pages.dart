@@ -82,6 +82,13 @@ class Pages {
           binding: UserDashboardBinding(),
           transition: _routeTransition,
         );
+      case Routes.PROFILE:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const Profile(),
+          binding: ProfileBinding(),
+          transition: _routeTransition,
+        );
 
       default:
         return null;

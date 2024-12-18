@@ -123,6 +123,7 @@ class Strings {
   static const String DELETE_ACCOUNT = "Delete Account";
   static const String SEND = "Send";
   static const String SAVE = "Save";
+  static const String SUPPLIER = "Supplier";
 
   // Search
   static const String SEARCH = "Search";

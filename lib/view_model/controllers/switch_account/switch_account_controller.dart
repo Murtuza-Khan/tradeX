@@ -21,10 +21,4 @@ class SwitchAccountController extends GetxController {
       Get.toNamed(Routes.OTP);
     }
   }
-
-  @override
-  void onInit() {
-    companies = Get.arguments != null ? Get.arguments['companies'] : [];
-    super.onInit();
-  }
 }

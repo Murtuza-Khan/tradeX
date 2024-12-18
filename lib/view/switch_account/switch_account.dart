@@ -7,34 +7,42 @@ class SwitchAccount extends GetView<SwitchAccountController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: Strings.SWITCH_ACCOUNT_WBSN),
-      body: Column(
-        children: [
-          ListView.separated(
-            padding: EdgeInsets.all(16.0),
-            itemCount: controller.companies.length,
-            shrinkWrap: true,
-            physics: BouncingScrollPhysics(),
-            itemBuilder: (_, index) => _buildItem(
-              context,
-              index,
-              controller.companies[index],
-            ),
-            separatorBuilder: (_, __) => SpaceH16(),
-          ).expanded(),
-          CustomButton.solid(
-            margin: EdgeInsets.symmetric(horizontal: 16.0),
-            backgroundColor: AppColors.primary,
-            textColor: AppColors.white,
-            text: Strings.SAVE,
-            onTapAsync: () async {},
-            radius: Sizes.RADIUS_12,
-            constraints: const BoxConstraints(minHeight: 55),
-          ),
-          SizedBox(
-            height: Platform.isAndroid ? 16 : 40,
-          )
-        ],
+      body: CustomFutureBuilder(
+        future: HomeRepository.getCompanies(),
+        data: (companies) => controller.companies = companies ?? [],
+        hasDataBuilder: (_, __) => _buildAccounts(context),
       ),
+    );
+  }
+
+  Column _buildAccounts(BuildContext context) {
+    return Column(
+      children: [
+        ListView.separated(
+          padding: EdgeInsets.all(16.0),
+          itemCount: controller.companies.length,
+          shrinkWrap: true,
+          physics: BouncingScrollPhysics(),
+          itemBuilder: (_, index) => _buildItem(
+            context,
+            index,
+            controller.companies[index],
+          ),
+          separatorBuilder: (_, __) => SpaceH16(),
+        ).expanded(),
+        CustomButton.solid(
+          margin: EdgeInsets.symmetric(horizontal: 16.0),
+          backgroundColor: AppColors.primary,
+          textColor: AppColors.white,
+          text: Strings.SAVE,
+          onTapAsync: () async {},
+          radius: Sizes.RADIUS_12,
+          constraints: const BoxConstraints(minHeight: 55),
+        ),
+        SizedBox(
+          height: Platform.isAndroid ? 16 : 40,
+        )
+      ],
     );
   }
 
