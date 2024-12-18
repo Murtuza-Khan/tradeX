@@ -24,7 +24,7 @@ class GlobalHelper {
 
   static String formatedNumber({int? value}) {
     int? points = value ?? 0;
-    return points < 99999999
+    return points < 999999999
         ? points.getFormattedCurrency(showSymbol: false)
         : points.getCompactCurrency();
   }

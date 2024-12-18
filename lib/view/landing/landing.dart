@@ -112,16 +112,19 @@ class Landing extends GetView<LandingController> {
           topLeft: Radius.circular(30.0),
           topRight: Radius.circular(30.0),
         ),
-        child: SizedBox(
+        child: Container(
           width: double.maxFinite,
           height: 100.0,
+          color: AppColors.white,
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: GetBuilder<LandingController>(
             id: 'bottom_nav_bar',
             builder: (_) => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(
                 controller.navBarItems.length,
                 (index) => controller.navBarItems[index].isVisible
-                    ? _buildNavBarItem(index, context).expanded()
+                    ? _buildNavBarItem(index, context)
                     : const SizedBox(),
               ),
             ),
@@ -134,33 +137,53 @@ class Landing extends GetView<LandingController> {
   Widget _buildNavBarItem(int index, BuildContext context) {
     return GestureDetector(
       onTap: controller.navBarItems[index].onTap,
-      child: Container(
-        color: AppColors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              controller.navBarItems[index].icon,
-              color: controller.selectedIndex == index
-                  ? AppColors.primary
-                  : AppColors.primary.withOpacity(0.7),
-              size: controller.selectedIndex == index ? 30 : 28,
-            ),
-            const SpaceH6(),
-            Text(
-              controller.navBarItems[index].title,
-              style: context.titleMedium.copyWith(
+      child: AnimatedContainer(
+        duration: Durations.medium1,
+        width: controller.animatedWidth(index),
+        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        decoration: BoxDecoration(
+          color: controller.selectedIndex == index
+              ? AppColors.primaryLight
+              : AppColors.white,
+          borderRadius: BorderRadius.circular(35.0),
+        ),
+        child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                controller.navBarItems[index].icon,
                 color: controller.selectedIndex == index
                     ? AppColors.primary
                     : AppColors.primary.withOpacity(0.7),
-                fontWeight: controller.selectedIndex == index
-                    ? FontWeight.bold
-                    : FontWeight.w500,
+                size: 33,
               ),
-            )
-          ],
+              const SpaceW6(),
+              if (controller.selectedIndex == index) ...[
+                Text(
+                  controller.navBarItems[index].title,
+                  style: context.titleMedium.copyWith(
+                    color: controller.selectedIndex == index
+                        ? AppColors.primary
+                        : AppColors.primary.withOpacity(0.7),
+                    fontWeight: controller.selectedIndex == index
+                        ? FontWeight.bold
+                        : FontWeight.w500,
+                  ),
+                ),
+              ],
+            ],
+          ),
         ),
-      ),
+      )
+          .shadow(
+            radius: 35.0,
+            color:
+                controller.selectedIndex == index ? null : Colors.transparent,
+          )
+          .paddingOnly(bottom: 12.0),
     );
   }
 }

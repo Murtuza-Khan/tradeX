@@ -68,6 +68,20 @@ class Pages {
           binding: SwitchAccountBinding(),
           transition: _routeTransition,
         );
+      case Routes.REDEEM_REWARDS:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const RedeemRewards(),
+          binding: RedeemRewardsBinding(),
+          transition: _routeTransition,
+        );
+      case Routes.USER_DASHBOARD:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const UserDashboard(),
+          binding: UserDashboardBinding(),
+          transition: _routeTransition,
+        );
 
       default:
         return null;

@@ -16,6 +16,13 @@ class LandingController extends GetxController
 
   int selectedIndex = 0;
 
+  double animatedWidth(int index) {
+    if (selectedIndex != index) return 80.0;
+    if (index == 0) return 120.0;
+    if (index == 1) return 150.0;
+    return 170.0;
+  }
+
   void onBackTap(BuildContext context) {
     if (selectedIndex == 1 || selectedIndex == 2) {
       selectedIndex = 0;
@@ -67,6 +74,20 @@ class LandingController extends GetxController
         icon: EneftyIcons.home_outline,
         isVisible: true,
         onTap: () => onNavigate(0, Routes.HOME),
+      ),
+      BottomNavBarModel(
+        id: 1,
+        title: Strings.REDEEME,
+        icon: EneftyIcons.ticket_star_outline,
+        isVisible: true,
+        onTap: () => onNavigate(1, Routes.REDEEM_REWARDS),
+      ),
+      BottomNavBarModel(
+        id: 2,
+        title: Strings.DASHBOARD,
+        icon: EneftyIcons.user_square_bold,
+        isVisible: true,
+        onTap: () => onNavigate(2, Routes.USER_DASHBOARD),
       ),
     ];
 

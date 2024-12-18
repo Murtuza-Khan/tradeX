@@ -11,4 +11,6 @@ class Routes {
   static const String OTP = "/otp";
   static const String ON_BOARDING = "/on_boarding";
   static const String SWITCH_ACCOUNT = "/switch_account";
+  static const String REDEEM_REWARDS = "/redeem_rewards";
+  static const String USER_DASHBOARD = "/user_dashboard";
 }

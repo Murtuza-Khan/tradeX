@@ -37,10 +37,10 @@ class MyApp extends StatelessWidget {
           );
         },
         onGenerateRoute: Pages.onGenerateRoute,
-        initialRoute: Routes.HOME,
+        initialRoute: Routes.LANDING,
         // (AuthManager.instance.getIntroViewInfo() ?? false)
         //     ? AuthManager.instance.isLoggedIn
-        //         ? Routes.HOME
+        //         ? Routes.LANDING
         //         : Routes.LOGIN
         //     : Routes.ON_BOARDING,
         defaultTransition: Transition.rightToLeft,

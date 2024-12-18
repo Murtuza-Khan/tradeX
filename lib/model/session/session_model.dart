@@ -22,7 +22,7 @@ class Session {
           ? UserModel.fromJson(json['user'] as Map<String, dynamic>)
           : null,
       company: json['company'] != null
-          ? CompaniesModel.fromMap(json['user'] as Map<String, dynamic>)
+          ? CompaniesModel.fromMap(json['company'] as Map<String, dynamic>)
           : null,
     );
   }

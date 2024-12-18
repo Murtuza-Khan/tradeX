@@ -59,10 +59,16 @@ class Strings {
   static const String HOME = "Home";
   static const String LOGIN_SIGNUP = "Login / Signup";
   static const String PROFILE = "Profile";
-  static const String USER_DASHBOARD = "User Dashboard";
+  static const String DASHBOARD = "Dashboard";
   static const String TOTAL_POINTS = "Total Points";
+  static const String REDEEMED_POINTS = "Redeemed Points";
+  static const String REDEEME = "Redeeme";
   static const String SWITCH_ACCOUNT = "Switch\nAccount";
   static const String REDEEM_POINTS = "Redeem\nPoints";
+  static const String DATE = "Date";
+  static const String POINTS = "Points";
+  static const String ISSUED_BY = "Issued By";
+  static const String RECEIVED_POINTS = "Received Points";
 
   // Switch Account
   static const String SWITCH_ACCOUNT_WBSN = "Switch Account";
