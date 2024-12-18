@@ -1,5 +1,4 @@
 // LANDING
-export '../../view/landing/components/app_drawer.dart';
 export '../../view/landing/components/bottom_nav_bar_clipper.dart';
 
 // Login

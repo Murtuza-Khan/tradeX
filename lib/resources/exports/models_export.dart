@@ -7,3 +7,4 @@ export '../../model/stepper/stepper_model.dart';
 export '../../model/on_boarding/on_boarding_model.dart';
 export '../../model/companies/companies_model.dart';
 export '../../model/received_points/received_points_model.dart';
+export '../../model/profile/profile_model.dart';

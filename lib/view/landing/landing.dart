@@ -11,25 +11,13 @@ class Landing extends GetView<LandingController> {
       child: Scaffold(
         extendBody: true,
         appBar: _buildAppBar(context),
-        body: GestureDetector(
-          onTap: () => controller.isSideMenuClosed
-              ? () {}
-              : controller.toggleSideMenu.call(),
-          child: AbsorbPointer(
-            absorbing: !controller.isSideMenuClosed,
-            child: _buildNavigator(),
-          ).constrainedBox(maxHeight: double.maxFinite),
-        ),
+        body: Navigator(
+          key: Get.nestedKey(Strings.GET_NESTED_KEY_1),
+          onGenerateRoute: Pages.onGenerateRoute,
+          initialRoute: Routes.HOME,
+        ).constrainedBox(maxHeight: double.maxFinite),
         bottomNavigationBar: _buildBottomNavigationBar(context),
       ),
-    );
-  }
-
-  Navigator _buildNavigator() {
-    return Navigator(
-      key: Get.nestedKey(Strings.GET_NESTED_KEY_1),
-      onGenerateRoute: Pages.onGenerateRoute,
-      initialRoute: Routes.HOME,
     );
   }
 

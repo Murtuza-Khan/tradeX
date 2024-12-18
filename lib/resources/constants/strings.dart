@@ -59,6 +59,7 @@ class Strings {
   static const String HOME = "Home";
   static const String LOGIN_SIGNUP = "Login / Signup";
   static const String PROFILE = "Profile";
+  static const String UPDATE = "Update";
   static const String DASHBOARD = "Dashboard";
   static const String TOTAL_POINTS = "Total Points";
   static const String REDEEMED_POINTS = "Redeemed Points";
@@ -130,7 +131,8 @@ class Strings {
 
   // Redeem Rewards
   static const String REDEEM_POINTS_INTO = "Redeem points into Giftkarte";
-  static const String REDEEM_A_GIFTKARET = "Redeem a Giftkaret voucher and unlock shopping across 170+ top brands! Simply enter your points below and click 'Proceed' to get started.";
+  static const String REDEEM_A_GIFTKARET =
+      "Redeem a Giftkaret voucher and unlock shopping across 170+ top brands! Simply enter your points below and click 'Proceed' to get started.";
 
   // Voucher Details
   static const String PKR = "PKR ";
