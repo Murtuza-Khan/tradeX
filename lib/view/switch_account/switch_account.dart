@@ -35,13 +35,11 @@ class SwitchAccount extends GetView<SwitchAccountController> {
           backgroundColor: AppColors.primary,
           textColor: AppColors.white,
           text: Strings.SAVE,
-          onTapAsync: () async {},
+          onTapAsync: () async => controller.onSave(),
           radius: Sizes.RADIUS_12,
           constraints: const BoxConstraints(minHeight: 55),
         ),
-        SizedBox(
-          height: Platform.isAndroid ? 16 : 40,
-        )
+        SizedBox(height: Platform.isAndroid ? 16 : 40)
       ],
     );
   }

@@ -255,6 +255,7 @@ class Strings {
   static const String ORDER_PLACED_SUCCESSFULLY = 'Order placed successfully';
   static const String ORDER_PLACED = 'Your order has been placed successfully';
   static const String HAS_BEEN_ACTIVATED = 'has been activated';
+  static const String ACCOUNT_SWITCHED = 'Account switched successfully';
   static const String PLEASE_WAIT_YOUR_PAYMENT =
       'Please wait your payment is finalizing';
   static const String ARE_YOU_SURE_BACK = 'Are you sure you want to go back?';

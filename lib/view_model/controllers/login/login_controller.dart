@@ -16,9 +16,14 @@ class LoginController extends GetxController {
   }
 
   Future<void> login() async {
+    await AuthRepository.login(cninc: cnicCtrl.text, password: passCtrl.text);
     // if (loginFormKey.currentState?.validate() ?? false) {
-    CustomSnackBar.successSnackBar(message: Strings.PLEASE_VERIFY);
-    Get.toNamed(Routes.OTP);
+    if (AuthManager.instance.company.isPhoneVerified ?? false) {
+      Get.offAllNamed(Routes.LANDING);
+    } else {
+      CustomSnackBar.successSnackBar(message: Strings.PLEASE_VERIFY);
+      Get.toNamed(Routes.OTP);
+    }
     // }
   }
 

@@ -1,3 +1,5 @@
+import 'package:tradex/repositories/switch_account_repository.dart';
+
 import '../../../resources/exports/index.dart';
 
 class OtpController extends GetxController {
@@ -23,8 +25,21 @@ class OtpController extends GetxController {
   }
 
   Future<void> verfyOtp() async {
+    //verify otp api here
     if (Get.previousRoute == Routes.LOGIN) {
+      CompaniesModel company = AuthManager.instance.company.copyWith(
+        isPhoneVerified: true,
+      );
+      await AuthManager.instance.saveAndUpdateSession(company: company);
       Get.offAllNamed(Routes.LANDING);
+    } else if (Get.previousRoute == Routes.SWITCH_ACCOUNT) {
+      ApiResult result = await SwitchAccountRepository.switchAccount(
+        SwitchAccountHelper.company.id ?? -1,
+      );
+      if (result == ApiResult.fail) return;
+      CustomSnackBar.successSnackBar(message: Strings.ACCOUNT_SWITCHED);
+      SwitchAccountHelper.company = CompaniesModel();
+      Get.close(2);
     } else {
       Get.offNamed(Routes.PASSWORD_RESET);
     }

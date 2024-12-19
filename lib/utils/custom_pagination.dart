@@ -163,6 +163,11 @@ class CustomPagination<T> extends StatefulWidget {
   /// note: pass the [JSON_DATA] otheiwise it will not work
   final List<Map<String, dynamic>>? dummyData;
 
+  /// To add [BACKGROUND_COLOR] to [LIST OR GRID VIEW] by default the 
+  /// 
+  /// [BACKGROUND_COLOR] is [WHITE]
+  final Color backgroundColor;
+
   const CustomPagination({
     super.key,
     this.isDataInGrid = false,
@@ -190,6 +195,7 @@ class CustomPagination<T> extends StatefulWidget {
     this.listSorting,
     this.filter = Filters.all,
     this.dummyData,
+    this.backgroundColor = AppColors.white,
     required this.child,
     required this.apiUrl,
     required this.initList,
@@ -463,50 +469,53 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (widget.showSearchBar && itemCount != 0) ...[
-          SpaceH12(),
-          CustomTextFormField(
-            controller: _searchCtrl,
-            textCapitalization: TextCapitalization.none,
-            height: Sizes.HEIGHT_20,
-            labelText: Strings.SEARCH,
-            labelColor: AppColors.black,
-            prefixIcon: EneftyIcons.search_normal_2_outline,
-            prefixIconColor: AppColors.black,
-            textColor: AppColors.black,
-            cursorColor: AppColors.black,
-            enableBorderColor: AppColors.black,
-            focusBorderColor: AppColors.primary,
-            suffixIconColor: AppColors.black,
-            suffixIcon: _searchCtrl.text.isEmpty
-                ? null
-                : EneftyIcons.close_circle_outline,
-            onSuffixTap: () => _searchCtrl.clear(),
-            textInputAction: TextInputAction.next,
-            onChanged: (_) => _onSearch(),
-            keyboardType: TextInputType.name,
-          ).paddingSymmetric(horizontal: 16.0),
-        ],
-        if (pagingStatus == PagingStatus.noItemsFound) ...[
-          if (widget.customFirstChild != null) ...[
-            widget.customFirstChild
-                    ?.call(isWidgetAutoRebuilding.value)
-                    .paddingSymmetric(horizontal: 16.0) ??
-                SizedBox(),
-            SizedBox(height: 80),
-            NoContent(
-              title: "Content Not Found !!",
-              subtitle: "No information is currently available",
-              showBackground: false,
-            ).expanded(),
+    return Container(
+      color: widget.backgroundColor,
+      child: Column(
+        children: [
+          if (widget.showSearchBar && itemCount != 0) ...[
+            SpaceH12(),
+            CustomTextFormField(
+              controller: _searchCtrl,
+              textCapitalization: TextCapitalization.none,
+              height: Sizes.HEIGHT_20,
+              labelText: Strings.SEARCH,
+              labelColor: AppColors.black,
+              prefixIcon: EneftyIcons.search_normal_2_outline,
+              prefixIconColor: AppColors.black,
+              textColor: AppColors.black,
+              cursorColor: AppColors.black,
+              enableBorderColor: AppColors.black,
+              focusBorderColor: AppColors.primary,
+              suffixIconColor: AppColors.black,
+              suffixIcon: _searchCtrl.text.isEmpty
+                  ? null
+                  : EneftyIcons.close_circle_outline,
+              onSuffixTap: () => _searchCtrl.clear(),
+              textInputAction: TextInputAction.next,
+              onChanged: (_) => _onSearch(),
+              keyboardType: TextInputType.name,
+            ).paddingSymmetric(horizontal: 16.0),
           ],
+          if (pagingStatus == PagingStatus.noItemsFound) ...[
+            if (widget.customFirstChild != null) ...[
+              widget.customFirstChild
+                      ?.call(isWidgetAutoRebuilding.value)
+                      .paddingSymmetric(horizontal: 16.0) ??
+                  SizedBox(),
+              SizedBox(height: 80),
+              NoContent(
+                title: "Content Not Found !!",
+                subtitle: "No information is currently available",
+                showBackground: false,
+              ).expanded(),
+            ],
+          ],
+          widget.isDataInGrid
+              ? _buildGridView().expanded()
+              : _buildListView().expanded(),
         ],
-        widget.isDataInGrid
-            ? _buildGridView().expanded()
-            : _buildListView().expanded(),
-      ],
+      ),
     );
   }
 

@@ -1,3 +1,4 @@
+import '../../../firebase_options.dart';
 import '../../../resources/exports/index.dart';
 
 class InitializationService {
@@ -27,6 +28,13 @@ class InitializationService {
         );
       },
     );
+
+// Firebase Notification Initialization
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    FirebaseApi().initNotification();
+    FirebaseMessaging.instance.subscribeToTopic("gk_tradex");
 
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

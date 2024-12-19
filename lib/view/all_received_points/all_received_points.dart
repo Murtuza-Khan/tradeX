@@ -10,12 +10,14 @@ class AllReceivedPoints extends StatelessWidget {
       appBar: CustomAppBar(title: Strings.RECEIVED_POINTS),
       body: CustomPagination<ReceivedPointsDataModel>(
         apiUrl: Urls.CATEGORIES,
+        backgroundColor: AppColors.background,
         padding: EdgeInsets.only(
           left: 16,
           right: 16,
           top: 12,
           bottom: Platform.isAndroid ? 20 : 45,
         ),
+        separator: SpaceH16(),
         initList: ReceivedPointsDataModel.listFromJson,
         dummyData: receivedPointsData['received_points'],
         showSearchBar: true,

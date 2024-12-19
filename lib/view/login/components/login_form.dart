@@ -79,36 +79,36 @@ class LoginForm extends GetView<LoginController> {
   Row _buildRememberMe(BuildContext context) {
     return Row(
       children: [
-        // Obx(
-        //   () => Row(
-        //     crossAxisAlignment: CrossAxisAlignment.center,
-        //     children: [
-        //       Transform.scale(
-        //         scale: 1.3,
-        //         child: Checkbox(
-        //           checkColor: Colors.white,
-        //           side: const BorderSide(color: Colors.black),
-        //           visualDensity: const VisualDensity(horizontal: -4),
-        //           activeColor: AppColors.primary,
-        //           value: AuthManager.instance.rememberCredentials.value,
-        //           shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.circular(Sizes.RADIUS_2),
-        //           ),
-        //           onChanged: controller.toggleRememberCredentials,
-        //         ),
-        //       ),
-        //       const SpaceW8(),
-        //       Text(
-        //         Strings.REMEMBER_ME.tr,
-        //         style: context.bodyLarge.copyWith(
-        //           color: Colors.black,
-        //           fontWeight: FontWeight.w600,
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        // const Spacer(),
+        Obx(
+          () => Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Transform.scale(
+                scale: 1.3,
+                child: Checkbox(
+                  checkColor: Colors.white,
+                  side: const BorderSide(color: Colors.black),
+                  visualDensity: const VisualDensity(horizontal: -4),
+                  activeColor: AppColors.primary,
+                  value: AuthManager.instance.rememberCredentials.value,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(Sizes.RADIUS_2),
+                  ),
+                  onChanged: controller.toggleRememberCredentials,
+                ),
+              ),
+              const SpaceW8(),
+              Text(
+                Strings.REMEMBER_ME.tr,
+                style: context.bodyLarge.copyWith(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Spacer(),
         TextButton(
           onPressed: () => Get.toNamed(Routes.FORGOT_PASSWORD),
           child: Text(

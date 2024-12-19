@@ -12,12 +12,22 @@ class SwitchAccountController extends GetxController {
       companies[selectedIndex].isSelected = false;
       companies[index].isSelected = true;
     }
-    AuthManager.instance.saveAndUpdateSession(company: companies[index]);
     update(['toggle_company_account']);
   }
 
   void onSave() {
-    if ((AuthManager.instance.company.isPhoneVerified ?? false) == false) {
+    int selectedIndex = companies.indexWhere(
+      (e) => (e.isSelected ?? false) == true,
+    );
+    if (selectedIndex == -1) return;
+    if (companies[selectedIndex].isPhoneVerified ?? false) {
+      AuthManager.instance.saveAndUpdateSession(
+        company: companies[selectedIndex],
+      );
+      CustomSnackBar.successSnackBar(message: Strings.ACCOUNT_SWITCHED);
+      Get.back();
+    } else {
+      SwitchAccountHelper.company = companies[selectedIndex];
       Get.toNamed(Routes.OTP);
     }
   }

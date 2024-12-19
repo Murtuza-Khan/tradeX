@@ -30,6 +30,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+/lib/view_model/secrets/
 
 # Symbolication related
 app.*.symbols

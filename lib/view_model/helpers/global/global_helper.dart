@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+import 'package:googleapis_auth/auth_io.dart' as auth;
 
 import '../../../resources/exports/index.dart';
 
@@ -100,4 +102,23 @@ class GlobalHelper {
     'y',
     'z',
   ];
+
+  static Future<String> getAccessToken() async {
+    http.Client client = await auth.clientViaServiceAccount(
+      auth.ServiceAccountCredentials.fromJson(Secrets.serviceAccountJson),
+      Secrets.scopes,
+    );
+
+    auth.AccessCredentials credentials =
+        await auth.obtainAccessCredentialsViaServiceAccount(
+      auth.ServiceAccountCredentials.fromJson(Secrets.serviceAccountJson),
+      Secrets.scopes,
+      client,
+    );
+
+    client.close();
+
+    MacLog.printY(credentials.accessToken.data);
+    return credentials.accessToken.data;
+  }
 }

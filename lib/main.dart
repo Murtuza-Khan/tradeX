@@ -38,7 +38,6 @@ class MyApp extends StatelessWidget {
         },
         onGenerateRoute: Pages.onGenerateRoute,
         initialRoute:
-            // Routes.LANDING,
             (AuthManager.instance.getIntroViewInfo() ?? false)
                 ? AuthManager.instance.isLoggedIn
                     ? Routes.LANDING

@@ -43,7 +43,7 @@ class LandingController extends GetxController
         await AuthManager.instance.logout();
         initialize();
         update(['bottom_nav_bar', 'side_menu_items']);
-        Get.close(1);
+        Get.offAllNamed(Routes.LOGIN);
       },
     );
   }
