@@ -31,7 +31,12 @@ class Home extends GetView<HomeController> {
 
   Widget _buildReceivedPointsList(BuildContext context) {
     return ListView.separated(
-      padding: EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 80),
+      padding: EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 12,
+        bottom: Platform.isAndroid ? 105 : 80,
+      ),
       itemCount: controller.receivedPoints.receivedPoints?.length ?? 0,
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
@@ -249,5 +254,4 @@ class Home extends GetView<HomeController> {
       ),
     ).shadow(radius: 12.0, offset: Offset(0.0, 2.0));
   }
-
 }
