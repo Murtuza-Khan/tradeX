@@ -64,7 +64,7 @@ OutlineInputBorder secondaryOutlineInputBorder(BuildContext context) {
   return OutlineInputBorder(
     borderRadius: const BorderRadius.all(Radius.circular(Sizes.RADIUS_12)),
     borderSide: BorderSide(
-      color: context.bodyLarge.color!.withOpacity(0.15),
+      color: context.bodyLarge.color!.withValues(alpha: 0.15),
     ),
   );
 }

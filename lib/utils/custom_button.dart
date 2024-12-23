@@ -386,7 +386,7 @@ class _CustomButtonState extends State<CustomButton> {
             padding: widget.padding ?? EdgeInsets.zero,
             decoration: BoxDecoration(
               color: (widget.backgroundColor ?? AppColors.primary)
-                  .withOpacity(0.3),
+                  .withValues(alpha: 0.3),
               borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
             ),
             child: Center(child: child),
@@ -406,9 +406,6 @@ class _CustomButtonState extends State<CustomButton> {
 
       case ButtonType.dotted:
         return _buildDottedButton(child: _buildChild(context));
-
-      default:
-        return _buildSolidButton(child: _buildChild(context));
     }
   }
 

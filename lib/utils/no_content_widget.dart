@@ -36,7 +36,7 @@ class NoContent extends StatelessWidget {
                     style: Get.textTheme.headlineLarge!.copyWith(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.black.withOpacity(0.45),
+                      color: AppColors.black.withValues(alpha: 0.45),
                     ),
                   ),
                   Padding(
@@ -46,7 +46,7 @@ class NoContent extends StatelessWidget {
                       style: Get.textTheme.bodySmall!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: AppColors.black.withOpacity(0.45),
+                        color: AppColors.black.withValues(alpha: 0.45),
                       ),
                       textAlign: TextAlign.center,
                     ),

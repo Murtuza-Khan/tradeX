@@ -163,8 +163,8 @@ class CustomPagination<T> extends StatefulWidget {
   /// note: pass the [JSON_DATA] otheiwise it will not work
   final List<Map<String, dynamic>>? dummyData;
 
-  /// To add [BACKGROUND_COLOR] to [LIST OR GRID VIEW] by default the 
-  /// 
+  /// To add [BACKGROUND_COLOR] to [LIST OR GRID VIEW] by default the
+  ///
   /// [BACKGROUND_COLOR] is [WHITE]
   final Color backgroundColor;
 
@@ -366,6 +366,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
     }
     if (refresh) {
       return RefreshIndicator(
+        color: AppColors.black,
         onRefresh: () async {
           items.clear();
           _pagingController.itemList?.clear();

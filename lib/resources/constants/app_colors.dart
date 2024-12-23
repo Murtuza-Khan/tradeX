@@ -25,7 +25,7 @@ class AppColors {
   static const Color disabled = Color(0xFF949FA6);
   static const Color divider = Color.fromRGBO(223, 217, 225, 1);
   static const Color secondaryText = Color(0xFFF2F2F2);
-  static Color shadow = Colors.black.withOpacity(0.2);
+  static Color shadow = Colors.black.withValues(alpha: 0.2);
   static Color btnColor = const Color.fromRGBO(231, 217, 253, 1.0);
   static const Color greyShade2 = Color(0xFF7D7D7D);
 

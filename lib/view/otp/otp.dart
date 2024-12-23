@@ -100,7 +100,7 @@ class OtpScreen extends GetView<OtpController> {
 
   Widget _buildPinField() {
     const focusedBorderColor = AppColors.primary;
-    final fillColor = AppColors.primaryLight.withOpacity(0.25);
+    final fillColor = AppColors.primaryLight.withValues(alpha: 0.25);
     const borderColor = AppColors.primary;
 
     final defaultPinTheme = PinTheme(

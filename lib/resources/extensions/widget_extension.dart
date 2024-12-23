@@ -32,7 +32,7 @@ extension WidgetExtensions on Widget {
         borderRadius: BorderRadius.circular(radius),
         boxShadow: [
           BoxShadow(
-            color: color ?? AppColors.black.withOpacity(0.2),
+            color: color ?? AppColors.black.withValues(alpha:0.2),
             offset: offset ?? const Offset(0.0, 4.0),
             blurRadius: blurRadius ?? 5.0,
           ),

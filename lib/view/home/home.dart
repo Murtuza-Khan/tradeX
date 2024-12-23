@@ -6,6 +6,7 @@ class Home extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+      color: AppColors.black,
       onRefresh: () async => controller.update(["refresh_home_data"]),
       child: Container(
         margin: EdgeInsets.only(bottom: Platform.isAndroid ? 16.0 : 45.0),

@@ -121,7 +121,7 @@ class Landing extends GetView<LandingController> {
                 controller.navBarItems[index].icon,
                 color: controller.selectedIndex == index
                     ? AppColors.primary
-                    : AppColors.primary.withOpacity(0.7),
+                    : AppColors.primary.withValues(alpha: 0.7),
                 size: 33,
               ),
               const SpaceW6(),
@@ -131,7 +131,7 @@ class Landing extends GetView<LandingController> {
                   style: context.titleMedium.copyWith(
                     color: controller.selectedIndex == index
                         ? AppColors.primary
-                        : AppColors.primary.withOpacity(0.7),
+                        : AppColors.primary.withValues(alpha: 0.7),
                     fontWeight: controller.selectedIndex == index
                         ? FontWeight.bold
                         : FontWeight.w500,

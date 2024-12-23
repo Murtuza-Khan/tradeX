@@ -7,9 +7,9 @@ class RedeemRewardsHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: CustomAppBar(title: Strings.REDEEME_HISTORY),
       body: CustomPagination<RedeemHistory>(
+        backgroundColor: AppColors.background,
         apiUrl: Urls.CATEGORIES,
         padding: EdgeInsets.only(
           left: 16,
@@ -19,7 +19,8 @@ class RedeemRewardsHistory extends StatelessWidget {
         ),
         initList: RedeemHistory.listFromJson,
         dummyData: redeemRewardsHistory,
-        shimmer: (_)=> RedeemRewardsHistoryShimmer(),
+        separator: SpaceH16(),
+        shimmer: (_) => RedeemRewardsHistoryShimmer(),
         shouldRefreshList: (_) => true,
         child: (_, index, __, ___, item) {
           return _buildHistoryCard(context, item).shadow(radius: 12.0);
