@@ -1,17 +1,17 @@
 class ApiResponse {
-  bool result;
+  bool status;
   String? message;
   dynamic successContents;
 
   ApiResponse({
-    this.result = false,
+    this.status = false,
     this.message,
     this.successContents,
   });
 
   factory ApiResponse.fromJson(Map<String, dynamic> json) {
     return ApiResponse(
-      result: json['success'],
+      status: json['status'],
       message: json['message'],
       successContents: json['data'],
     );

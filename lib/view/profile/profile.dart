@@ -61,16 +61,21 @@ class Profile extends GetView<ProfileController> {
                   Stack(
                     children: [
                       IntlPhoneField(
+                        showDropdownIcon: false,
+                        flagsButtonMargin: EdgeInsets.only(left: 16),
+                        dropdownTextStyle: context.titleMedium.copyWith(
+                          color: AppColors.disabled,
+                        ),
+                        enabled: false,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(vertical: 20.0),
                           labelText: Strings.PHONE_NUMBER,
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12.0),
-                            ),
-                            borderSide: BorderSide(color: AppColors.secondary),
+                          labelStyle: context.titleMedium.copyWith(
+                            fontWeight: FontWeight.normal,
+                            color: AppColors.disabled,
                           ),
                         ),
+                        readOnly: true,
                         autovalidateMode: AutovalidateMode.disabled,
                         controller: controller.phoneCtrl,
                         keyboardType: TextInputType.number,
@@ -82,8 +87,8 @@ class Profile extends GetView<ProfileController> {
                         inputFormatters: InputFormat.onlyNumber,
                       ),
                       Container(
-                        width: 95,
-                        height: 57,
+                        width: double.maxFinite,
+                        height: 65,
                         color: Colors.transparent,
                       ),
                     ],

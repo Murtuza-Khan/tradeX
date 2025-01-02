@@ -103,6 +103,13 @@ class Pages {
           binding: AllReceivedPointsBinding(),
           transition: _routeTransition,
         );
+      case Routes.CHANGE_PASSWORD:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const ChangePassword(),
+          binding: ChangePasswordBinding(),
+          transition: _routeTransition,
+        );
 
       default:
         return null;

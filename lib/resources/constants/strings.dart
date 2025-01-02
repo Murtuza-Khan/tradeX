@@ -41,7 +41,7 @@ class Strings {
   static const String DISCLAIMER = "Disclaimer";
   static const String LOGOUT = "Logout";
   static const String WELCOME = "Welcome";
-  static const String TO_IGNITE = "To IGNITE";
+  static const String TO_IGNITE = "To TradeX";
   static const String CLOSE_MENU = "Close Menu";
 
 // Home
@@ -63,6 +63,7 @@ class Strings {
   static const String DASHBOARD = "Dashboard";
   static const String TOTAL_POINTS = "Total Points";
   static const String REDEEMED_POINTS = "Redeemed Points";
+  static const String CHANGE_PASSWORD = "Change Password";
   static const String REDEEME = "Redeeme";
   static const String REDEEME_HISTORY = "Redeeme History";
   static const String SWITCH_ACCOUNT = "Switch\nAccount";
@@ -74,7 +75,7 @@ class Strings {
 
   // Switch Account
   static const String SWITCH_ACCOUNT_WBSN = "Switch Account";
-  
+
   // Received Points
   static const String SENDER_NAME = "Sender Name";
 
@@ -95,6 +96,7 @@ class Strings {
   static const String CNIC = "Cnic";
   static const String ENTER_A_VALID = "Enter a valid email";
   static const String PASSWORD = "Password";
+  static const String OLD_PASSWORD = "Old Password";
   static const String NEW_PASSWORD = "New Password";
   static const String CONFIRM_PASSWORD = "Confirm Password";
   static const String CONFIRM = "Confirm";
@@ -138,6 +140,9 @@ class Strings {
 
   // Search
   static const String SEARCH = "Search";
+
+  // Change Password
+  static const String TO_CHANGE_PASSWORD = "Fill the details below to change your password";
 
   // Redeem Rewards
   static const String REDEEM_POINTS_INTO = "Redeem points into Giftkarte";

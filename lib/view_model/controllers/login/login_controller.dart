@@ -16,7 +16,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> login() async {
-    await AuthRepository.login(cninc: cnicCtrl.text, password: passCtrl.text);
+    await AuthRepository.login(mobile: cnicCtrl.text, password: passCtrl.text);
     // if (loginFormKey.currentState?.validate() ?? false) {
     if (AuthManager.instance.company.isPhoneVerified ?? false) {
       Get.offAllNamed(Routes.LANDING);

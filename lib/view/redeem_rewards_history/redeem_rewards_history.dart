@@ -10,7 +10,7 @@ class RedeemRewardsHistory extends StatelessWidget {
       appBar: CustomAppBar(title: Strings.REDEEME_HISTORY),
       body: CustomPagination<RedeemHistory>(
         backgroundColor: AppColors.background,
-        apiUrl: Urls.CATEGORIES,
+        apiUrl: Urls.LOGIN,
         padding: EdgeInsets.only(
           left: 16,
           right: 16,

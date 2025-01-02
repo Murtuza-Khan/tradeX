@@ -12,3 +12,4 @@ export '../../view_model/controllers/user_dashboard/user_dashboard_controller.da
 export '../../view_model/controllers/profile/profile_controller.dart';
 export '../../view_model/controllers/redeem_rewards_history/redeem_rewards_history_controller.dart';
 export '../../view_model/controllers/all_received_points/all_received_points_controller.dart';
+export '../../view_model/controllers/change_password/change_password_controller.dart';

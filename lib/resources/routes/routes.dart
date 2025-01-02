@@ -16,4 +16,5 @@ class Routes {
   static const String PROFILE = "/profile";
   static const String REDEEM_REWARDS_HISTORY = "/redeem_rewards_history";
   static const String ALL_RECEIVED_POINTS = "/all_received_points";
+  static const String CHANGE_PASSWORD = "/change_password";
 }

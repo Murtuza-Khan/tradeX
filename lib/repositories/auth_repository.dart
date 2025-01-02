@@ -6,13 +6,13 @@ class AuthRepository {
   static BaseApiServices apiService = NetworkApiServices();
 
   static Future<ApiResult> login({
-    required String cninc,
+    required String mobile,
     required String password,
   }) async {
     // final response = await apiService.postApi(
     //   Urls.LOGIN,
     //   returnResponse: true,
-    //   body: {"email": email, "password": password},
+    //   body: {"mobile": mobile, "password": password},
     // );
 
     // if (!(response as ApiResponse).status) {

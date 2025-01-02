@@ -9,7 +9,7 @@ class AllReceivedPoints extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: Strings.RECEIVED_POINTS),
       body: CustomPagination<ReceivedPointsDataModel>(
-        apiUrl: Urls.CATEGORIES,
+        apiUrl: Urls.LOGIN,
         backgroundColor: AppColors.background,
         padding: EdgeInsets.only(
           left: 16,

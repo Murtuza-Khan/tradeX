@@ -11,3 +11,4 @@ export '../../view_model/bindings/user_dashboard/user_dashboard_binding.dart';
 export '../../view_model/bindings/profile/profile_binding.dart';
 export '../../view_model/bindings/redeem_rewards_history/redeem_rewards_history_binding.dart';
 export '../../view_model/bindings/all_received_points/all_received_points_binding.dart';
+export '../../view_model/bindings/change_password/change_password_binding.dart';

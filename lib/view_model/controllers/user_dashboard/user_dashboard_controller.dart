@@ -34,6 +34,12 @@ class UserDashboardController extends GetxController {
         ),
       ),
       BottomNavBarModel(
+        id: 3,
+        title: Strings.CHANGE_PASSWORD,
+        icon: EneftyIcons.lock_outline,
+        onTap: () => Get.toNamed(Routes.CHANGE_PASSWORD),
+      ),
+      BottomNavBarModel(
         id: 4,
         title: Strings.LOGOUT,
         icon: EneftyIcons.logout_2_outline,
