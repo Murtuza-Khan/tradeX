@@ -1,4 +1,3 @@
-import '../../dummy/received_points_data.dart';
 import '../../resources/exports/index.dart';
 
 class AllReceivedPoints extends StatelessWidget {

@@ -1,4 +1,3 @@
-import 'package:tradex/dummy/login_data.dart';
 import '../resources/exports/index.dart';
 
 class AuthRepository {

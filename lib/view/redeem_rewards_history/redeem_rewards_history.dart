@@ -1,4 +1,3 @@
-import 'package:tradex/dummy/redeem_rewards_history_data.dart';
 import '../../resources/exports/index.dart';
 
 class RedeemRewardsHistory extends StatelessWidget {

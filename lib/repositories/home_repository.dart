@@ -1,4 +1,3 @@
-import 'package:tradex/dummy/received_points_data.dart';
 import '../resources/exports/index.dart';
 
 class HomeRepository {

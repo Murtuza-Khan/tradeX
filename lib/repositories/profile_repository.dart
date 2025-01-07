@@ -1,4 +1,3 @@
-import 'package:tradex/dummy/profile_data.dart';
 import '../resources/exports/index.dart';
 
 class ProfileRepository {
