@@ -19,33 +19,26 @@ class ForgotPassword extends GetView<ForgotPasswordController> {
             ),
             Text(Strings.PLEASE_ENTER_PHONE, style: context.bodyLarge),
             SpaceH20(),
-            Stack(
-              children: [
-                IntlPhoneField(
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: 20.0),
-                    labelText: Strings.PHONE_NUMBER,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                      borderSide: BorderSide(color: AppColors.secondary),
-                    ),
-                  ),
-                  autovalidateMode: AutovalidateMode.disabled,
-                  controller: controller.phoneCtrl,
-                  keyboardType: TextInputType.number,
-                  initialCountryCode: 'PK',
-                  languageCode: "en",
-                  onChanged: (phone) {
-                    controller.update(['update_save_profile_btn']);
-                  },
-                  onCountryChanged: (country) => controller.country = country,
-                  inputFormatters: InputFormat.onlyNumber,
-                ),
-                Container(
-                  width: 95,
-                  height: 57,
-                  color: Colors.transparent,
-                ),
+            CustomTextFormField(
+              controller: controller.cnicCtrl,
+              fillColor: AppColors.white,
+              textCapitalization: TextCapitalization.none,
+              isRequired: true,
+              height: Sizes.HEIGHT_20,
+              labelText: Strings.CNIC,
+              labelColor: AppColors.black,
+              prefixIcon: EneftyIcons.card_outline,
+              prefixIconColor: AppColors.black,
+              textColor: AppColors.black,
+              cursorColor: AppColors.black,
+              enableBorderColor: AppColors.black,
+              focusBorderColor: AppColors.primary,
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.emailAddress,
+              autofillHints: const [AutofillHints.email],
+              inputFormatters: [
+                ...InputFormat.cnicCount,
+                CnicInputFormatter(),
               ],
             ),
             SpaceH16(),

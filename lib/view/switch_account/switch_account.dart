@@ -8,7 +8,7 @@ class SwitchAccount extends GetView<SwitchAccountController> {
     return Scaffold(
       appBar: CustomAppBar(title: Strings.SWITCH_ACCOUNT_WBSN),
       body: CustomFutureBuilder(
-        future: HomeRepository.getCompanies(),
+        future: SwitchAccountRepository.getCompanies(),
         data: (companies) => controller.companies = companies ?? [],
         hasDataBuilder: (_, __) => _buildAccounts(context),
       ),
@@ -57,7 +57,7 @@ class SwitchAccount extends GetView<SwitchAccountController> {
             decoration: BoxDecoration(
               color: (company.isSelected ?? false)
                   ? AppColors.primaryLight
-                  : Colors.white,
+                  : AppColors.white,
               borderRadius: BorderRadius.circular(12.0),
               border: Border.all(
                 color: (company.isSelected ?? false)

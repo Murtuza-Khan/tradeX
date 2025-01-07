@@ -81,6 +81,16 @@ class PasswordReset extends GetView<PasswordResetController> {
                 keyboardType: TextInputType.text,
                 inputFormatters: InputFormat.denySpace,
                 onFieldSubmit: (s) {},
+                validator: (value) {
+                  if ((value?.trim() ?? '').length < 8) {
+                    return Validators.alphanumericValidator.call(value);
+                  }
+                  if (!(Validators.passwordsMatch(
+                      controller.newPasswordCtrl.text, (value ?? '')))) {
+                    return Strings.PASSWORDS_DO_NOT_MATCH;
+                  }
+                  return null;
+                },
               ),
             ),
             const SpaceH20(),

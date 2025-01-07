@@ -31,54 +31,74 @@ class Home extends GetView<HomeController> {
   }
 
   Widget _buildReceivedPointsList(BuildContext context) {
-    return ListView.separated(
-      padding: EdgeInsets.only(
-        left: 16,
-        right: 16,
-        top: 12,
-        bottom: Platform.isAndroid ? 105 : 80,
-      ),
-      itemCount: controller.receivedPoints.receivedPoints?.length ?? 0,
-      shrinkWrap: true,
-      physics: BouncingScrollPhysics(),
-      itemBuilder: (_, index) {
-        return Column(
-          children: [
-            if (index == 0) ...[
-              Row(
-                children: [
-                  _buildPointsCard(
-                    context,
-                    title: Strings.TOTAL_POINTS,
-                    subTitle: GlobalHelper.formatedNumber(
-                      value: controller.receivedPoints.totalPoints ?? 0,
-                    ),
-                    icon: EneftyIcons.star_outline,
-                  ).expanded(),
-                  SpaceW16(),
-                  _buildPointsCard(
-                    context,
-                    title: Strings.REDEEMED_POINTS,
-                    cardColor: AppColors.primaryLight,
-                    subTitle: GlobalHelper.formatedNumber(
-                      value: controller.receivedPoints.redeemedPoints ?? 0,
-                    ),
-                    icon: EneftyIcons.ticket_star_outline,
-                  ).expanded(),
+    return Column(
+      children: [
+        ListView.separated(
+          padding: EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 12,
+            bottom: Platform.isAndroid ? 105 : 80,
+          ),
+          itemCount: (controller.receivedPoints.receivedPoints ?? []).isEmpty
+              ? 1
+              : (controller.receivedPoints.receivedPoints ?? []).length,
+          shrinkWrap: true,
+          physics: BouncingScrollPhysics(),
+          itemBuilder: (_, index) {
+            return Column(
+              children: [
+                if (index == 0) ...[
+                  Row(
+                    children: [
+                      _buildPointsCard(
+                        context,
+                        title: Strings.TOTAL_POINTS,
+                        subTitle: GlobalHelper.formatedNumber(
+                          value: controller.receivedPoints.totalPoints ?? 0,
+                        ),
+                        icon: EneftyIcons.star_outline,
+                      ).expanded(),
+                      SpaceW16(),
+                      _buildPointsCard(
+                        context,
+                        title: Strings.REDEEMED_POINTS,
+                        cardColor: AppColors.primaryLight,
+                        subTitle: GlobalHelper.formatedNumber(
+                          value: controller.receivedPoints.redeemedPoints ?? 0,
+                        ),
+                        icon: EneftyIcons.ticket_star_outline,
+                      ).expanded(),
+                    ],
+                  ),
+                  if ((controller.receivedPoints.receivedPoints ?? [])
+                      .isNotEmpty) ...[
+                    SpaceH24(),
+                    _buildViewAllBtn(context),
+                  ],
+                  SpaceH16(),
                 ],
-              ),
-              SpaceH24(),
-              _buildViewAllBtn(context),
-              SpaceH16(),
-            ],
-            _buildCard(
-              context,
-              (controller.receivedPoints.receivedPoints ?? [])[index],
-            ).shadow(radius: 12.0),
-          ],
-        );
-      },
-      separatorBuilder: (_, __) => SpaceH16(),
+                if ((controller.receivedPoints.receivedPoints ?? [])
+                    .isNotEmpty) ...[
+                  _buildCard(
+                    context,
+                    (controller.receivedPoints.receivedPoints ?? [])[index],
+                  ).shadow(radius: 12.0),
+                ]
+              ],
+            );
+          },
+          separatorBuilder: (_, __) => SpaceH16(),
+        ),
+        if ((controller.receivedPoints.receivedPoints ?? []).isEmpty) ...[
+          NoContent(
+            backgroundColor: AppColors.background,
+            title: "Content Not Found !!",
+            subtitle: "No information is currently available",
+          ).expanded(),
+          SizedBox(height: 150),
+        ],
+      ],
     );
   }
 

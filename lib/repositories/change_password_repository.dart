@@ -1,13 +1,12 @@
-import 'package:tradex/dummy/profile_data.dart';
 import '../resources/exports/index.dart';
 
-class ProfileRepository {
+class ChangePasswordRepository {
   static BaseApiServices apiService = NetworkApiServices();
 
-  static Future<ApiResult> updateProfile({
+  static Future<ApiResult> changePassword({
     required Map<String, dynamic> data,
   }) async {
-    final response = await apiService.putApi(Urls.UPDATE_PROFILE, body: data);
+    final response = await apiService.putApi(Urls.CHANGE_PASSWORD, body: data);
     if (response is bool) return ApiResult.fail;
     return ApiResult.success;
   }

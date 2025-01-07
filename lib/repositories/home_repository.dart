@@ -1,19 +1,19 @@
-import 'package:tradex/dummy/companies_data.dart';
 import 'package:tradex/dummy/received_points_data.dart';
 import '../resources/exports/index.dart';
 
 class HomeRepository {
   static BaseApiServices apiService = NetworkApiServices();
 
-  static Future<List<CompaniesModel>> getCompanies() async {
-    return Future.delayed(Durations.medium2, () {
-      return CompaniesModel.listFromJson(companiesData);
-    });
-  }
-
   static Future<ReceivedPointsModel> getReceivedPoints() async {
-    return Future.delayed(Durations.medium3, () {
-      return ReceivedPointsModel.fromMap(receivedPointsData);
-    });
+    final response = await apiService.getApi(
+      Urls.AWARD_HISTORY,
+      queryParameters: {
+        "accountId": AuthManager.instance.company.id,
+        "page": 1,
+        "limit": 10,
+      },
+    );
+    if (response is bool) return ReceivedPointsModel();
+    return ReceivedPointsModel.fromMap(response);
   }
 }

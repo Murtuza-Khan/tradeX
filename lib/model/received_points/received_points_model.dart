@@ -11,7 +11,7 @@ class ReceivedPointsModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'total_points': totalPoints,
+      'awarded_points': totalPoints,
       'redeemed_points': redeemedPoints,
       'received_points': ReceivedPointsDataModel.listToJson(
         receivedPoints ?? [],
@@ -21,7 +21,7 @@ class ReceivedPointsModel {
 
   factory ReceivedPointsModel.fromMap(Map<String, dynamic> map) {
     return ReceivedPointsModel(
-      totalPoints: map['total_points'] as int?,
+      totalPoints: map['awarded_points'] as int?,
       redeemedPoints: map['redeemed_points'] as int?,
       receivedPoints: ReceivedPointsDataModel.listFromJson(
         map['received_points'] ?? [],

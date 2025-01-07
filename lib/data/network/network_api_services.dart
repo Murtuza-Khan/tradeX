@@ -2,16 +2,18 @@ import '../../resources/exports/index.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkApiServices extends BaseApiServices {
-  Map<String, String> generateHeaders() {
+  Map<String, String> generateHeaders({String? token}) {
     Map<String, String> headers = {
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'AppToken': dotenv.get('appToken'),
-      if (AuthManager.instance.session.value?.token == null) ...{
+      if (AuthManager.instance.session.value?.token == null &&
+          token == null) ...{
         'UserID': "",
         'Authorization': '',
       } else ...{
         'Authorization':
-            'Bearer ${AuthManager.instance.session.value?.token ?? ""}',
+            'Bearer ${token ?? AuthManager.instance.session.value?.token ?? ""}',
         // 'Authorization':
         //     'Bearer 2074|nRAvVAhKOSz6hqJ0dteXn9ZVRfo5QZedAVSLe25k256a9c2f',
       },
@@ -110,6 +112,7 @@ class NetworkApiServices extends BaseApiServices {
     Map<String, dynamic>? body,
     bool? returnResponse,
     bool addEncryption = false,
+    String? token,
   }) async {
     try {
       Map<String, dynamic>? data;
@@ -124,7 +127,76 @@ class NetworkApiServices extends BaseApiServices {
       http.Response response = await http
           .post(
             Uri.https(dotenv.get('BASE_URL'), url),
-            headers: generateHeaders(),
+            headers: generateHeaders(token: token),
+            body: data != null ? jsonEncode(data) : null,
+          )
+          .timeout(const Duration(seconds: 60));
+
+      _checkTokenValidation(response);
+
+      if (returnResponse ?? false) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        String key = data.keys.firstWhere(
+          (element) => element == "data",
+          orElse: () => "",
+        );
+        if (key.isEmpty) {
+          return CustomSnackBar.errorSnackBar(message: data['message']);
+        }
+
+        dynamic decodedData = jsonDecode(response.body);
+        ApiResponse result = ApiResponse.fromJson(decodedData);
+
+        if (addEncryption) {
+          dynamic decryptedData = GlobalHelper.decrypt(result.successContents);
+          result.successContents = decryptedData;
+        }
+
+        return result;
+      }
+
+      if (response.statusCode == 200) {
+        dynamic responseJson = jsonDecode(response.body);
+        ApiResponse result = ApiResponse.fromJson(responseJson);
+        if (addEncryption) {
+          dynamic decryptedData = GlobalHelper.decrypt(result.successContents);
+          MacLog.printG("DECRYPTED DATA :: ${decryptedData.toString()}");
+          result.successContents = decryptedData;
+        }
+        return result.successContents;
+      } else {
+        validateResponse(response);
+        return false;
+      }
+    } on SocketException {
+      return CustomSnackBar.offline;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future putApi(
+    String url, {
+    Map<String, dynamic>? body,
+    bool? returnResponse,
+    bool addEncryption = false,
+    String? token,
+  }) async {
+    try {
+      Map<String, dynamic>? data;
+      if (addEncryption) {
+        String encryptedData = GlobalHelper.encrypt(body);
+        MacLog.printR("ENCRYPTED DATA :: $encryptedData");
+        data = {'encrypted_data': encryptedData};
+      } else {
+        data = body;
+      }
+
+      http.Response response = await http
+          .put(
+            Uri.https(dotenv.get('BASE_URL'), url),
+            headers: generateHeaders(token: token),
             body: data != null ? jsonEncode(data) : null,
           )
           .timeout(const Duration(seconds: 60));

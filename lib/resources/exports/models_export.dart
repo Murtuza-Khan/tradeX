@@ -10,3 +10,4 @@ export '../../model/received_points/received_points_model.dart';
 export '../../model/profile/profile_model.dart';
 export '../../model/redeem_history/redeem_history_model.dart';
 export '../../model/firebase_notification/firebase_notificationfirebase_notification_model.dart';
+export '../../model/user_mobile_numbers/user_mobile_numbers.dart';

@@ -10,7 +10,7 @@ class RedeemRewardsHistory extends StatelessWidget {
       appBar: CustomAppBar(title: Strings.REDEEME_HISTORY),
       body: CustomPagination<RedeemHistory>(
         backgroundColor: AppColors.background,
-        apiUrl: Urls.LOGIN,
+        apiUrl: Urls.REDEEM_HISTORY,
         padding: EdgeInsets.only(
           left: 16,
           right: 16,
@@ -18,7 +18,6 @@ class RedeemRewardsHistory extends StatelessWidget {
           bottom: Platform.isAndroid ? 20 : 45,
         ),
         initList: RedeemHistory.listFromJson,
-        dummyData: redeemRewardsHistory,
         separator: SpaceH16(),
         shimmer: (_) => RedeemRewardsHistoryShimmer(),
         shouldRefreshList: (_) => true,
@@ -47,12 +46,6 @@ class RedeemRewardsHistory extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildTitleAndSubTitle(
-              context,
-              subTitle: history.requestId,
-              icon: EneftyIcons.security_card_outline,
-            ),
-            SpaceH12(),
             _buildTitleAndSubTitle(
               context,
               title: Strings.DATE,

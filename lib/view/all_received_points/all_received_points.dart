@@ -9,7 +9,7 @@ class AllReceivedPoints extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: Strings.RECEIVED_POINTS),
       body: CustomPagination<ReceivedPointsDataModel>(
-        apiUrl: Urls.LOGIN,
+        apiUrl: Urls.AWARD_HISTORY,
         backgroundColor: AppColors.background,
         padding: EdgeInsets.only(
           left: 16,
@@ -19,10 +19,10 @@ class AllReceivedPoints extends StatelessWidget {
         ),
         separator: SpaceH16(),
         initList: ReceivedPointsDataModel.listFromJson,
-        dummyData: receivedPointsData['received_points'],
         showSearchBar: true,
         shimmer: (_) => HomeCardShimmer().shadow(radius: 12.0),
         shouldRefreshList: (_) => true,
+        paginatedListKey: 'received_points',
         child: (_, index, __, ___, item) {
           return _buildCard(context, item).shadow(radius: 12.0);
         },

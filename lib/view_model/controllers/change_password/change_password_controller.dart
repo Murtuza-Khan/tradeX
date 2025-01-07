@@ -13,13 +13,31 @@ class ChangePasswordController extends GetxController {
   void toggleOldPassword() {
     isOldPasswordVisible.value = !isOldPasswordVisible.value;
   }
-  
+
   void toggleNewPassword() {
     isNewPasswordVisible.value = !isNewPasswordVisible.value;
   }
 
   void toggleConfirmPassword() {
     isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
+  }
+
+  Future<void> changePassword() async {
+    if (formKey.currentState?.validate() ?? false) {
+      ApiResult result = await ChangePasswordRepository.changePassword(
+        data: {
+          "old_password": oldPassCtrl.text,
+          "new_password": newPassCtrl.text,
+          "new_password_confirmation": confirmPassCtrl.text,
+        },
+      );
+      if (result == ApiResult.success) {
+        Get.back();
+        CustomSnackBar.successSnackBar(
+          message: Strings.PASSWORD_CHANGED,
+        );
+      }
+    }
   }
 
   @override

@@ -168,6 +168,9 @@ class CustomPagination<T> extends StatefulWidget {
   /// [BACKGROUND_COLOR] is [WHITE]
   final Color backgroundColor;
 
+  /// Use [PAGINATED_LIST_KEY] if the list is inside a [Map<String, dynamic>]
+  final String? paginatedListKey;
+
   const CustomPagination({
     super.key,
     this.isDataInGrid = false,
@@ -195,6 +198,7 @@ class CustomPagination<T> extends StatefulWidget {
     this.listSorting,
     this.filter = Filters.all,
     this.dummyData,
+    this.paginatedListKey,
     this.backgroundColor = AppColors.white,
     required this.child,
     required this.apiUrl,
@@ -281,6 +285,8 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
         queryParameters["limit"] =
             (widget.pageSize ?? Urls.PAGESIZE).toString();
         queryParameters["post_type_id"] = widget.filter.id.toString();
+        queryParameters["accountId"] =
+            AuthManager.instance.company.id.toString();
         final response = widget.isGetApi
             ? await apiService.getApi(
                 widget.apiUrl,
@@ -291,7 +297,11 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
         if (response is bool) return itemsList;
 
         if (mounted) {
-          setState(() => itemsList = widget.initList(response) as List<T>);
+          setState(
+            () => itemsList = widget.initList(widget.paginatedListKey != null
+                ? response['received_points']
+                : response) as List<T>,
+          );
         }
         isLoading.value = false;
         // await Future.delayed(Duration(hours: 1));

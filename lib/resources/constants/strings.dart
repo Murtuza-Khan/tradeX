@@ -76,6 +76,9 @@ class Strings {
   // Switch Account
   static const String SWITCH_ACCOUNT_WBSN = "Switch Account";
 
+  // Forgot password
+  static const String SEND_OTP = "Send Otp";
+
   // Received Points
   static const String SENDER_NAME = "Sender Name";
 
@@ -109,6 +112,7 @@ class Strings {
   // Forget Password
   static const String PLEASE_ENTER_PHONE =
       "Please enter your phone number to reset password.";
+  static const String SELECT_A_PHONE = "Please select a phone number first";
 
   // Reset Password
   static const String RESET_PASSWORD = "Reset password";
@@ -125,6 +129,7 @@ class Strings {
 // OTP
   static const String CONTINUE = "Continue";
   static const String VERIFY_OTP = "Verify Otp";
+  static const String OTP_VERIFIED = "Otp verified successfully";
   static const String RESEND = "Resend";
   static const String ENTER_OTP = "Enter Otp";
   static const String FILL_THE_DETAILS =
@@ -142,7 +147,8 @@ class Strings {
   static const String SEARCH = "Search";
 
   // Change Password
-  static const String TO_CHANGE_PASSWORD = "Fill the details below to change your password";
+  static const String TO_CHANGE_PASSWORD =
+      "Fill the details below to change your password";
 
   // Redeem Rewards
   static const String REDEEM_POINTS_INTO = "Redeem points into Giftkarte";
@@ -261,6 +267,8 @@ class Strings {
   static const String ORDER_PLACED = 'Your order has been placed successfully';
   static const String HAS_BEEN_ACTIVATED = 'has been activated';
   static const String ACCOUNT_SWITCHED = 'Account switched successfully';
+  static const String PASSWORD_CHANGED = 'Password changed successfully';
+  static const String PROFILE_UPDATE = 'Profile update successfully';
   static const String PLEASE_WAIT_YOUR_PAYMENT =
       'Please wait your payment is finalizing';
   static const String ARE_YOU_SURE_BACK = 'Are you sure you want to go back?';
@@ -269,6 +277,8 @@ class Strings {
   static const String PLEASE_VERIFY =
       'An otp has been sent to your registered phone number, please verify';
   static const String PROVIDED_DATA = 'Provided data is null';
+  static const String SELECT_A_NUMBER =
+      'Please select a number to which you would like to sent the OTP.';
   static const String PASSWORD_RESET_SUCCESSFULLY =
       'Password reset successfully';
 }

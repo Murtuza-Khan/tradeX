@@ -5,30 +5,32 @@ class SwitchAccountController extends GetxController {
 
   void onSwitchCompany(int index) {
     if (companies[index].isSelected ?? false) return;
-    int selectedIndex = companies.indexWhere(
-      (e) => (e.isSelected ?? false) == true,
-    );
+    int selectedIndex = companies.indexWhere((e) => e.isSelected ?? false);
     if (selectedIndex != -1) {
       companies[selectedIndex].isSelected = false;
-      companies[index].isSelected = true;
     }
+    companies[index].isSelected = true;
     update(['toggle_company_account']);
   }
 
-  void onSave() {
+  Future<void> onSave() async {
     int selectedIndex = companies.indexWhere(
       (e) => (e.isSelected ?? false) == true,
     );
     if (selectedIndex == -1) return;
     if (companies[selectedIndex].isPhoneVerified ?? false) {
-      AuthManager.instance.saveAndUpdateSession(
-        company: companies[selectedIndex],
+      ApiResult result = await SwitchAccountRepository.switchAccount(
+        companies[selectedIndex].id ?? -1,
       );
-      CustomSnackBar.successSnackBar(message: Strings.ACCOUNT_SWITCHED);
-      Get.back();
+      if (result == ApiResult.success) {
+        CustomSnackBar.successSnackBar(message: Strings.ACCOUNT_SWITCHED);
+        Get.find<HomeController>().update(['refresh_home_data']);
+        Get.back();
+      }
     } else {
       SwitchAccountHelper.company = companies[selectedIndex];
-      Get.toNamed(Routes.OTP);
+      SendOtpHelper.switchAccountPhone = companies[selectedIndex].phone;
+      await SendOtpHelper.sendOtp(companies[selectedIndex].phone ?? "");
     }
   }
 }

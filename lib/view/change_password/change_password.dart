@@ -1,6 +1,6 @@
 import '../../resources/exports/index.dart';
 
-class ChangePassword extends StatelessWidget {
+class ChangePassword extends GetView<ChangePasswordController> {
   const ChangePassword({super.key});
 
   @override
@@ -31,7 +31,7 @@ class ChangePassword extends StatelessWidget {
             backgroundColor: AppColors.primary,
             textColor: AppColors.white,
             text: Strings.PROCEED,
-            onTapAsync: () async {},
+            onTapAsync: () async => controller.changePassword(),
             radius: Sizes.RADIUS_12,
             constraints: const BoxConstraints(minHeight: 55),
           ),

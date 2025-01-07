@@ -4,6 +4,7 @@ class UserModel {
   String? lastName;
   String? countrycode;
   String? phone;
+  String? cnic;
 
   UserModel({
     this.email,
@@ -11,6 +12,7 @@ class UserModel {
     this.lastName,
     this.countrycode,
     this.phone,
+    this.cnic,
   });
 
   Map<String, dynamic> toJson() {
@@ -20,6 +22,7 @@ class UserModel {
       'last_name': lastName,
       'country_code': countrycode,
       'phone': phone,
+      'cnic': cnic,
     };
   }
 
@@ -30,6 +33,7 @@ class UserModel {
       lastName: json['last_name'] as String?,
       countrycode: json['country_code'] as String?,
       phone: json['phone'] as String?,
+      cnic: json['cnic'] as String?,
     );
   }
 
@@ -39,6 +43,7 @@ class UserModel {
     String? lastName,
     String? countrycode,
     String? phone,
+    String? cnic,
   }) {
     return UserModel(
       email: email ?? this.email,
@@ -46,11 +51,12 @@ class UserModel {
       lastName: lastName ?? this.lastName,
       countrycode: countrycode ?? this.countrycode,
       phone: phone ?? this.phone,
+      cnic: cnic ?? this.cnic,
     );
   }
 
   @override
   String toString() {
-    return 'UserModel(email: $email, firstName: $firstName, lastName: $lastName, countrycode: $countrycode, phone: $phone)';
+    return 'UserModel(email: $email, firstName: $firstName, lastName: $lastName, countrycode: $countrycode, phone: $phone, cnic: $cnic)';
   }
 }

@@ -1,13 +1,11 @@
 class RedeemHistory {
   int? id;
-  String? requestId;
   DateTime? createdDate;
   int? points;
   String? voucherCode;
 
   RedeemHistory({
     this.id,
-    this.requestId,
     this.createdDate,
     this.points,
     this.voucherCode,
@@ -24,8 +22,7 @@ class RedeemHistory {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'request_id': requestId,
-      'created_date': createdDate.toString(),
+      'date_time': createdDate.toString(),
       'points': points,
       'voucher_code': voucherCode,
     };
@@ -34,9 +31,8 @@ class RedeemHistory {
   factory RedeemHistory.fromMap(Map<String, dynamic> map) {
     return RedeemHistory(
       id: map['id'] as int?,
-      requestId: map['request_id'] as String?,
-      createdDate: map['created_date'] != null
-          ? DateTime.parse(map['created_date'])
+      createdDate: map['date_time'] != null
+          ? DateTime.parse(map['date_time'])
           : null,
       points: map['points'] as int?,
       voucherCode: map['voucher_code'] as String?,

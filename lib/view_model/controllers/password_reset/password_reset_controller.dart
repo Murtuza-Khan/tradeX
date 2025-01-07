@@ -5,6 +5,8 @@ class PasswordResetController extends GetxController {
   late TextEditingController newPasswordCtrl;
   late TextEditingController confirmPasswordCtrl;
 
+  late String token;
+
   RxBool isNewPasswordVisible = false.obs;
   RxBool isConfirmPasswordVisible = false.obs;
 
@@ -16,16 +18,27 @@ class PasswordResetController extends GetxController {
     isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
   }
 
-  void onConfirm() {
-    // if(formKey.currentState?.validate() ?? false){
-    CustomSnackBar.successSnackBar(message: Strings.PASSWORD_RESET_SUCCESSFULLY);
-    Get.close(2);
-
-    // }
+  Future<void> onConfirm() async {
+    if (formKey.currentState?.validate() ?? false) {
+      ApiResult result = await ResetPasswordRepository.resetPassword(
+        token: token,
+        data: {
+          "password": newPasswordCtrl.text,
+          "password_confirmation": confirmPasswordCtrl.text,
+        },
+      );
+      if (result == ApiResult.success) {
+        CustomSnackBar.successSnackBar(
+          message: Strings.PASSWORD_RESET_SUCCESSFULLY,
+        );
+        Get.offAllNamed(Routes.LANDING);
+      }
+    }
   }
 
   @override
   void onInit() {
+    token = Get.arguments != null ? Get.arguments['token'] : '';
     formKey = GlobalKey<FormState>();
     newPasswordCtrl = TextEditingController();
     confirmPasswordCtrl = TextEditingController();
