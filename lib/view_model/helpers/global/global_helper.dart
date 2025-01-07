@@ -1,8 +1,35 @@
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+import 'package:googleapis_auth/auth_io.dart' as auth;
+
 import '../../../resources/exports/index.dart';
 
 class GlobalHelper {
   static Set<int> setOfInts = {};
+
+  static Widget loadingWidget({Color? color}) {
+    return Platform.isAndroid
+        ? Center(
+            child: CircularProgressIndicator(
+              color: color ?? AppColors.white,
+              strokeWidth: 2,
+            ),
+          )
+        : Center(
+            child: CupertinoActivityIndicator(
+              color: color ?? AppColors.white,
+              radius: 12,
+            ),
+          );
+  }
+
+  static String formatedNumber({int? value}) {
+    int? points = value ?? 0;
+    return points < 999999999
+        ? points.getFormattedCurrency(showSymbol: false)
+        : points.getCompactCurrency();
+  }
 
   static int getRandomId() {
     int value = Random().nextInt(99999999);
@@ -75,4 +102,23 @@ class GlobalHelper {
     'y',
     'z',
   ];
+
+  static Future<String> getAccessToken() async {
+    http.Client client = await auth.clientViaServiceAccount(
+      auth.ServiceAccountCredentials.fromJson(Secrets.serviceAccountJson),
+      Secrets.scopes,
+    );
+
+    auth.AccessCredentials credentials =
+        await auth.obtainAccessCredentialsViaServiceAccount(
+      auth.ServiceAccountCredentials.fromJson(Secrets.serviceAccountJson),
+      Secrets.scopes,
+      client,
+    );
+
+    client.close();
+
+    MacLog.printY(credentials.accessToken.data);
+    return credentials.accessToken.data;
+  }
 }

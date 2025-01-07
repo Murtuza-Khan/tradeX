@@ -12,6 +12,15 @@ abstract class BaseApiServices {
     Map<String, dynamic>? body,
     bool? returnResponse,
     bool addEncryption = false,
+    String? token,
+  });
+
+  Future putApi(
+    String url, {
+    Map<String, dynamic>? body,
+    bool? returnResponse,
+    bool addEncryption = false,
+    String? token,
   });
 
   Future multiPartApi(

@@ -6,7 +6,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: Strings.LOGIN),
+      appBar: const CustomAppBar(title: Strings.LOGIN, leading: SizedBox()),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -23,9 +23,10 @@ class Login extends StatelessWidget {
                 ),
                 const SpaceH20(),
                 Text(
-                  Strings.WELCOME,
-                  style:
-                      context.titleMedium.copyWith(color: AppColors.disabled),
+                  "${Strings.WELCOME} ${Strings.TO_IGNITE}",
+                  style: context.titleMedium.copyWith(
+                    color: AppColors.disabled,
+                  ),
                 ),
                 const SpaceH30(),
                 const LoginForm(),

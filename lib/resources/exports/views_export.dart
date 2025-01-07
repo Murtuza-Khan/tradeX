@@ -1,6 +1,15 @@
 export '../../view/offline/offline_screen.dart';
 export '../../view/otp/otp.dart';
 export '../../view/login/login.dart';
-export '../../view/sign_up/sign_up.dart';
 export '../../view/landing/landing.dart';
 export '../../view/home/home.dart';
+export '../../view/on_boarding/on_boarding.dart';
+export '../../view/forgot_password/forgot_password.dart';
+export '../../view/password_reset/password_reset.dart';
+export '../../view/switch_account/switch_account.dart';
+export '../../view/redeem_rewards/redeem_rewards.dart';
+export '../../view/user_dashboard/user_dashboard.dart';
+export '../../view/profile/profile.dart';
+export '../../view/redeem_rewards_history/redeem_rewards_history.dart';
+export '../../view/all_received_points/all_received_points.dart';
+export '../../view/change_password/change_password.dart';

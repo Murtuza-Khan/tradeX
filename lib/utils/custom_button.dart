@@ -6,7 +6,7 @@ enum ButtonStyleX { concave, convex, none }
 
 class CustomButton extends StatefulWidget {
   final ButtonType buttonType;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final Color? borderColor;
   final Color? loaderColor;
 
@@ -36,6 +36,8 @@ class CustomButton extends StatefulWidget {
   final bool isLoading;
   final Widget? loadingWidget;
 
+  final bool isEnabled;
+
   final Widget? child;
 
   final List<double>? dashPattern;
@@ -50,7 +52,7 @@ class CustomButton extends StatefulWidget {
 
   const CustomButton({
     super.key,
-    Color? backgroundColor,
+    this.backgroundColor,
     this.child,
     this.text,
     this.textStyle,
@@ -81,8 +83,8 @@ class CustomButton extends StatefulWidget {
     this.offset,
     this.topLeftColor,
     this.bottomRightColor,
-  })  : backgroundColor = backgroundColor ?? AppColors.primary,
-        assert(
+    this.isEnabled = true,
+  }) : assert(
           (textStyle == null || textColor == null) &&
               (textStyle == null || fontWeight == null),
           'Cannot provide both a textStyle, a textColor and a fontWeight\n'
@@ -91,7 +93,7 @@ class CustomButton extends StatefulWidget {
 
   const CustomButton.solid({
     super.key,
-    Color? backgroundColor,
+    this.backgroundColor,
     this.child,
     this.text,
     this.textStyle,
@@ -120,8 +122,8 @@ class CustomButton extends StatefulWidget {
     this.offset,
     this.topLeftColor,
     this.bottomRightColor,
+    this.isEnabled = true,
   })  : buttonType = ButtonType.solid,
-        backgroundColor = backgroundColor ?? AppColors.primary,
         dashPattern = null,
         assert(
           (textStyle == null || textColor == null) &&
@@ -132,7 +134,7 @@ class CustomButton extends StatefulWidget {
 
   const CustomButton.outline({
     super.key,
-    Color? backgroundColor,
+    this.backgroundColor,
     this.child,
     this.text,
     this.textStyle,
@@ -156,8 +158,8 @@ class CustomButton extends StatefulWidget {
     this.margin,
     this.splashColor,
     this.loaderColor,
+    this.isEnabled = true,
   })  : buttonType = ButtonType.outline,
-        backgroundColor = backgroundColor ?? AppColors.primary,
         dashPattern = null,
         blurRadius = null,
         offset = null,
@@ -173,7 +175,7 @@ class CustomButton extends StatefulWidget {
 
   const CustomButton.dotted({
     super.key,
-    Color? backgroundColor,
+    this.backgroundColor,
     this.child,
     this.text,
     this.textStyle,
@@ -203,8 +205,8 @@ class CustomButton extends StatefulWidget {
     this.offset,
     this.topLeftColor,
     this.bottomRightColor,
+    this.isEnabled = true,
   })  : buttonType = ButtonType.dotted,
-        backgroundColor = backgroundColor ?? AppColors.primary,
         assert(
           (textStyle == null || textColor == null) &&
               (textStyle == null || fontWeight == null),
@@ -320,7 +322,7 @@ class _CustomButtonState extends State<CustomButton> {
     return TextButton(
       style: TextButton.styleFrom(
         backgroundColor: widget.backgroundColor,
-        foregroundColor: AppColors.primaryLight,
+        foregroundColor: AppColors.secondary,
         padding: widget.padding ?? EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(widget.radius),
@@ -332,7 +334,7 @@ class _CustomButtonState extends State<CustomButton> {
         minimumSize: widget.constraints.minSize,
         maximumSize: widget.constraints.maxSize,
       ),
-      onPressed: onTap,
+      onPressed: widget.isEnabled ? onTap : null,
       child: child,
     );
   }
@@ -342,17 +344,20 @@ class _CustomButtonState extends State<CustomButton> {
       style: OutlinedButton.styleFrom(
         side: BorderSide(
           width: widget.borderWidth,
-          color: widget.borderColor ?? widget.backgroundColor,
+          color:
+              widget.borderColor ?? widget.backgroundColor ?? AppColors.primary,
         ),
         padding: widget.padding ?? EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(widget.radius),
-          side: BorderSide(color: widget.backgroundColor),
+          side: BorderSide(
+            color: widget.backgroundColor ?? AppColors.primary,
+          ),
         ),
         minimumSize: widget.constraints.minSize,
         maximumSize: widget.constraints.maxSize,
       ),
-      onPressed: onTap,
+      onPressed: widget.isEnabled ? onTap : null,
       child: child,
     );
   }
@@ -367,10 +372,11 @@ class _CustomButtonState extends State<CustomButton> {
           ),
           padding: EdgeInsets.zero,
         ),
-        onPressed: !isLoading ? onTap : null,
+        onPressed: widget.isEnabled ? (!isLoading ? onTap : null) : null,
         child: DottedBorder(
           borderType: BorderType.RRect,
-          color: widget.borderColor ?? widget.backgroundColor,
+          color:
+              widget.borderColor ?? widget.backgroundColor ?? AppColors.primary,
           radius: Radius.circular(widget.radius),
           dashPattern: const [6, 4],
           strokeWidth: widget.borderWidth,
@@ -379,7 +385,8 @@ class _CustomButtonState extends State<CustomButton> {
             constraints: widget.constraints,
             padding: widget.padding ?? EdgeInsets.zero,
             decoration: BoxDecoration(
-              color: widget.backgroundColor.withOpacity(0.3),
+              color: (widget.backgroundColor ?? AppColors.primary)
+                  .withValues(alpha: 0.3),
               borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
             ),
             child: Center(child: child),
@@ -399,9 +406,6 @@ class _CustomButtonState extends State<CustomButton> {
 
       case ButtonType.dotted:
         return _buildDottedButton(child: _buildChild(context));
-
-      default:
-        return _buildSolidButton(child: _buildChild(context));
     }
   }
 
@@ -411,13 +415,7 @@ class _CustomButtonState extends State<CustomButton> {
         SizedBox(
           height: size,
           width: size,
-          child: CircularProgressIndicator(
-            color: widget.loaderColor ??
-                (widget.buttonType != ButtonType.outline
-                    ? AppColors.white
-                    : widget.backgroundColor),
-            strokeWidth: 2,
-          ),
+          child: GlobalHelper.loadingWidget(),
         );
   }
 }

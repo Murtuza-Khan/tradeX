@@ -58,7 +58,6 @@ class CustomBanner extends StatelessWidget {
           ),
         );
 
-      case BannerPosition.topLeft:
       default:
         return Positioned(
           top: -25.0,
@@ -258,7 +257,6 @@ class CustomBannerShimmer extends StatelessWidget {
           ),
         );
 
-      case BannerPosition.topLeft:
       default:
         return Positioned(
           top: -25.0,

@@ -10,6 +10,16 @@ class ImageService {
     BoxFit fit = BoxFit.cover,
     double? scale,
   }) {
+    if (image == null) {
+      return CustomImageWidget(
+        imageUrl: "",
+        borderRadius: borderRadius,
+        imageHeight: imageHeight ?? 70,
+        imageWidth: imageWidth,
+        fit: scale != null ? null : fit,
+        scale: image == null ? 2.0 : scale,
+      );
+    }
     if (image is IconData) {
       return Icon(
         image,

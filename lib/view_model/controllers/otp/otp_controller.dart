@@ -9,23 +9,53 @@ class OtpController extends GetxController {
 
   Future<void> resendOtp() async {
     isLoading = true;
+    pinCtrl.clear();
     update(['confirm_otp_button']);
-    UserModel? user = AuthManager.instance.session.value?.user;
-    Map<String, dynamic> otpData = {
-      "phone": "${user?.countrycode ?? '92'}${user?.phone ?? ""}"
-    };
-    log.w(otpData);
-    // implement api function here
+    await SendOtpHelper.sendOtp(
+      SendOtpHelper.switchAccountPhone ??
+          AuthManager.instance.company.phone ??
+          SendOtpHelper.phone,
+    );
     myDuration = const Duration(minutes: 2);
     startTimer();
     isLoading = false;
     update(['confirm_otp_button']);
   }
 
-  Future<void> verfyOtp() async {}
+  Future<void> verfyOtp() async {
+    (ApiResult, String) result = await OtpRepository.verifyOtp(
+      data: {
+        "otp": pinCtrl.text,
+        "mobile": SendOtpHelper.switchAccountPhone ??
+            AuthManager.instance.company.phone ??
+            SendOtpHelper.phone,
+      },
+    );
+    if (result.$1 == ApiResult.fail) return;
+    if (Get.previousRoute == Routes.LOGIN) {
+      CompaniesModel company = AuthManager.instance.company.copyWith(
+        isPhoneVerified: true,
+      );
+      await AuthManager.instance.saveAndUpdateSession(company: company);
+      CustomSnackBar.successSnackBar(message: Strings.LOGGED_IN_SUCCESSFULLY);
+      Get.offAllNamed(Routes.LANDING);
+    } else if (Get.previousRoute == Routes.SWITCH_ACCOUNT) {
+      ApiResult result = await SwitchAccountRepository.switchAccount(
+        SwitchAccountHelper.company.id ?? -1,
+      );
+      if (result == ApiResult.fail) return;
+      CustomSnackBar.successSnackBar(message: Strings.ACCOUNT_SWITCHED);
+      SwitchAccountHelper.company = CompaniesModel();
+      SendOtpHelper.switchAccountPhone = null;
+      Get.find<HomeController>().update(['refresh_home_data']);
+      Get.close(2);
+    } else {
+      CustomSnackBar.successSnackBar(message: Strings.OTP_VERIFIED);
+      Get.offNamed(Routes.PASSWORD_RESET, arguments: {"token": result.$2});
+    }
+  }
 
   void startTimer() {
-    update(["resend_otp"]);
     otpTimer = Timer.periodic(
       const Duration(seconds: 1),
       (_) {

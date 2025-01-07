@@ -101,4 +101,19 @@ class Validators {
     }
     return null;
   }
+
+  static String? alphanumericValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a password';
+    }
+    final containsLetter = RegExp(r'[a-zA-Z]');
+    final containsNumber = RegExp(r'[0-9]');
+    if (!containsLetter.hasMatch(value) || !containsNumber.hasMatch(value)) {
+      return 'Password must contain both letters and numbers';
+    }
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+    return null;
+  }
 }

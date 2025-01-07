@@ -1,1 +1,9 @@
 export '../../repositories/home_repository.dart';
+export '../../repositories/profile_repository.dart';
+export '../../repositories/firebase_repository.dart';
+export '../../repositories/auth_repository.dart';
+export '../../repositories/otp_repository.dart';
+export '../../repositories/reset_password_repository.dart';
+export '../../repositories/change_password_repository.dart';
+export '../../repositories/switch_account_repository.dart';
+export '../../repositories/redeem_rewards_repository.dart';

@@ -3,6 +3,22 @@ import '../resources/exports/index.dart';
 class CustomDialog {
   static const Duration animationDuration = Durations.medium3;
 
+  static Future<T?> showFullScreenDialog<T>({required Widget content}) {
+    var dialog = Dialog.fullscreen(child: content);
+
+    return showGeneralDialog<T>(
+      context: Get.context!,
+      barrierLabel: '',
+      transitionDuration: animationDuration,
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return PanaraAnimations.grow(animation, secondaryAnimation, child);
+      },
+      pageBuilder: (animation, secondaryAnimation, child) {
+        return dialog;
+      },
+    );
+  }
+
   static Future<T?> showDialog<T>({
     required Widget content,
     bool barrierDismissible = true,
