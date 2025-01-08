@@ -34,6 +34,7 @@ class ProfileController extends GetxController {
         email: emailCtrl.text,
       );
       await AuthManager.instance.saveAndUpdateSession(user: user);
+      Get.find<UserDashboardController>().update(['user_dash_welcome_card']);
       Get.back();
       CustomSnackBar.successSnackBar(message: Strings.PROFILE_UPDATE);
     }

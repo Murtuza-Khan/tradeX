@@ -81,11 +81,14 @@ class UserDashboard extends GetView<UserDashboardController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text(
-            controller.userName,
-            style: context.headlineSmall.copyWith(color: AppColors.primary),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          GetBuilder<UserDashboardController>(
+            id: "user_dash_welcome_card",
+            builder: (_) => Text(
+              controller.userName,
+              style: context.headlineSmall.copyWith(color: AppColors.primary),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           Text(Strings.HERE_YOU, style: context.titleMedium),
         ],
