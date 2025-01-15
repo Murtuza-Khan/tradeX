@@ -24,7 +24,7 @@ class LoginForm extends GetView<LoginController> {
             enableBorderColor: AppColors.black,
             focusBorderColor: AppColors.primary,
             textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.number,
             autofillHints: const [AutofillHints.email],
             inputFormatters: [
               ...InputFormat.cnicCount,
