@@ -48,14 +48,14 @@ class AppTheme {
           surface: const Color(0xfff2f2f7),
           error: AppColors.error,
         ),
-        textTheme: buildTextTheme(textColor: Colors.black),
+        textTheme: buildTextTheme(textColor: AppColors.secondary),
         useMaterial3: true,
       ).copyWith(
         brightness: brightness,
         primaryColor: primaryColor,
         primaryColorLight: swatchColors.shade200,
         primaryColorDark: swatchColors.shade800,
-        scaffoldBackgroundColor: AppColors.white,
+        scaffoldBackgroundColor: AppColors.backgroundColor,
         canvasColor: const Color(0xffe5e5ea),
         cardColor: const Color(0xFFF1F3F6),
         dividerColor: const Color(0xff686868),
@@ -65,7 +65,7 @@ class AppTheme {
         inputDecorationTheme: inputDecorationTheme(
           primaryColor: primaryColor,
           errorColor: AppColors.error,
-          fillColor: Colors.transparent,
+          fillColor: AppColors.tertiaryColor,
           enabledBorderColor: AppColors.enableBorder,
           focusBorderColor: AppColors.primary,
           hintColor: AppColors.hint,
@@ -84,14 +84,14 @@ class AppTheme {
           primaryColor: primaryColor,
           textColor: swatchColors.shade400,
         ),
-        bottomSheetTheme: const BottomSheetThemeData(
-          backgroundColor: Colors.white,
-          modalBackgroundColor: Colors.white,
+        bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: AppColors.backgroundColor,
+          modalBackgroundColor: AppColors.backgroundColor,
           surfaceTintColor: Colors.white,
         ),
         dialogBackgroundColor: AppColors.white,
-        dialogTheme: const DialogTheme(
-          backgroundColor: AppColors.white,
+        dialogTheme: DialogTheme(
+          backgroundColor: AppColors.backgroundColor,
           surfaceTintColor: AppColors.white,
         ),
       );

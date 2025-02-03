@@ -137,7 +137,7 @@ class IntroBottomNavBar extends GetView<OnBoardingController> {
             width: (Get.width / 3) * controller.selectedIndex,
             height: 5.0,
             duration: Durations.medium3,
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               color: AppColors.primary,
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(15.0),

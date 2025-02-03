@@ -57,10 +57,8 @@ class LocalStorageService extends GetxService {
     final box = GetStorage(Strings.CACHE_BOX_KEY);
     await box.write(CacheManagerKeys.sessionData.toString(), session?.toJson());
     if (Platform.isAndroid) {
-      log.f(session);
       log.e("SAVING SESSION : ${session?.toJson()}");
     } else {
-      MacLog.printM(session);
       MacLog.printG("SAVING SESSION : ${session?.toJson()}");
     }
     return true;
@@ -79,7 +77,7 @@ class LocalStorageService extends GetxService {
           box.read(CacheManagerKeys.sessionData.toString()),
         ).toJson()}");
       } else {
-        MacLog.printG(("RESTORE SESSION : ${Session.fromJson(
+        MacLog.printO(("RESTORE SESSION : ${Session.fromJson(
           box.read(CacheManagerKeys.sessionData.toString()),
         ).toJson()}"));
       }

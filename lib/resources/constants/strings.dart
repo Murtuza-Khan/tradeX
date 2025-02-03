@@ -120,7 +120,7 @@ class Strings {
   // Sign Up
   static const String SIGNUP_CREATE_ACCOUNT = "Sign up - Create Account";
   static const String FIRST_NAME = "First Name";
-  static const String NAME = "Name";
+  static const String NAME = "First Name";
   static const String LAST_NAME = "Last Name";
   static const String MOBILE = "Mobile";
   static const String ALREADY_HAVE_AN_ACCOUNT = "Already have an account ? ";

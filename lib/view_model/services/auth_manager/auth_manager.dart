@@ -13,6 +13,11 @@ class AuthManager extends LocalStorageService implements GetxService {
 
   String get token => session.value?.token ?? '';
 
+  AppColorsModel get appColorsModel =>
+      session.value?.appColors ?? AppColorsModel();
+  set appColorsModel(AppColorsModel? colors) =>
+      session.value?.appColors = colors;
+
   UserModel get user => session.value?.user ?? UserModel();
   set user(UserModel? user) => session.value?.user = user;
 
@@ -20,12 +25,13 @@ class AuthManager extends LocalStorageService implements GetxService {
   set company(CompaniesModel? company) => session.value?.company = company;
 
   String get defaultLanguage => getDefaultLanguage() ?? "en";
-
   String get deviceToken => getDeviceToken() ?? "";
 
   Future<void> login(Session? session) async {
     _isLoggedIn.value = true;
     if (rememberCredentials.value) await saveToken(session?.token);
+    AppColors.initializeAppColors(session?.appColors ?? AppColorsModel());
+    AdaptiveTheme.of(Get.context!).setTheme(light: ThemeController().getTheme);
     await saveCurrentSession(session: session);
   }
 
@@ -54,20 +60,23 @@ class AuthManager extends LocalStorageService implements GetxService {
   Future<bool> saveAndUpdateSession({
     UserModel? user,
     CompaniesModel? company,
+    AppColorsModel? appColors,
   }) async {
     Session? savedSession = getSessionData();
     if (savedSession == null) return false;
-    if (user == null && company == null) {
+    if (user == null && company == null && appColors == null) {
       CustomSnackBar.errorSnackBar(message: Strings.PROVIDED_DATA);
       return false;
     }
 
     if (user != null) this.user = user;
     if (company != null) this.company = company;
+    if (appColors != null) appColorsModel = appColors;
 
     Session? session = this.session.value?.copyWith(
           user: this.user,
           company: this.company,
+          appColors: appColorsModel,
         );
     bool saved = await saveSession(session);
     if (!saved) return false;

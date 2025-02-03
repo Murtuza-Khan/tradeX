@@ -156,7 +156,7 @@ class CustomSnackBar {
                     ),
                     GestureDetector(
                       onTap: Get.back,
-                      child: const Icon(
+                      child:  Icon(
                         Icons.cancel,
                         color: AppColors.primary,
                         size: Sizes.ICON_SIZE_30,

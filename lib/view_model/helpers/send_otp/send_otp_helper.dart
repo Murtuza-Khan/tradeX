@@ -12,7 +12,7 @@ class SendOtpHelper {
     if (otp.$1 == ApiResult.success) {
       MacLog.printG("$mobile\n${otp.$2}");
       CustomSnackBar.successSnackBar(
-        message: "${kDebugMode ? "${otp.$2} " : ""}$Strings.PLEASE_VERIFY",
+        message: "${kDebugMode ? "${otp.$2} " : ""}${Strings.PLEASE_VERIFY}",
       );
       if (Get.currentRoute != Routes.OTP) {
         Get.toNamed(Routes.OTP);

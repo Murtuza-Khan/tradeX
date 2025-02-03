@@ -1,9 +1,14 @@
 part of 'constants.dart';
 
 class AppColors {
-  static const Color primary = Colors.deepPurple;
+  static AppColorsModel color = AuthManager.instance.appColorsModel;
+
+  static Color primary = color.primaryColor ?? Colors.deepPurple;
+  static Color secondary = color.secondaryColor ?? Colors.black;
+  static Color backgroundColor = color.backgroundColor ?? Colors.white;
+  static Color tertiaryColor = color.tertiaryColor ?? Colors.transparent;
+  
   static const Color primaryLight = Color(0xfff3edf7);
-  static const Color secondary = Color(0xff513393);
   static const Color indigoLight = Color(0xff78439a);
   static const Color background = Color.fromARGB(255, 247, 247, 247);
 
@@ -35,4 +40,12 @@ class AppColors {
   static const Color active = Colors.green;
   static const Color expired = Colors.redAccent;
   static const Color partiallyRedeemed = Colors.orange;
+
+  static initializeAppColors(AppColorsModel appColors) {
+    AppColorsModel color = appColors;
+    primary = color.primaryColor ?? Color(0xFF2b4187);
+    secondary = color.secondaryColor ?? Colors.black;
+    tertiaryColor = color.tertiaryColor ?? Colors.transparent;
+    backgroundColor = color.backgroundColor ?? Colors.white;
+  }
 }

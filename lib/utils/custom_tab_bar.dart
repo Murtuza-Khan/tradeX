@@ -29,7 +29,7 @@ class CustomTabBar extends StatelessWidget {
             dividerColor: AppColors.shadow,
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorWeight: 4.0,
-            indicator: const UnderlineTabIndicator(
+            indicator: UnderlineTabIndicator(
               borderSide: BorderSide(color: AppColors.primary, width: 4.0),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(8.0),

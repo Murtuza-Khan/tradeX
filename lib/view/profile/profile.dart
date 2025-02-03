@@ -30,6 +30,10 @@ class Profile extends GetView<ProfileController> {
                 focusBorderColor: AppColors.primary,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.name,
+                validator: Validators.isValidString.call,
+                onChanged: (_) {
+                  controller.toggleUpdateProfileBtnEnaled.call();
+                },
               ),
               SpaceH12(),
               CustomTextFormField(
@@ -38,7 +42,7 @@ class Profile extends GetView<ProfileController> {
                 textCapitalization: TextCapitalization.none,
                 isRequired: true,
                 height: Sizes.HEIGHT_20,
-                labelText: Strings.NAME,
+                labelText: Strings.LAST_NAME,
                 labelColor: AppColors.black,
                 prefixIcon: EneftyIcons.user_outline,
                 prefixIconColor: AppColors.black,
@@ -48,6 +52,10 @@ class Profile extends GetView<ProfileController> {
                 focusBorderColor: AppColors.primary,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.name,
+                validator: Validators.isValidString.call,
+                onChanged: (_) {
+                  controller.toggleUpdateProfileBtnEnaled.call();
+                },
               ),
               SpaceH12(),
               CustomTextFormField(
@@ -67,6 +75,9 @@ class Profile extends GetView<ProfileController> {
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
                 validator: Validators.emailValidator.call,
+                onChanged: (_) {
+                  controller.toggleUpdateProfileBtnEnaled.call();
+                },
               ),
               SpaceH16(),
               Stack(
@@ -104,13 +115,18 @@ class Profile extends GetView<ProfileController> {
                 ],
               ),
               const SpaceH18(),
-              CustomButton.solid(
-                backgroundColor: AppColors.primary,
-                textColor: AppColors.white,
-                text: Strings.UPDATE,
-                onTapAsync: () async => controller.updateProfile(),
-                radius: Sizes.RADIUS_12,
-                constraints: const BoxConstraints(minHeight: 55),
+              Obx(
+                () => CustomButton.solid(
+                  isEnabled: controller.isUpdateProfileBtnEnabled.value,
+                  backgroundColor: controller.isUpdateProfileBtnEnabled.value
+                      ? AppColors.primary
+                      : AppColors.disabled,
+                  textColor: AppColors.white,
+                  text: Strings.UPDATE,
+                  onTapAsync: () async => controller.updateProfile(),
+                  radius: Sizes.RADIUS_12,
+                  constraints: const BoxConstraints(minHeight: 55),
+                ),
               ),
             ],
           ).paddingSymmetric(horizontal: 16.0),

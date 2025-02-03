@@ -32,7 +32,10 @@ class SwitchAccount extends GetView<SwitchAccountController> {
         ).expanded(),
         CustomButton.solid(
           margin: EdgeInsets.symmetric(horizontal: 16.0),
-          backgroundColor: AppColors.primary,
+          isEnabled: controller.companies.length > 1,
+          backgroundColor: controller.companies.length > 1
+              ? AppColors.primary
+              : AppColors.disabled,
           textColor: AppColors.white,
           text: Strings.SAVE,
           onTapAsync: () async => controller.onSave(),

@@ -3,15 +3,17 @@ import '../../resources/exports/index.dart';
 class Session {
   String? token;
   UserModel? user;
+  AppColorsModel? appColors;
   CompaniesModel? company;
 
-  Session({this.user, this.token, this.company});
+  Session({this.user, this.token, this.company, this.appColors});
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'user': user?.toJson(),
       'company': company?.toMap(),
       'token': token,
+      'app_colors': appColors?.toMap(),
     };
   }
 
@@ -24,6 +26,9 @@ class Session {
       company: json['company'] != null
           ? CompaniesModel.fromMap(json['company'] as Map<String, dynamic>)
           : null,
+      appColors: json['app_colors'] != null
+          ? AppColorsModel.fromMap(json['app_colors'] as Map<String, dynamic>)
+          : null,
     );
   }
 
@@ -31,13 +36,15 @@ class Session {
     String? token,
     UserModel? user,
     CompaniesModel? company,
+    AppColorsModel? appColors,
   }) =>
       Session(
         token: token ?? this.token,
         user: user ?? this.user,
         company: company ?? this.company,
+        appColors: appColors ?? this.appColors,
       );
 
   @override
-  String toString() => 'Session(token: $token, user: $user, company: $company)';
+  String toString() => 'Session(token: $token, user: $user, company: $company, appColors: $appColors)';
 }

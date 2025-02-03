@@ -11,39 +11,43 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DismissKeyboard(
-      child: GetMaterialApp(
-        title: Strings.APP_NAME,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeController().getTheme,
-        builder: (context, widget) {
-          return ResponsiveWrapper.builder(
-            MediaQuery(
-              data: MediaQuery.of(context).copyWith(
-                textScaler: const TextScaler.linear(1),
-                boldText: false,
-                highContrast: false,
-                invertColors: false,
+      child: AdaptiveTheme(
+        light: ThemeController().getTheme,
+        initial: AdaptiveThemeMode.light,
+        builder: (theme, darkTheme) => GetMaterialApp(
+          title: Strings.APP_NAME,
+          debugShowCheckedModeBanner: false,
+          theme: theme,
+          builder: (context, widget) {
+            return ResponsiveWrapper.builder(
+              MediaQuery(
+                data: MediaQuery.of(context).copyWith(
+                  textScaler: const TextScaler.linear(1),
+                  boldText: false,
+                  highContrast: false,
+                  invertColors: false,
+                ),
+                child: BouncingScrollWrapperX.builder(
+                  context,
+                  widget!,
+                  dragWithMouse: true,
+                ),
               ),
-              child: BouncingScrollWrapperX.builder(
-                context,
-                widget!,
-                dragWithMouse: true,
-              ),
-            ),
-            defaultScale: true,
-            breakpoints: const [
-              ResponsiveBreakpoint.autoScaleDown(450, name: MOBILE),
-            ],
-          );
-        },
-        onGenerateRoute: Pages.onGenerateRoute,
-        initialRoute: (AuthManager.instance.getIntroViewInfo() ?? false)
-            ? AuthManager.instance.isLoggedIn
-                ? Routes.LANDING
-                : Routes.LOGIN
-            : Routes.ON_BOARDING,
-        defaultTransition: Transition.rightToLeft,
-        smartManagement: SmartManagement.full,
+              defaultScale: true,
+              breakpoints: const [
+                ResponsiveBreakpoint.autoScaleDown(450, name: MOBILE),
+              ],
+            );
+          },
+          onGenerateRoute: Pages.onGenerateRoute,
+          initialRoute: (AuthManager.instance.getIntroViewInfo() ?? false)
+              ? AuthManager.instance.isLoggedIn
+                  ? Routes.LANDING
+                  : Routes.LOGIN
+              : Routes.ON_BOARDING,
+          defaultTransition: Transition.rightToLeft,
+          smartManagement: SmartManagement.full,
+        ),
       ),
     );
   }

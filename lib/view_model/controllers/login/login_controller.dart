@@ -16,15 +16,17 @@ class LoginController extends GetxController {
   }
 
   Future<void> login() async {
-    await AuthRepository.login(
-      cnic: cnicCtrl.text.replaceAll("-", ""),
-      password: passCtrl.text,
-    );
     if (loginFormKey.currentState?.validate() ?? false) {
-      if (AuthManager.instance.company.isPhoneVerified ?? false) {
-        Get.offAllNamed(Routes.LANDING);
-      } else {
-        await SendOtpHelper.sendOtp(AuthManager.instance.company.phone ?? "");
+      ApiResult result = await AuthRepository.login(
+        cnic: cnicCtrl.text.replaceAll("-", ""),
+        password: passCtrl.text,
+      );
+      if (result == ApiResult.success) {
+        if (AuthManager.instance.company.isPhoneVerified ?? false) {
+          Get.offAllNamed(Routes.LANDING);
+        } else {
+          await SendOtpHelper.sendOtp(AuthManager.instance.company.phone ?? "");
+        }
       }
     }
   }

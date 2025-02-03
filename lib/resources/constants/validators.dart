@@ -102,6 +102,16 @@ class Validators {
     return null;
   }
 
+  static String? isValidString(String? input) {
+    if ((input ?? '').isEmpty) return 'Email is required';
+    RegExp regex = RegExp(r'^(?!.*\s{2,})[A-Za-z0-9]+(?:\s[A-Za-z0-9]+)*$');
+    if (regex.hasMatch(input!)) {
+      return null;
+    } else {
+      return "Only one space allowed between words";
+    }
+  }
+
   static String? alphanumericValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter a password';

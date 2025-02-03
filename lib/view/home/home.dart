@@ -20,8 +20,11 @@ class Home extends GetView<HomeController> {
                 physics: NeverScrollableScrollPhysics(),
                 child: HomeShimmer().paddingAll(16.0),
               ),
-              data: (receivedPoints) => controller.receivedPoints =
-                  receivedPoints ?? ReceivedPointsModel(),
+              data: (receivedPoints) async {
+                await Future.delayed(Durations.medium1);
+                return controller.receivedPoints =
+                    receivedPoints ?? ReceivedPointsModel();
+              },
               hasDataBuilder: (_, __) => _buildReceivedPointsList(context),
             );
           },
@@ -63,7 +66,7 @@ class Home extends GetView<HomeController> {
                       _buildPointsCard(
                         context,
                         title: Strings.REDEEMED_POINTS,
-                        cardColor: AppColors.primaryLight,
+                        cardColor: AppColors.primary.light(amount: 0.53),
                         subTitle: GlobalHelper.formatedNumber(
                           value: controller.receivedPoints.redeemedPoints ?? 0,
                         ),
@@ -116,7 +119,7 @@ class Home extends GetView<HomeController> {
             child: Container(
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                color: AppColors.primaryLight,
+                color: AppColors.primary.light(amount: 0.53),
                 borderRadius: BorderRadius.circular(5.0),
               ),
               child: Row(
@@ -245,7 +248,7 @@ class Home extends GetView<HomeController> {
                 width: 45,
                 decoration: BoxDecoration(
                   color: cardColor == null
-                      ? AppColors.primaryLight
+                      ? AppColors.primary.light()
                       : AppColors.black,
                   shape: BoxShape.circle,
                 ),

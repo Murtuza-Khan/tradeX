@@ -9,8 +9,10 @@ class OnBoardingController extends GetxController {
   Future<void> onStartGifting() async {
     bool isViewed = AuthManager.instance.getIntroViewInfo() ?? false;
     if (!isViewed) await AuthManager.instance.saveIntroViewInfo(true);
-    if (Get.previousRoute.isEmpty) {
+    if (Get.previousRoute.isEmpty && AuthManager.instance.isLoggedIn) {
       Get.offAllNamed(Routes.LANDING);
+    } else if (!AuthManager.instance.isLoggedIn) {
+      Get.offAllNamed(Routes.LOGIN);
     } else {
       Get.back();
     }

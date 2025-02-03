@@ -75,7 +75,7 @@ class CustomFutureBuilder<T> extends StatelessWidget {
           return Center(
             child: Text(
               'State: ${snapshot.connectionState}',
-              style: const TextStyle(color: AppColors.primary),
+              style: TextStyle(color: AppColors.primary),
             ),
           );
         }

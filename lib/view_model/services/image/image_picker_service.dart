@@ -62,7 +62,7 @@ class ImagePickerService {
               image = await pickImage(imageSource: ImageSource.camera);
               Get.back<XFile>(result: image);
             },
-            leading: const Icon(
+            leading:  Icon(
               Icons.camera_alt_outlined,
               color: AppColors.primary,
             ),
@@ -73,7 +73,7 @@ class ImagePickerService {
               image = await pickImage(imageSource: ImageSource.gallery);
               Get.back<XFile>(result: image);
             },
-            leading: const Icon(Icons.image_outlined, color: AppColors.primary),
+            leading:  Icon(Icons.image_outlined, color: AppColors.primary),
             title: Text(Strings.FROM_GALLERY, style: Get.context!.bodyLarge),
           ),
         ],

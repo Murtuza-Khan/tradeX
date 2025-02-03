@@ -24,7 +24,16 @@ class AuthRepository {
       }
       return ApiResult.fail;
     }
+
     Session session = Session.fromJson(response.successContents);
+    session.appColors = AppColorsModel.fromMap(
+      {
+        "primary_color": "#c66f16",
+        "secondary_color": "#000000",
+        "tertiary_color": "#FFFFFF",
+        "background_color": "#F4F7FE"
+      },
+    );
     await AuthManager.instance.login(session);
     return ApiResult.success;
   }

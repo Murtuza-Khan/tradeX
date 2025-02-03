@@ -45,7 +45,7 @@ class UserDashboard extends GetView<UserDashboardController> {
                                 fontSize: 20,
                               ),
                             ).expanded(),
-                            const Icon(
+                            Icon(
                               Icons.arrow_forward_ios_rounded,
                               color: AppColors.primary,
                               size: 28.0,
