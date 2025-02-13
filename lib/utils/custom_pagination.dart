@@ -516,7 +516,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
                   SizedBox(),
               SizedBox(height: 80),
               NoContent(
-                title: "Content Not Found !!",
+                title: Strings.NO_RECORD_FOUND,
                 subtitle: "No information is currently available",
                 showBackground: false,
               ).expanded(),
@@ -585,7 +585,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
                 firstPageErrorIndicatorBuilder: (_) => Align(
                   alignment: Alignment.center,
                   child: NoContent(
-                    title: "Content Not Found !!",
+                    title: Strings.NO_RECORD_FOUND,
                     subtitle: "Something went wrong",
                     padding: 32,
                     showBackground: false,
@@ -597,7 +597,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
                         : Align(
                             alignment: Alignment.center,
                             child: NoContent(
-                              title: "Content Not Found !!",
+                              title: Strings.NO_RECORD_FOUND,
                               subtitle: "No information is currently available",
                               showBackground: false,
                             ),
@@ -650,7 +650,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
               firstPageErrorIndicatorBuilder: (context) => const Align(
                 alignment: Alignment.center,
                 child: NoContent(
-                  title: "Content Not Found !!",
+                  title: Strings.NO_RECORD_FOUND,
                   subtitle: "Something went wrong",
                   padding: 32,
                   showBackground: false,
@@ -659,7 +659,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
               noItemsFoundIndicatorBuilder: (_) => Align(
                 alignment: Alignment.center,
                 child: NoContent(
-                  title: "Content Not Found !!",
+                  title: Strings.NO_RECORD_FOUND,
                   subtitle: "No Items found",
                   padding: 32,
                   showBackground: false,

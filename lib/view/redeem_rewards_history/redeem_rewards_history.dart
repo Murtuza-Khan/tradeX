@@ -8,7 +8,7 @@ class RedeemRewardsHistory extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: Strings.REDEEME_HISTORY),
       body: CustomPagination<RedeemHistory>(
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.backgroundColor,
         apiUrl: Urls.REDEEM_HISTORY,
         padding: EdgeInsets.only(
           left: 16,

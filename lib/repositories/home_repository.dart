@@ -13,31 +13,19 @@ class HomeRepository {
       },
     );
     if (response is bool) return ReceivedPointsModel();
-    ReceivedPointsModel data = ReceivedPointsModel.fromMap(response);
-    Map<String, dynamic> modifiedResponse = data.toMap();
-    modifiedResponse['app_colors'] = {
-      "primary_color": "#c66f16",
-      // "primary_color": "#3dc411",
-      "secondary_color": "#000000",
-      "tertiary_color": "#FFFFFF",
-      "background_color": "#F4F7FE"
-    };
-    MacLog.printG("THEME CHANGED ..........$modifiedResponse");
-
-    ReceivedPointsModel data2 = ReceivedPointsModel.fromMap(modifiedResponse);
-
+    ReceivedPointsModel result = ReceivedPointsModel.fromMap(response);
     if (AuthManager.instance.appColorsModel
-        .isThemeChanged(data2.appColors ?? AppColorsModel())) {
-      AppColors.initializeAppColors(data2.appColors ?? AppColorsModel());
+        .isThemeChanged(result.appColors ?? AppColorsModel())) {
+      AppColors.initializeAppColors(result.appColors ?? AppColorsModel());
       AdaptiveTheme.of(Get.context!).setTheme(
         light: ThemeController().getTheme,
       );
       await AuthManager.instance.saveAndUpdateSession(
-        appColors: data2.appColors,
+        appColors: result.appColors,
       );
     } else {
       MacLog.printR("THEME NOT CHANGED ..........");
     }
-    return data2;
+    return result;
   }
 }

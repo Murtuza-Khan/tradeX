@@ -12,6 +12,7 @@ export '../../utils/custom_app_bar.dart';
 export '../../utils/custom_image.dart';
 export '../../utils/custom_text.dart';
 export '../../utils/no_content_widget.dart';
+export '../../utils/animated_empty_widget.dart';
 export '../../utils/custom_future_builder.dart';
 export '../../utils/custom_carousel_slider.dart';
 export '../../utils/skeleton_text_animation.dart';

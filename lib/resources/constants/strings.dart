@@ -19,6 +19,7 @@ class Strings {
   static const String OPEN_DATA_SETTINGS = 'Open Data Settings';
   static const String OPEN_WIFI_SETTINGS = 'Open Wifi Settings';
   static const String YOU_ARE_OFFLINE = "You're Offline.";
+  static const String NO_RECORD_FOUND = "No Record Found !!";
 
 // On Boarding
   static const String YOUR_GATEWAY = "Your Gateway to Exclusive Offers";

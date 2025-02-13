@@ -10,7 +10,7 @@ class AppColors {
   
   static const Color primaryLight = Color(0xfff3edf7);
   static const Color indigoLight = Color(0xff78439a);
-  static const Color background = Color.fromARGB(255, 247, 247, 247);
+  // static const Color background = Color.fromARGB(255, 247, 247, 247);
 
   static const Color error = Color(0xFFFF3030);
   static const Color success = Color(0xFF7D9B3D);

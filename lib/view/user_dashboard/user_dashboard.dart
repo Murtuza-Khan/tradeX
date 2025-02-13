@@ -8,7 +8,7 @@ class UserDashboard extends GetView<UserDashboardController> {
     return SafeArea(
       child: Container(
         width: double.maxFinite,
-        color: AppColors.background,
+        color: AppColors.backgroundColor,
         child: Column(
           children: [
             _buildWelcomeHeader(context),
@@ -22,7 +22,7 @@ class UserDashboard extends GetView<UserDashboardController> {
                 return GestureDetector(
                   onTap: controller.items[index].onTap,
                   child: Container(
-                    color: AppColors.background,
+                    color: AppColors.backgroundColor,
                     child: Column(
                       children: [
                         const Divider(color: AppColors.divider, thickness: 1.5),

@@ -8,7 +8,7 @@ class RedeemRewards extends GetView<RedeemRewardsController> {
     return SafeArea(
       child: DismissKeyboard(
         child: Container(
-          color: AppColors.background,
+          color: AppColors.backgroundColor,
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -38,7 +38,6 @@ class RedeemRewards extends GetView<RedeemRewardsController> {
                 const SpaceH20(),
                 CustomTextFormField(
                   controller: controller.pointsCtrl,
-                  fillColor: AppColors.white,
                   textCapitalization: TextCapitalization.none,
                   isRequired: true,
                   height: Sizes.HEIGHT_20,

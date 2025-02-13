@@ -34,6 +34,9 @@ class NoContent extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: padding),
+                  SpaceH20(),
+                  AnimatedEmtyWidget(),
+                  SizedBox(height: 35),
                   Text(
                     title,
                     style: Get.textTheme.headlineLarge!.copyWith(

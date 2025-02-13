@@ -41,7 +41,7 @@ class HomeShimmer extends StatelessWidget {
 
   Widget _buildViewAllBtn(BuildContext context) {
     return Container(
-      color: AppColors.background,
+      color: AppColors.backgroundColor,
       height: 40,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

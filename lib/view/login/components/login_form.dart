@@ -11,7 +11,6 @@ class LoginForm extends GetView<LoginController> {
         children: [
           CustomTextFormField(
             controller: controller.cnicCtrl,
-            fillColor: AppColors.white,
             textCapitalization: TextCapitalization.none,
             isRequired: true,
             height: Sizes.HEIGHT_20,

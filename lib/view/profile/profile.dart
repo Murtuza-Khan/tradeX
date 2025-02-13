@@ -7,7 +7,7 @@ class Profile extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: Strings.PROFILE),
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Form(
           key: controller.formKey,
@@ -16,7 +16,6 @@ class Profile extends GetView<ProfileController> {
             children: [
               CustomTextFormField(
                 controller: controller.firstNameCtrl,
-                fillColor: AppColors.white,
                 textCapitalization: TextCapitalization.none,
                 isRequired: true,
                 height: Sizes.HEIGHT_20,
@@ -38,7 +37,6 @@ class Profile extends GetView<ProfileController> {
               SpaceH12(),
               CustomTextFormField(
                 controller: controller.lastNameCtrl,
-                fillColor: AppColors.white,
                 textCapitalization: TextCapitalization.none,
                 isRequired: true,
                 height: Sizes.HEIGHT_20,
@@ -60,7 +58,6 @@ class Profile extends GetView<ProfileController> {
               SpaceH12(),
               CustomTextFormField(
                 controller: controller.emailCtrl,
-                fillColor: AppColors.white,
                 textCapitalization: TextCapitalization.none,
                 isRequired: true,
                 height: Sizes.HEIGHT_20,

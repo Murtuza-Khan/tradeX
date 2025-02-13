@@ -10,7 +10,7 @@ class Home extends GetView<HomeController> {
       onRefresh: () async => controller.update(["refresh_home_data"]),
       child: Container(
         margin: EdgeInsets.only(bottom: Platform.isAndroid ? 16.0 : 45.0),
-        decoration: BoxDecoration(color: AppColors.background),
+        decoration: BoxDecoration(color: AppColors.backgroundColor),
         child: GetBuilder<HomeController>(
           id: 'refresh_home_data',
           builder: (_) {
@@ -95,8 +95,8 @@ class Home extends GetView<HomeController> {
         ),
         if ((controller.receivedPoints.receivedPoints ?? []).isEmpty) ...[
           NoContent(
-            backgroundColor: AppColors.background,
-            title: "Content Not Found !!",
+            backgroundColor: AppColors.backgroundColor,
+            title: Strings.NO_RECORD_FOUND,
             subtitle: "No information is currently available",
           ).expanded(),
           SizedBox(height: 150),
@@ -107,7 +107,7 @@ class Home extends GetView<HomeController> {
 
   Widget _buildViewAllBtn(BuildContext context) {
     return Container(
-      color: AppColors.background,
+      color: AppColors.backgroundColor,
       child: Row(
         children: [
           CustomText(
