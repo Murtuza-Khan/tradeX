@@ -26,7 +26,7 @@ class UserDashboardController extends GetxController {
       ),
       BottomNavBarModel(
         id: 2,
-        title: Strings.REDEEMED_POINTS,
+        title: Strings.REDEEM_POINTS,
         icon: EneftyIcons.ticket_star_outline,
         onTap: () => LandingController.instance.onNavigate(
           1,
@@ -35,12 +35,18 @@ class UserDashboardController extends GetxController {
       ),
       BottomNavBarModel(
         id: 3,
+        title: Strings.REDEEME_HISTORY,
+        icon: EneftyIcons.book_outline,
+        onTap: () => Get.toNamed(Routes.REDEEM_REWARDS_HISTORY),
+      ),
+      BottomNavBarModel(
+        id: 4,
         title: Strings.CHANGE_PASSWORD,
         icon: EneftyIcons.lock_outline,
         onTap: () => Get.toNamed(Routes.CHANGE_PASSWORD),
       ),
       BottomNavBarModel(
-        id: 4,
+        id: 5,
         title: Strings.LOGOUT,
         icon: EneftyIcons.logout_2_outline,
         onTap: () => LandingController.instance.logOut(),

@@ -9,6 +9,7 @@ class SwitchAccount extends GetView<SwitchAccountController> {
       appBar: CustomAppBar(title: Strings.SWITCH_ACCOUNT_WBSN),
       body: CustomFutureBuilder(
         future: SwitchAccountRepository.getCompanies(),
+        customLoader: CustomLoading.spinKitThreeBouncePrimary,
         data: (companies) => controller.companies = companies ?? [],
         hasDataBuilder: (_, __) => _buildAccounts(context),
       ),

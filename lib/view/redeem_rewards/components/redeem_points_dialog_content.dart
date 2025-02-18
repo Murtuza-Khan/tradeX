@@ -67,7 +67,7 @@ class RedeemPointsDialogContent extends GetView<RedeemRewardsController> {
                   ),
                 ),
                 TextSpan(
-                  text: " was successfully redeemed on ",
+                  text: " was successfully issued on ",
                   style: context.titleLarge.copyWith(
                     fontSize: 21,
                     fontWeight: FontWeight.normal,

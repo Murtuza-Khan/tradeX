@@ -23,7 +23,7 @@ class Landing extends GetView<LandingController> {
 
   CustomAppBar _buildAppBar(BuildContext context) {
     return CustomAppBar(
-      title: '',
+      title: (AuthManager.instance.company.name ?? "").capitalizeFirstLetter,
       onTap: () {},
       showLogo: true,
       leading: SizedBox(),

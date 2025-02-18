@@ -20,6 +20,7 @@ class Strings {
   static const String OPEN_WIFI_SETTINGS = 'Open Wifi Settings';
   static const String YOU_ARE_OFFLINE = "You're Offline.";
   static const String NO_RECORD_FOUND = "No Record Found !!";
+  static const String POWERED_BY = "Powered by";
 
 // On Boarding
   static const String YOUR_GATEWAY = "Your Gateway to Exclusive Offers";
@@ -65,10 +66,10 @@ class Strings {
   static const String TOTAL_POINTS = "Total Points";
   static const String REDEEMED_POINTS = "Redeemed Points";
   static const String CHANGE_PASSWORD = "Change Password";
-  static const String REDEEME = "Redeeme";
-  static const String REDEEME_HISTORY = "Redeeme History";
+  static const String REDEEME = "Redeem";
+  static const String REDEEME_HISTORY = "Redeem History";
   static const String SWITCH_ACCOUNT = "Switch\nAccount";
-  static const String REDEEM_POINTS = "Redeem\nPoints";
+  static const String REDEEM_POINTS = "Redeem Points";
   static const String DATE = "Date";
   static const String POINTS = "Points";
   static const String ISSUED_BY = "Issued By";

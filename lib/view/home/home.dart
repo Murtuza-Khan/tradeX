@@ -20,11 +20,8 @@ class Home extends GetView<HomeController> {
                 physics: NeverScrollableScrollPhysics(),
                 child: HomeShimmer().paddingAll(16.0),
               ),
-              data: (receivedPoints) async {
-                await Future.delayed(Durations.medium1);
-                return controller.receivedPoints =
-                    receivedPoints ?? ReceivedPointsModel();
-              },
+              data: (receivedPoints) async => controller.receivedPoints =
+                  receivedPoints ?? ReceivedPointsModel(),
               hasDataBuilder: (_, __) => _buildReceivedPointsList(context),
             );
           },
@@ -36,12 +33,28 @@ class Home extends GetView<HomeController> {
   Widget _buildReceivedPointsList(BuildContext context) {
     return Column(
       children: [
+        if (controller.receivedPoints.banner != null) ...[
+          Container(
+            height: 165,
+            width: double.maxFinite,
+            decoration: BoxDecoration(color: AppColors.backgroundColor),
+            child: ImageService.image(
+              controller.receivedPoints.banner,
+              fit: BoxFit.fitWidth,
+              borderRadius: 0,
+            ),
+          ).shadow(radius: 0),
+        ],
         ListView.separated(
           padding: EdgeInsets.only(
             left: 16,
             right: 16,
-            top: 12,
-            bottom: Platform.isAndroid ? 105 : 80,
+            top: 16,
+            bottom: (controller.receivedPoints.receivedPoints ?? []).isEmpty
+                ? 0
+                : Platform.isAndroid
+                    ? 105
+                    : 80,
           ),
           itemCount: (controller.receivedPoints.receivedPoints ?? []).isEmpty
               ? 1
@@ -58,7 +71,9 @@ class Home extends GetView<HomeController> {
                         context,
                         title: Strings.TOTAL_POINTS,
                         subTitle: GlobalHelper.formatedNumber(
-                          value: controller.receivedPoints.totalPoints ?? 0,
+                          value: (controller.receivedPoints.awardedPoints ??
+                                  0) -
+                              ((controller.receivedPoints.redeemedPoints ?? 0)),
                         ),
                         icon: EneftyIcons.star_outline,
                       ).expanded(),
@@ -99,7 +114,7 @@ class Home extends GetView<HomeController> {
             title: Strings.NO_RECORD_FOUND,
             subtitle: "No information is currently available",
           ).expanded(),
-          SizedBox(height: 150),
+          SizedBox(height: 90),
         ],
       ],
     );

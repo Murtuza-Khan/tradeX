@@ -18,4 +18,5 @@ class Urls {
   static const String CHANGE_PASSWORD = '/api/v1/change-password';
   static const String SELECT_ACCOUNT = '/api/v1/select-account';
   static const String REDEEM = '/api/v1/redeem';
+  static const String USER_POINTS = '/api/v1/user-points';
 }

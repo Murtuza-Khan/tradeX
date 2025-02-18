@@ -26,6 +26,7 @@ class HomeRepository {
     } else {
       MacLog.printR("THEME NOT CHANGED ..........");
     }
+    await Future.delayed(Durations.medium2);
     return result;
   }
 }

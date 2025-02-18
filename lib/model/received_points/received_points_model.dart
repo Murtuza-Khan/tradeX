@@ -1,21 +1,27 @@
 import '../../resources/exports/index.dart';
 
 class ReceivedPointsModel {
-  int? totalPoints;
+  int? awardedPoints;
   int? redeemedPoints;
+  String? logo;
+  String? banner;
   AppColorsModel? appColors;
   List<ReceivedPointsDataModel>? receivedPoints;
 
   ReceivedPointsModel({
-    this.totalPoints,
+    this.awardedPoints,
     this.redeemedPoints,
+    this.logo,
+    this.banner,
     this.receivedPoints,
     this.appColors,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'awarded_points': totalPoints,
+      'awarded_points': awardedPoints,
+      'logo': logo,
+      'banner': banner,
       'redeemed_points': redeemedPoints,
       'app_colors': appColors?.toMap(),
       'received_points': ReceivedPointsDataModel.listToJson(
@@ -26,8 +32,10 @@ class ReceivedPointsModel {
 
   factory ReceivedPointsModel.fromMap(Map<String, dynamic> map) {
     return ReceivedPointsModel(
-      totalPoints: map['awarded_points'] as int?,
+      awardedPoints: map['awarded_points'] as int?,
       redeemedPoints: map['redeemed_points'] as int?,
+      logo: map['logo'] as String?,
+      banner: map['banner'] as String?,
       receivedPoints: ReceivedPointsDataModel.listFromJson(
         map['received_points'] ?? [],
       ),

@@ -12,3 +12,4 @@ export '../../model/redeem_history/redeem_history_model.dart';
 export '../../model/firebase_notification/firebase_notificationfirebase_notification_model.dart';
 export '../../model/user_mobile_numbers/user_mobile_numbers.dart';
 export '../../model/app_colors/app_colors_model.dart';
+export '../../model/user_points/user_points.dart';

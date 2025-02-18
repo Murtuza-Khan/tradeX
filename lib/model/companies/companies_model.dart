@@ -6,6 +6,8 @@ class CompaniesModel {
   bool? isPhoneVerified;
   String? countryCode;
   String? phone;
+  String? logo;
+  String? banner;
 
   CompaniesModel({
     this.id,
@@ -15,6 +17,8 @@ class CompaniesModel {
     this.isPhoneVerified,
     this.countryCode,
     this.phone,
+    this.logo,
+    this.banner,
   });
 
   static List<CompaniesModel> listFromJson(List jsonList) {
@@ -34,6 +38,8 @@ class CompaniesModel {
       'is_phone_verified': isPhoneVerified,
       'country_code': countryCode,
       'phone': phone,
+      'logo': logo,
+      'banner': banner,
     };
   }
 
@@ -46,6 +52,8 @@ class CompaniesModel {
       isPhoneVerified: map['is_phone_verified'] as bool?,
       countryCode: map['country_code'] as String?,
       phone: map['phone'] as String?,
+      logo: map['logo'] as String?,
+      banner: map['banner'] as String?,
     );
   }
 
@@ -61,6 +69,8 @@ class CompaniesModel {
     bool? isPhoneVerified,
     String? countryCode,
     String? phone,
+    String? logo,
+    String? banner,
   }) {
     return CompaniesModel(
       id: id ?? this.id,
@@ -70,6 +80,8 @@ class CompaniesModel {
       isPhoneVerified: isPhoneVerified ?? this.isPhoneVerified,
       countryCode: countryCode ?? this.countryCode,
       phone: phone ?? this.phone,
+      logo: logo ?? this.logo,
+      banner: banner ?? this.banner,
     );
   }
 }

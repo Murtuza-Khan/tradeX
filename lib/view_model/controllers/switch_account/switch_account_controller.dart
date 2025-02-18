@@ -24,7 +24,11 @@ class SwitchAccountController extends GetxController {
       );
       if (result == ApiResult.success) {
         CustomSnackBar.successSnackBar(message: Strings.ACCOUNT_SWITCHED);
-        Get.find<HomeController>().update(['refresh_home_data']);
+        if (LandingController.instance.selectedIndex == 0) {
+          Get.find<HomeController>().update(['refresh_home_data']);
+        } else {
+          LandingController.instance.onNavigate(0, Routes.HOME);
+        }
         Get.back();
       }
     } else {

@@ -12,7 +12,7 @@ class NoContent extends StatelessWidget {
     required this.title,
     required this.subtitle,
     this.padding = 0,
-    this.showBackground = false,
+    this.showBackground = true,
     this.backgroundColor,
   });
 
@@ -26,7 +26,7 @@ class NoContent extends StatelessWidget {
         ),
         child: Container(
           color: backgroundColor ??
-              (showBackground ? AppColors.white : Colors.transparent),
+              (showBackground ? AppColors.backgroundColor : Colors.transparent),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SingleChildScrollView(

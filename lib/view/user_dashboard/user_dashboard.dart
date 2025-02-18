@@ -9,57 +9,78 @@ class UserDashboard extends GetView<UserDashboardController> {
       child: Container(
         width: double.maxFinite,
         color: AppColors.backgroundColor,
-        child: Column(
-          children: [
-            _buildWelcomeHeader(context),
-            const SpaceH20(),
-            ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              itemCount: controller.items.length,
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (_, index) {
-                return GestureDetector(
-                  onTap: controller.items[index].onTap,
-                  child: Container(
-                    color: AppColors.backgroundColor,
-                    child: Column(
-                      children: [
-                        const Divider(color: AppColors.divider, thickness: 1.5),
-                        Row(
-                          children: [
-                            Icon(
-                              controller.items[index].icon,
-                              color: index == controller.items.length - 1
-                                  ? AppColors.error
-                                  : AppColors.primary,
-                              size: 38.0,
-                            ),
-                            const SpaceW16(),
-                            Text(
-                              controller.items[index].title,
-                              style: context.titleLarge.copyWith(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildWelcomeHeader(context),
+              const SpaceH20(),
+              ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                itemCount: controller.items.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (_, index) {
+                  return GestureDetector(
+                    onTap: controller.items[index].onTap,
+                    child: Container(
+                      color: AppColors.backgroundColor,
+                      child: Column(
+                        children: [
+                          const Divider(
+                              color: AppColors.divider, thickness: 1.5),
+                          Row(
+                            children: [
+                              Icon(
+                                controller.items[index].icon,
                                 color: index == controller.items.length - 1
                                     ? AppColors.error
                                     : AppColors.primary,
-                                fontSize: 20,
+                                size: 38.0,
                               ),
-                            ).expanded(),
-                            Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              color: AppColors.primary,
-                              size: 28.0,
-                            ),
-                          ],
-                        ).paddingSymmetric(vertical: 12.0),
-                      ],
+                              const SpaceW16(),
+                              Text(
+                                controller.items[index].title,
+                                style: context.titleLarge.copyWith(
+                                  color: index == controller.items.length - 1
+                                      ? AppColors.error
+                                      : AppColors.primary,
+                                  fontSize: 20,
+                                ),
+                              ).expanded(),
+                              Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: AppColors.primary,
+                                size: 28.0,
+                              ),
+                            ],
+                          ).paddingSymmetric(vertical: 12.0),
+                        ],
+                      ),
                     ),
+                  );
+                },
+              ),
+              const SpaceH20(),
+              Stack(
+                children: [
+                  Positioned(
+                    width: 220,
+                    child: Center(
+                        child: Text(Strings.POWERED_BY,
+                            style: context.titleLarge)),
                   ),
-                );
-              },
-            ).expanded(),
-            const SpaceH110(),
-          ],
+                  SizedBox(
+                    height: 100,
+                    width: 220,
+                    child:
+                        ImageService.image(Assets.APP_LOGO, fit: BoxFit.contain)
+                            .paddingOnly(top: 5),
+                  ),
+                ],
+              ),
+              const SpaceH20(),
+            ],
+          ),
         ),
       ),
     );
