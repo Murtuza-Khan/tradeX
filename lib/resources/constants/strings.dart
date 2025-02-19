@@ -72,8 +72,18 @@ class Strings {
   static const String REDEEM_POINTS = "Redeem Points";
   static const String DATE = "Date";
   static const String POINTS = "Points";
+  static const String HERE = "Here";
+  static const String CLICK = "Click";
+  static const String FOR_COMPLETE = "for complete list of partner brands";
   static const String ISSUED_BY = "Issued By";
   static const String RECEIVED_POINTS = "Received Points";
+  static const String CLICK_HERE = "Click Here";
+  static const String PLEASE_SELECT_THE =
+      "Please enter the points to redeem and click ";
+  static const String REDEEM_NOW = "Redeem Now";
+  static const String BUTTON = " button";
+  static const String YOU_MAY_CONVERT =
+      "You may convert your points into GiftKarte Universal e-Gift Card, for more details on the usage please. ";
 
   // Switch Account
   static const String SWITCH_ACCOUNT_WBSN = "Switch Account";

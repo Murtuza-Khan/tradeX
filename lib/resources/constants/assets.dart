@@ -8,9 +8,13 @@ class Assets {
 // Logo
   static const String _logo = '${_assets}logo/';
   static const String APP_LOGO = '${_logo}logo.png';
-
+  
 // Images
-  // static const String _images = '${_assets}images/';
+  static const String _images = '${_assets}images/';
+
+// Redeem Rewards
+  static const String _redeem_rewards = '${_images}redeem_rewards/';
+  static const String REDEEM_INFO = '${_redeem_rewards}redeem_info.jpg';
 
 // social
   // static const String _social = '${_assets}social/';

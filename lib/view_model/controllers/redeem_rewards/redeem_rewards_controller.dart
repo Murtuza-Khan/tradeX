@@ -12,8 +12,10 @@ class RedeemRewardsController extends GetxController {
   void onPointsChanged(String? value) {
     points.value = (userPoints.awardedPoints?.value ?? 0) -
         (userPoints.redeemedPoints?.value ?? 0);
-    if ((value ?? "").isEmpty) return;
-    points.value = points.value - int.parse(value ?? "0");
+    if (formKey.currentState?.validate() ?? false) {
+      if ((value ?? "").isEmpty) return;
+      points.value = points.value - int.parse(value ?? "0");
+    }
   }
 
   Future<void> redeemPoints() async {

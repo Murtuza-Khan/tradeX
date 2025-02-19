@@ -58,6 +58,28 @@ class GlobalHelper {
     return base64Encode(Uint8List.fromList(charCodes));
   }
 
+  static Future<void> launch(String url, {String? failUrl}) async {
+    try {
+      if (url.isEmpty) {
+        return CustomSnackBar.errorSnackBar(message: Strings.COULD_NOT_LAUNCH);
+      }
+      await launchUrl(Uri.parse(url));
+    } catch (_) {
+      MacLog.printM(failUrl);
+
+      if ((failUrl ?? '').isEmpty) {
+        return CustomSnackBar.errorSnackBar(
+          message: Strings.COULD_NOT_LAUNCH,
+        );
+      }
+      if (!await launchUrl(Uri.parse(failUrl!))) {
+        return CustomSnackBar.errorSnackBar(
+          message: Strings.COULD_NOT_LAUNCH,
+        );
+      }
+    }
+  }
+
   static dynamic decrypt(String encryptedData) {
     String key = dotenv.get('API_ENCRYPTION_KEY');
 
