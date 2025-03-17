@@ -63,7 +63,12 @@ class GlobalHelper {
       if (url.isEmpty) {
         return CustomSnackBar.errorSnackBar(message: Strings.COULD_NOT_LAUNCH);
       }
-      await launchUrl(Uri.parse(url));
+      bool canLaunch = await canLaunchUrl(Uri.parse(url));
+      if (canLaunch) {
+        await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+      } else {
+        await launchUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.ionic.giftkarte"));
+      }
     } catch (_) {
       MacLog.printM(failUrl);
 

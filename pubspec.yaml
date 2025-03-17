@@ -4,10 +4,10 @@ description: "A new Flutter project."
 publish_to: "none"
 
 # Android
-version: 1.0.0+7
+# version: 1.0.0+10
 
 # IOS
-# version: 1.0.0+8
+version: 1.0.0+11
 
 environment:
   sdk: ^3.5.4
@@ -32,6 +32,7 @@ dependencies:
   share_plus: ^10.1.4
   flutter_html: ^3.0.0-beta.2
   adaptive_theme: ^3.7.0
+  appcheck: ^1.5.3
 
   encrypt: ^5.0.3
   crypto: ^3.0.6
@@ -94,10 +95,10 @@ flutter_launcher_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path: assets/logo/ignite_launcher_icon_android.png
+  image_path: assets/logo/delta_launcher_icon_android.png
   image_path_ios: assets/logo/launcher_icon_ios.png
   adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/logo/ignite_launcher_icon_android.png"
+  adaptive_icon_foreground: "assets/logo/delta_launcher_icon_android.png"
 
 flutter:
   uses-material-design: true

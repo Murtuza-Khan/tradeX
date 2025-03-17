@@ -3,7 +3,7 @@ part of 'constants.dart';
 class AppColors {
   static AppColorsModel color = AuthManager.instance.appColorsModel;
 
-  static Color primary = color.primaryColor ?? Colors.deepPurple;
+  static Color primary = color.primaryColor ?? Color(0xFF28647b);
   static Color secondary = color.secondaryColor ?? Colors.black;
   static Color backgroundColor = color.backgroundColor ?? Colors.white;
   static Color tertiaryColor = color.tertiaryColor ?? Colors.transparent;

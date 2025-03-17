@@ -15,7 +15,7 @@ class UserDashboardController extends GetxController {
       BottomNavBarModel(
         id: 0,
         title: Strings.PROFILE,
-        icon: EneftyIcons.profile_2user_outline,
+        icon: EneftyIcons.profile_2user_outline, 
         onTap: () => Get.toNamed(Routes.PROFILE),
       ),
       BottomNavBarModel(
