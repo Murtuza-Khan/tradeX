@@ -113,7 +113,7 @@ class RedeemRewards extends GetView<RedeemRewardsController> {
                       TextSpan(
                         text: " ${GlobalHelper.formatedNumber(value: 1000)} ",
                         style: context.titleLarge.copyWith(
-                          color: AppColors.success,
+                          color: AppColors.primary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
