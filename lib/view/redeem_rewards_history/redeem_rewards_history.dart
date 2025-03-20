@@ -1,6 +1,6 @@
 import '../../resources/exports/index.dart';
 
-class RedeemRewardsHistory extends StatelessWidget {
+class RedeemRewardsHistory extends GetView<RedeemRewardsHistoryController> {
   const RedeemRewardsHistory({super.key});
 
   @override
@@ -41,32 +41,53 @@ class RedeemRewardsHistory extends StatelessWidget {
           color: AppColors.white,
           borderRadius: BorderRadius.circular(12.0),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
           children: [
-            _buildTitleAndSubTitle(
-              context,
-              title: Strings.DATE,
-              icon: EneftyIcons.calendar_outline,
-              subTitle: history.createdDate?.format(
-                pattern: "dd-MMM-yyyy, hh:mm a",
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildTitleAndSubTitle(
+                  context,
+                  title: Strings.DATE,
+                  icon: EneftyIcons.calendar_outline,
+                  subTitle: history.createdDate?.format(
+                    pattern: "dd-MMM-yyyy, hh:mm a",
+                  ),
+                ),
+                SpaceH12(),
+                _buildTitleAndSubTitle(
+                  context,
+                  title: Strings.POINTS_REDEEMED,
+                  icon: EneftyIcons.gift_outline,
+                  subTitle: (history.points ?? 0).getFormattedCurrency(
+                    showSymbol: false,
+                  ),
+                ),
+                SpaceH12(),
+                _buildTitleAndSubTitle(
+                  context,
+                  title: Strings.VOUCHER_CODE,
+                  subTitle: history.voucherCode,
+                ),
+              ],
+            ).expanded(),
+            GestureDetector(
+              onTap: () {
+                CustomDialog.showConfirmationDialog(
+                  message: "Do you have the Giftkarte app installed?",
+                  onTapConfirm: () async => controller.onConfirmDeepLinkTap(),
+                  onTapCancel: () async => controller.onCancleDeepLinkTap(),
+                );
+              },
+              child: Container(
+                color: Colors.transparent,
+                child: Icon(
+                  EneftyIcons.link_3_bold,
+                  color: AppColors.primary,
+                  size: 35,
+                ),
               ),
-            ),
-            SpaceH12(),
-            _buildTitleAndSubTitle(
-              context,
-              title: Strings.POINTS_REDEEMED,
-              icon: EneftyIcons.gift_outline,
-              subTitle: (history.points ?? 0).getFormattedCurrency(
-                showSymbol: false,
-              ),
-            ),
-            SpaceH12(),
-            _buildTitleAndSubTitle(
-              context,
-              title: Strings.VOUCHER_CODE,
-              subTitle: history.voucherCode,
             ),
           ],
         ),
