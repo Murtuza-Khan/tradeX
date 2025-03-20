@@ -1,5 +1,4 @@
 import '../../resources/exports/index.dart';
-import 'package:appcheck/appcheck.dart';
 
 class RedeemRewardsHistory extends StatelessWidget {
   const RedeemRewardsHistory({super.key});
@@ -29,77 +28,47 @@ class RedeemRewardsHistory extends StatelessWidget {
   }
 
   Widget _buildHistoryCard(BuildContext context, RedeemHistory history) {
-    return GestureDetector(
-      onTap: () async {
-        if (Platform.isAndroid) {
-          final appCheck = AppCheck();
-          const androidPackage = "com.ionic.giftkarte";
-          AppInfo? info = await appCheck
-              .checkAvailability(androidPackage)
-              .onError((e, st) => null);
-
-          if (info == null) {
-            await launchUrl(
-              Uri.parse(
-                "https://play.google.com/store/apps/details?id=$androidPackage",
-              ),
-              mode: LaunchMode.externalApplication,
-            );
-          } else {
-            await launchUrl(
-              Uri.parse("https://giftkarte.com/received_e_gift_cards"),
-              mode: LaunchMode.externalApplication,
-            );
-          }
-        } else {
-          await launchUrl(
-            Uri.parse("https://giftkarte.com/received_e_gift_cards"),
-            mode: LaunchMode.externalApplication,
-          );
-        }
-      },
+    return Container(
+      width: double.maxFinite,
+      decoration: BoxDecoration(
+        color: AppColors.primary,
+        borderRadius: BorderRadius.circular(12.0),
+      ),
       child: Container(
-        width: double.maxFinite,
+        margin: EdgeInsets.only(left: 5.0),
+        padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: AppColors.primary,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(12.0),
         ),
-        child: Container(
-          margin: EdgeInsets.only(left: 5.0),
-          padding: EdgeInsets.all(12.0),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildTitleAndSubTitle(
-                context,
-                title: Strings.DATE,
-                icon: EneftyIcons.calendar_outline,
-                subTitle: history.createdDate?.format(
-                  pattern: "dd-MMM-yyyy, hh:mm a",
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildTitleAndSubTitle(
+              context,
+              title: Strings.DATE,
+              icon: EneftyIcons.calendar_outline,
+              subTitle: history.createdDate?.format(
+                pattern: "dd-MMM-yyyy, hh:mm a",
               ),
-              SpaceH12(),
-              _buildTitleAndSubTitle(
-                context,
-                title: Strings.POINTS_REDEEMED,
-                icon: EneftyIcons.gift_outline,
-                subTitle: (history.points ?? 0).getFormattedCurrency(
-                  showSymbol: false,
-                ),
+            ),
+            SpaceH12(),
+            _buildTitleAndSubTitle(
+              context,
+              title: Strings.POINTS_REDEEMED,
+              icon: EneftyIcons.gift_outline,
+              subTitle: (history.points ?? 0).getFormattedCurrency(
+                showSymbol: false,
               ),
-              SpaceH12(),
-              _buildTitleAndSubTitle(
-                context,
-                title: Strings.VOUCHER_CODE,
-                subTitle: history.voucherCode,
-              ),
-            ],
-          ),
+            ),
+            SpaceH12(),
+            _buildTitleAndSubTitle(
+              context,
+              title: Strings.VOUCHER_CODE,
+              subTitle: history.voucherCode,
+            ),
+          ],
         ),
       ),
     );

@@ -41,15 +41,17 @@ extension HexColor on Color {
   }
 
   static Color fromHex(String? hexString) {
-    if ((hexString ?? "").isEmpty) return Color(0xFFFFFFFF);
-    if ((hexString ?? "").startsWith("0x")) {
-      (hexString ?? "").substring(2);
+    if (hexString == null || hexString.isEmpty) return const Color(0xFFFFFFFF);
+    hexString = hexString.trim();
+    if (hexString.startsWith("0x")) {
+      hexString = hexString.substring(2);
     }
-    final buffer = StringBuffer();
-    if ((hexString ?? "").length == 6 || (hexString ?? "").length == 7) {
-      buffer.write('ff');
+    if (hexString.startsWith("#")) {
+      hexString = hexString.substring(1);
     }
-    buffer.write((hexString ?? "").replaceFirst('#', ''));
-    return Color(int.parse(buffer.toString(), radix: 16));
+    if (hexString.length == 6) {
+      hexString = "ff$hexString";
+    }
+    return Color(int.parse(hexString, radix: 16));
   }
 }

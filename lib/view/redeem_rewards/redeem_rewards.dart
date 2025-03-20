@@ -126,13 +126,18 @@ class RedeemRewards extends GetView<RedeemRewardsController> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   SpaceH16(),
-                  CustomButton.solid(
-                    backgroundColor: AppColors.primary,
-                    textColor: AppColors.white,
-                    text: Strings.REDEEME,
-                    onTapAsync: () async => controller.redeemPoints(),
-                    radius: Sizes.RADIUS_12,
-                    constraints: const BoxConstraints(minHeight: 55),
+                  GetBuilder<RedeemRewardsController>(
+                    id: 'redeem_btn',
+                    builder: (_) {
+                      return CustomButton.solid(
+                        backgroundColor: AppColors.primary,
+                        textColor: AppColors.white,
+                        text: controller.getButtonText,
+                        onTapAsync: () async => controller.redeemPoints(),
+                        radius: Sizes.RADIUS_12,
+                        constraints: const BoxConstraints(minHeight: 55),
+                      );
+                    },
                   ),
                   SpaceH96(),
                 ],

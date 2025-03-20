@@ -7,33 +7,38 @@ class HomeShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Container(
+          height: 165,
+          width: double.maxFinite,
+          decoration: BoxDecoration(color: AppColors.backgroundColor),
+        ).shimmerWidget,
+        SpaceH16(),
         Row(
           children: [
             PointsCardShimmer().expanded(),
             SpaceW16(),
             PointsCardShimmer().expanded(),
           ],
-        ).constrainedBox(maxHeight: 120),
-        SpaceH20(),
-        _buildViewAllBtn(context),
+        ).constrainedBox(maxHeight: 120).pdSymt(h: 16.0),
+        SpaceH8(),
+        _buildViewAllBtn(context).paddingAll(16.0),
+        HomeCardShimmer().shadow(radius: 12.0).pdSymt(h: 16.0),
         SpaceH16(),
-        HomeCardShimmer().shadow(radius: 12.0),
+        HomeCardShimmer().shadow(radius: 12.0).pdSymt(h: 16.0),
         SpaceH16(),
-        HomeCardShimmer().shadow(radius: 12.0),
+        HomeCardShimmer().shadow(radius: 12.0).pdSymt(h: 16.0),
         SpaceH16(),
-        HomeCardShimmer().shadow(radius: 12.0),
+        HomeCardShimmer().shadow(radius: 12.0).pdSymt(h: 16.0),
         SpaceH16(),
-        HomeCardShimmer().shadow(radius: 12.0),
+        HomeCardShimmer().shadow(radius: 12.0).pdSymt(h: 16.0),
         SpaceH16(),
-        HomeCardShimmer().shadow(radius: 12.0),
+        HomeCardShimmer().shadow(radius: 12.0).pdSymt(h: 16.0),
         SpaceH16(),
-        HomeCardShimmer().shadow(radius: 12.0),
+        HomeCardShimmer().shadow(radius: 12.0).pdSymt(h: 16.0),
         SpaceH16(),
-        HomeCardShimmer().shadow(radius: 12.0),
+        HomeCardShimmer().shadow(radius: 12.0).pdSymt(h: 16.0),
         SpaceH16(),
-        HomeCardShimmer().shadow(radius: 12.0),
-        SpaceH16(),
-        HomeCardShimmer().shadow(radius: 12.0),
+        HomeCardShimmer().shadow(radius: 12.0).pdSymt(h: 16.0),
         SpaceH16(),
       ],
     );
@@ -71,5 +76,4 @@ class HomeShimmer extends StatelessWidget {
       ),
     );
   }
-
 }

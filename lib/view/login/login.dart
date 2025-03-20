@@ -14,6 +14,10 @@ class Login extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                ImageService.image(Assets.LOGIN_SCREEN_LOGO, scale: 3.5).clipRRect(
+                  radius: BorderRadius.circular(120),
+                ),
+                SpaceH16(),
                 Text(
                   Strings.LOGIN_INTO_YOUR_ACCOUNT,
                   style: context.headlineSmall.copyWith(
@@ -21,16 +25,16 @@ class Login extends StatelessWidget {
                     fontSize: 30.0,
                   ),
                 ),
-                const SpaceH20(),
+                const SpaceH10(),
                 Text(
-                  "${Strings.WELCOME} ${Strings.TO_IGNITE}",
+                  "${Strings.WELCOME} ${Strings.TO_DELTA}",
                   style: context.titleMedium.copyWith(
                     color: AppColors.disabled,
                   ),
                 ),
-                const SpaceH30(),
+                const SpaceH20(),
                 const LoginForm(),
-                const SpaceH30(),
+                const SpaceH20(),
               ],
             ).paddingSymmetric(horizontal: 16.0),
           ),

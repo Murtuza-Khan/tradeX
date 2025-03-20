@@ -43,7 +43,7 @@ class Strings {
   static const String DISCLAIMER = "Disclaimer";
   static const String LOGOUT = "Logout";
   static const String WELCOME = "Welcome";
-  static const String TO_IGNITE = "To TradeX";
+  static const String TO_DELTA = "To Delta";
   static const String CLOSE_MENU = "Close Menu";
 
 // Home
@@ -99,6 +99,7 @@ class Strings {
   static const String REQUEST_ID = "Request ID";
   static const String POINTS_REDEEMED = "Points redeemed";
   static const String VOUCHER_CODE = "Voucher Code";
+  static const String TAP_TO_VIEW = "Tap to view your reward voucher on giftkarte app";
 
   // Login
   static const String PLEASE_LOGIN = "Please Login";

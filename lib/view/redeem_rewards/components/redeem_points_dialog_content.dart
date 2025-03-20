@@ -106,6 +106,20 @@ class RedeemPointsDialogContent extends GetView<RedeemRewardsController> {
               radius: Sizes.RADIUS_12,
               constraints: const BoxConstraints(minHeight: 55),
             ),
+            SpaceH16(),
+            GestureDetector(
+              onTap: () async => controller.onDeepLinkTap(),
+              child: Text(
+                Strings.TAP_TO_VIEW,
+                style: context.labelLarge.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.primary,
+                  decoration: TextDecoration.underline,
+                  decorationColor: AppColors.primary,
+                  decorationThickness: 1.5,
+                ),
+              ),
+            ),
           ],
         ).paddingSymmetric(horizontal: 16.0),
       ),

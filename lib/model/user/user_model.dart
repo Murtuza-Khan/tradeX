@@ -5,6 +5,7 @@ class UserModel {
   String? countrycode;
   String? phone;
   String? cnic;
+  String? profileImage;
 
   UserModel({
     this.email,
@@ -13,6 +14,7 @@ class UserModel {
     this.countrycode,
     this.phone,
     this.cnic,
+    this.profileImage,
   });
 
   Map<String, dynamic> toJson() {
@@ -23,6 +25,7 @@ class UserModel {
       'country_code': countrycode,
       'phone': phone,
       'cnic': cnic,
+      'profile_image': profileImage,
     };
   }
 
@@ -34,6 +37,7 @@ class UserModel {
       countrycode: json['country_code'] as String?,
       phone: json['phone'] as String?,
       cnic: json['cnic'] as String?,
+      profileImage: json['profile_image'] as String?,
     );
   }
 
@@ -44,6 +48,7 @@ class UserModel {
     String? countrycode,
     String? phone,
     String? cnic,
+    String? profileImage,
   }) {
     return UserModel(
       email: email ?? this.email,
@@ -52,6 +57,7 @@ class UserModel {
       countrycode: countrycode ?? this.countrycode,
       phone: phone ?? this.phone,
       cnic: cnic ?? this.cnic,
+      profileImage: profileImage ?? this.profileImage,
     );
   }
 

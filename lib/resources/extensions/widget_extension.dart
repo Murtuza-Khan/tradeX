@@ -21,6 +21,10 @@ extension WidgetExtensions on Widget {
     return Align(alignment: align ?? Alignment.center, child: this);
   }
 
+  Widget clipRRect({required BorderRadius radius}) {
+    return ClipRRect(borderRadius: radius, child: this);
+  }
+
   Widget shadow({
     double radius = 35.0,
     Color? color,

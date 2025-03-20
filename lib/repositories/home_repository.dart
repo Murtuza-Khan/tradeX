@@ -23,10 +23,10 @@ class HomeRepository {
       await AuthManager.instance.saveAndUpdateSession(
         appColors: result.appColors,
       );
+      await Future.delayed(Durations.medium2);
     } else {
       MacLog.printR("THEME NOT CHANGED ..........");
     }
-    await Future.delayed(Durations.medium2);
     return result;
   }
 }

@@ -71,10 +71,10 @@ class SwitchAccount extends GetView<SwitchAccountController> {
             ),
             child: Row(
               children: [
-                Icon(
-                  EneftyIcons.buildings_2_outline,
-                  color: AppColors.primary,
-                  size: 30,
+                ImageService.image(
+                  company.logo,
+                  imageHeight: 55,
+                  imageWidth: 55,
                 ),
                 SpaceW12(),
                 CustomRichText(

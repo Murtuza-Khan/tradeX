@@ -8,24 +8,27 @@ class Home extends GetView<HomeController> {
     return RefreshIndicator(
       color: AppColors.black,
       onRefresh: () async => controller.update(["refresh_home_data"]),
-      child: Container(
-        margin: EdgeInsets.only(bottom: Platform.isAndroid ? 16.0 : 45.0),
-        decoration: BoxDecoration(color: AppColors.backgroundColor),
-        child: GetBuilder<HomeController>(
-          id: 'refresh_home_data',
-          builder: (_) {
-            return CustomFutureBuilder(
-              future: HomeRepository.getReceivedPoints(),
-              customLoader: SingleChildScrollView(
+      child: GetBuilder<HomeController>(
+        id: 'refresh_home_data',
+        builder: (_) {
+          return CustomFutureBuilder(
+            future: HomeRepository.getReceivedPoints(),
+            customLoader: Container(
+              color: AppColors.backgroundColor,
+              child: SingleChildScrollView(
                 physics: NeverScrollableScrollPhysics(),
-                child: HomeShimmer().paddingAll(16.0),
+                child: HomeShimmer(),
               ),
-              data: (receivedPoints) async => controller.receivedPoints =
-                  receivedPoints ?? ReceivedPointsModel(),
-              hasDataBuilder: (_, __) => _buildReceivedPointsList(context),
-            );
-          },
-        ),
+            ),
+            data: (receivedPoints) async => controller.receivedPoints =
+                receivedPoints ?? ReceivedPointsModel(),
+            hasDataBuilder: (_, __) => Container(
+              margin: EdgeInsets.only(bottom: Platform.isAndroid ? 16.0 : 45.0),
+              decoration: BoxDecoration(color: AppColors.backgroundColor),
+              child: _buildReceivedPointsList(context),
+            ),
+          );
+        },
       ),
     );
   }
@@ -40,7 +43,7 @@ class Home extends GetView<HomeController> {
             decoration: BoxDecoration(color: AppColors.backgroundColor),
             child: ImageService.image(
               controller.receivedPoints.banner,
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.cover,
               borderRadius: 0,
             ),
           ).shadow(radius: 0),

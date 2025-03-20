@@ -27,7 +27,9 @@ class UserDashboard extends GetView<UserDashboardController> {
                       child: Column(
                         children: [
                           const Divider(
-                              color: AppColors.divider, thickness: 1.5),
+                            color: AppColors.divider,
+                            thickness: 1.5,
+                          ),
                           Row(
                             children: [
                               Icon(

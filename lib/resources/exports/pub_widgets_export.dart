@@ -49,3 +49,4 @@ export 'package:firebase_core/firebase_core.dart';
 export 'package:firebase_messaging/firebase_messaging.dart';
 export 'package:flutter_local_notifications/flutter_local_notifications.dart';
 export 'package:adaptive_theme/adaptive_theme.dart';
+export 'package:appcheck/appcheck.dart';
