@@ -110,7 +110,7 @@ class Home extends GetView<HomeController> {
             );
           },
           separatorBuilder: (_, __) => SpaceH16(),
-        ),
+        ).expanded(),
         if ((controller.receivedPoints.receivedPoints ?? []).isEmpty) ...[
           NoContent(
             backgroundColor: AppColors.backgroundColor,

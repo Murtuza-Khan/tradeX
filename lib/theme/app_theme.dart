@@ -89,7 +89,6 @@ class AppTheme {
           modalBackgroundColor: AppColors.backgroundColor,
           surfaceTintColor: Colors.white,
         ),
-        dialogBackgroundColor: AppColors.white,
         dialogTheme: DialogTheme(
           backgroundColor: AppColors.backgroundColor,
           surfaceTintColor: AppColors.white,

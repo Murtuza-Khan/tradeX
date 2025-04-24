@@ -1,0 +1,2 @@
+/Users/giftkarte/Desktop/Flutter apps/tradex/android/app/.cxx/RelWithDebInfo/5a4r5670/x86_64/CMakeFiles/edit_cache.dir
+/Users/giftkarte/Desktop/Flutter apps/tradex/android/app/.cxx/RelWithDebInfo/5a4r5670/x86_64/CMakeFiles/rebuild_cache.dir

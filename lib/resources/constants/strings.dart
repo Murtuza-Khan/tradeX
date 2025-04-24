@@ -3,7 +3,7 @@ part of 'constants.dart';
 
 class Strings {
   static const String APP_NAME = "TradeX";
-  static const String CACHE_BOX_KEY = 'cacheBoxKey';
+  static const String CACHE_BOX_KEY = 'deltaCacheBoxKey';
 
   // Fonts Name
   static const String POPPINS = 'Poppins';
