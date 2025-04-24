@@ -202,6 +202,8 @@ class CustomDialog {
             margin: EdgeInsets.zero,
             padding: padding,
             noImage: noImage,
+            dialogHeight: height ?? 340,
+            dialogWidth: width ?? 340,
           ),
           height: height,
           width: width,
@@ -280,7 +282,7 @@ class CustomDialog {
       alignment: alignment ?? Alignment.center,
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Sizes.RADIUS_6),
+        borderRadius: BorderRadius.circular(Sizes.RADIUS_14),
       ),
       child: Container(
         constraints: BoxConstraints(
@@ -291,10 +293,10 @@ class CustomDialog {
         ),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(Sizes.RADIUS_6),
+          borderRadius: BorderRadius.circular(Sizes.RADIUS_14),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(Sizes.RADIUS_6),
+          borderRadius: BorderRadius.circular(Sizes.RADIUS_14),
           child: child,
         ),
       ),

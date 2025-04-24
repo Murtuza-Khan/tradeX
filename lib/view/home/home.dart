@@ -72,7 +72,7 @@ class Home extends GetView<HomeController> {
                     children: [
                       _buildPointsCard(
                         context,
-                        title: Strings.TOTAL_POINTS,
+                        title: Strings.AVAILABLE_POINTS,
                         subTitle: GlobalHelper.formatedNumber(
                           value: (controller.receivedPoints.awardedPoints ??
                                   0) -
@@ -116,8 +116,8 @@ class Home extends GetView<HomeController> {
             backgroundColor: AppColors.backgroundColor,
             title: Strings.NO_RECORD_FOUND,
             subtitle: "No information is currently available",
-          ).expanded(),
-          SizedBox(height: 90),
+          ),
+          SizedBox(height: Get.height * 0.23),
         ],
       ],
     );

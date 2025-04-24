@@ -64,6 +64,7 @@ class Strings {
   static const String UPDATE = "Update";
   static const String DASHBOARD = "Dashboard";
   static const String TOTAL_POINTS = "Total Points";
+  static const String AVAILABLE_POINTS = "Available Points";
   static const String REDEEMED_POINTS = "Redeemed Points";
   static const String CHANGE_PASSWORD = "Change Password";
   static const String REDEEME = "Redeem";
