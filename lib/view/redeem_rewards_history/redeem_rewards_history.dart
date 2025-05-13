@@ -20,7 +20,7 @@ class RedeemRewardsHistory extends GetView<RedeemRewardsHistoryController> {
         separator: SpaceH16(),
         shimmer: (_) => RedeemRewardsHistoryShimmer(),
         shouldRefreshList: (_) => true,
-        child: (_, index, __, ___, item) {
+        child: (_, index, __, ___, item, ctrl) {
           return _buildHistoryCard(context, item).shadow(radius: 12.0);
         },
       ),

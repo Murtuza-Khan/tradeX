@@ -10,6 +10,8 @@ class LandingController extends GetxController
 
   int selectedIndex = 0;
 
+  int notificationCount = 0;
+
   double animatedWidth(int index) {
     if (selectedIndex != index) return 80.0;
     if (index == 0) return 120.0;
@@ -21,7 +23,7 @@ class LandingController extends GetxController
     if (selectedIndex == 1 || selectedIndex == 2) {
       selectedIndex = 0;
       Get.offNamed(Routes.HOME, id: Strings.GET_NESTED_KEY_1);
-      update(['bottom_nav_bar', 'cart_count_badge']);
+      update(['bottom_nav_bar']);
     } else {
       InitializationService.onWillPop(context);
     }
@@ -32,7 +34,7 @@ class LandingController extends GetxController
       ScaffoldMessenger.of(Get.context!).clearSnackBars();
       selectedIndex = index;
       Get.offNamed(route, id: Strings.GET_NESTED_KEY_1);
-      update(['bottom_nav_bar', 'cart_count_badge', 'redeem_history']);
+      update(['bottom_nav_bar', 'redeem_history']);
     }
   }
 
@@ -74,8 +76,14 @@ class LandingController extends GetxController
     ];
   }
 
+  Future<void> getNotificationCount() async {
+    notificationCount = await NotificationRepository.getNotificationCount();
+    update(['new_notification_badge']);
+  }
+
   @override
   void onInit() {
+    getNotificationCount();
     scrollCtrl = ScrollController();
     initialize();
     super.onInit();

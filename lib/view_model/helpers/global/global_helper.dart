@@ -67,7 +67,8 @@ class GlobalHelper {
       if (canLaunch) {
         await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
       } else {
-        await launchUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.ionic.giftkarte"));
+        await launchUrl(Uri.parse(
+            "https://play.google.com/store/apps/details?id=com.ionic.giftkarte"));
       }
     } catch (_) {
       MacLog.printM(failUrl);
@@ -131,21 +132,26 @@ class GlobalHelper {
   ];
 
   static Future<String> getAccessToken() async {
-    http.Client client = await auth.clientViaServiceAccount(
-      auth.ServiceAccountCredentials.fromJson(Secrets.serviceAccountJson),
-      Secrets.scopes,
-    );
+    try {
+      http.Client client = await auth.clientViaServiceAccount(
+        auth.ServiceAccountCredentials.fromJson(Secrets.serviceAccountJson),
+        Secrets.scopes,
+      );
 
-    auth.AccessCredentials credentials =
-        await auth.obtainAccessCredentialsViaServiceAccount(
-      auth.ServiceAccountCredentials.fromJson(Secrets.serviceAccountJson),
-      Secrets.scopes,
-      client,
-    );
+      auth.AccessCredentials credentials =
+          await auth.obtainAccessCredentialsViaServiceAccount(
+        auth.ServiceAccountCredentials.fromJson(Secrets.serviceAccountJson),
+        Secrets.scopes,
+        client,
+      );
 
-    client.close();
+      client.close();
 
-    MacLog.printY(credentials.accessToken.data);
-    return credentials.accessToken.data;
+      MacLog.printY(credentials.accessToken.data);
+      return credentials.accessToken.data;
+    } catch (e) {
+      MacLog.printR(e);
+      return "";
+    }
   }
 }

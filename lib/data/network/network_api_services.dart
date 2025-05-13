@@ -22,7 +22,7 @@ class NetworkApiServices extends BaseApiServices {
   }
 
   void _checkTokenValidation(http.Response response) {
-    if (response.statusCode == 401) {
+    if (response.statusCode == 401 && AuthManager.instance.isLoggedIn) {
       AuthManager.instance.logout();
       Get.offAllNamed(Routes.LOGIN);
     }

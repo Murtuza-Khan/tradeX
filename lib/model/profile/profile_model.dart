@@ -3,16 +3,16 @@ class ProfileModel {
   String? firstName;
   String? lastName;
   String? email;
-  String? countryCode;
   String? phone;
+  String? profileImage;
 
   ProfileModel({
     this.userId,
     this.firstName,
     this.lastName,
     this.email,
-    this.countryCode,
     this.phone,
+    this.profileImage,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,19 +21,19 @@ class ProfileModel {
       'first_name': firstName,
       'last_name': lastName,
       'email': email,
-      'country_code': countryCode,
       'phone': phone,
+      'profile_image': profileImage,
     };
   }
 
   factory ProfileModel.fromMap(Map<String, dynamic> map) {
     return ProfileModel(
-      userId: map['user_id'] as int?,
+      userId: map['id'] as int?,
       firstName: map['first_name'] as String?,
       lastName: map['last_name'] as String?,
       email: map['email'] as String?,
-      countryCode: map['country_code'] as String?,
-      phone: map['phone'] as String?,
+      phone: map['mobile'] as String?,
+      profileImage: map['profile_image'] as String?,
     );
   }
 }

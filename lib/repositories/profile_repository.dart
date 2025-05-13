@@ -17,4 +17,10 @@ class ProfileRepository {
     if (response is bool) return null;
     return UserModel.fromJson(response);
   }
+
+  static Future<ProfileModel?> getProfile() async {
+    final response = await apiService.getApi(Urls.MY_PROFILE);
+    if (response is bool) return null;
+    return ProfileModel.fromMap(response);
+  }
 }

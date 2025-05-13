@@ -16,7 +16,7 @@ class Assets {
 
 // Redeem Rewards
   static const String _redeem_rewards = '${_images}redeem_rewards/';
-  static const String REDEEM_INFO = '${_redeem_rewards}redeem_info.jpg';
+  static const String REDEEM_INFO = '${_redeem_rewards}redeem_info.png';
 
 // social
   // static const String _social = '${_assets}social/';

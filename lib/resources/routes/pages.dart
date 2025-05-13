@@ -19,6 +19,13 @@ class Pages {
           binding: LandingBinding(),
           transition: _routeTransition,
         );
+      case Routes.NOTIFICATIONS:
+        return GetPageRoute(
+          settings: settings,
+          page: () => const Notifications(),
+          binding: NotificationsBinding(),
+          transition: _routeTransition,
+        );
       case Routes.LOGIN:
         return GetPageRoute(
           settings: settings,

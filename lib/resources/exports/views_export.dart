@@ -13,3 +13,4 @@ export '../../view/profile/profile.dart';
 export '../../view/redeem_rewards_history/redeem_rewards_history.dart';
 export '../../view/all_received_points/all_received_points.dart';
 export '../../view/change_password/change_password.dart';
+export '../../view/notifications/notifications.dart';

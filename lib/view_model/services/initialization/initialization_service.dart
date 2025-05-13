@@ -33,9 +33,9 @@ class InitializationService {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    FirebaseApi().initNotification();
-    FirebaseMessaging.instance.subscribeToTopic("gk_tradex");
-
+    await FirebaseApi().initNotification();
+    await FirebaseMessaging.instance.subscribeToTopic("gk_delta");
+ 
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

@@ -46,6 +46,10 @@ class Strings {
   static const String TO_DELTA = "To Delta";
   static const String CLOSE_MENU = "Close Menu";
 
+
+// Dashboard
+  static const String NOTIFICATIONS = "Notifications";
+
 // Home
   static const String BACK = "Back";
   static const String HI = "Hi";
@@ -77,6 +81,7 @@ class Strings {
   static const String CLICK = "Click";
   static const String FOR_COMPLETE = "for complete list of partner brands";
   static const String ISSUED_BY = "Issued By";
+  static const String TITLE = "Title";
   static const String RECEIVED_POINTS = "Received Points";
   static const String CLICK_HERE = "Click Here";
   static const String PLEASE_SELECT_THE =

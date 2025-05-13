@@ -7,3 +7,4 @@ export '../../repositories/reset_password_repository.dart';
 export '../../repositories/change_password_repository.dart';
 export '../../repositories/switch_account_repository.dart';
 export '../../repositories/redeem_rewards_repository.dart';
+export '../../repositories/notification_repository.dart';

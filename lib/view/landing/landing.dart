@@ -26,12 +26,30 @@ class Landing extends GetView<LandingController> {
       title: (AuthManager.instance.company.name ?? "").capitalizeFirstLetter,
       onTap: () {},
       showLogo: true,
-      leading: SizedBox(),
+      // leading: SizedBox(),
+      leading: GestureDetector(
+        onTap: () => GlobalHelper.getAccessToken(),
+        child: Container(
+          height: 40,
+          width: 40,
+          color: AppColors.primary,
+        ),
+      ),
       actions: Row(
         children: [
           _buildAppBarActions(
             context,
             onTap: () => Get.toNamed(Routes.SWITCH_ACCOUNT),
+          ),
+          Stack(
+            children: [
+              _buildNotificationIcon(
+                context,
+                icon: EneftyIcons.notification_bing_outline,
+                onTap: () {},
+              ),
+              _buildNewNotificationIcon(),
+            ],
           ),
           GetBuilder<LandingController>(
             id: "redeem_history",
@@ -46,6 +64,58 @@ class Landing extends GetView<LandingController> {
           SpaceW8(),
         ],
       ).showUp(),
+    );
+  }
+
+  Widget _buildNotificationIcon(
+    BuildContext context, {
+    VoidCallback? onTap,
+    IconData? icon,
+  }) {
+    return GestureDetector(
+      onTap: () => Get.toNamed(Routes.NOTIFICATIONS),
+      child: Container(
+        color: Colors.transparent,
+        padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+        child: Icon(
+          icon ?? EneftyIcons.book_outline,
+          color: AppColors.primary,
+          size: 32,
+        ),
+      ),
+    );
+  }
+
+  Positioned _buildNewNotificationIcon() {
+    return Positioned(
+      right: 8,
+      child: GetBuilder<LandingController>(
+        id: "new_notification_badge",
+        key: ValueKey(GlobalHelper.getRandomId()),
+        builder: (_) {
+          return controller.notificationCount == 0
+              ? SizedBox()
+              : CustomShadow(
+                  offset: Offset(1.0, 1.0),
+                  sigma: 1,
+                  child: Container(
+                    height: 13,
+                    width: 13,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          AppColors.primary,
+                          AppColors.primary.light(amount: 0.25),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+        },
+      ),
     );
   }
 
@@ -83,6 +153,7 @@ class Landing extends GetView<LandingController> {
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: GetBuilder<LandingController>(
             id: 'bottom_nav_bar',
+            key: ValueKey(GlobalHelper.getRandomId()),
             builder: (_) => Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(

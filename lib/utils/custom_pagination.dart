@@ -8,6 +8,7 @@ typedef CustomChild<T> = Widget Function(
   bool isLastIndex,
   ScrollController scrlCtrl,
   T item,
+  PagingController<int, T> pagingCtrl,
 );
 
 typedef LoadedData<T> = Function(T?);
@@ -572,6 +573,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
                         index == (_pagingController.itemList ?? []).length - 1,
                         _scrlController,
                         item,
+                        _pagingController,
                       ),
                     ],
                   );
@@ -675,6 +677,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
                 index == (_pagingController.itemList ?? []).length - 1,
                 _scrlController,
                 item,
+                _pagingController,
               ),
             ),
           ),

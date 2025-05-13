@@ -186,17 +186,8 @@ class Home extends GetView<HomeController> {
           children: [
             _buildTitleAndSubtitle(
               context,
-              title: Strings.ISSUED_BY,
-              subTitle: summary.from ?? '-',
-            ),
-            SpaceH12(),
-            _buildTitleAndSubtitle(
-              context,
-              title: Strings.DATE,
-              icon: EneftyIcons.calendar_outline,
-              subTitle: summary.dateTime?.format(
-                pattern: "dd-MMM-yyyy, hh:mm a",
-              ),
+              title: Strings.TITLE,
+              subTitle: summary.title ?? '-',
             ),
             SpaceH12(),
             _buildTitleAndSubtitle(
@@ -205,6 +196,15 @@ class Home extends GetView<HomeController> {
               icon: EneftyIcons.gift_outline,
               subTitle: (summary.points ?? 0).getFormattedCurrency(
                 showSymbol: false,
+              ),
+            ),
+            SpaceH12(),
+            _buildTitleAndSubtitle(
+              context,
+              title: Strings.DATE,
+              icon: EneftyIcons.calendar_outline,
+              subTitle: summary.dateTime?.format(
+                pattern: "dd-MMM-yyyy, hh:mm a",
               ),
             ),
           ],

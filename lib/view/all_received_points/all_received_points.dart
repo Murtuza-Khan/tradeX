@@ -22,7 +22,7 @@ class AllReceivedPoints extends StatelessWidget {
         shimmer: (_) => HomeCardShimmer().shadow(radius: 12.0),
         shouldRefreshList: (_) => true,
         paginatedListKey: 'received_points',
-        child: (_, index, __, ___, item) {
+        child: (_, index, __, ___, item, ctrl) {
           return _buildCard(context, item).shadow(radius: 12.0);
         },
       ),
@@ -52,17 +52,8 @@ class AllReceivedPoints extends StatelessWidget {
           children: [
             _buildTitleAndSubtitle(
               context,
-              title: Strings.ISSUED_BY,
-              subTitle: summary.from ?? '-',
-            ),
-            SpaceH12(),
-            _buildTitleAndSubtitle(
-              context,
-              title: Strings.DATE,
-              icon: EneftyIcons.calendar_outline,
-              subTitle: summary.dateTime?.format(
-                pattern: "dd-MMM-yyyy, hh:mm a",
-              ),
+              title: Strings.TITLE,
+              subTitle: summary.title ?? '-',
             ),
             SpaceH12(),
             _buildTitleAndSubtitle(
@@ -71,6 +62,15 @@ class AllReceivedPoints extends StatelessWidget {
               icon: EneftyIcons.gift_outline,
               subTitle: (summary.points ?? 0).getFormattedCurrency(
                 showSymbol: false,
+              ),
+            ),
+            SpaceH12(),
+            _buildTitleAndSubtitle(
+              context,
+              title: Strings.DATE,
+              icon: EneftyIcons.calendar_outline,
+              subTitle: summary.dateTime?.format(
+                pattern: "dd-MMM-yyyy, hh:mm a",
               ),
             ),
           ],

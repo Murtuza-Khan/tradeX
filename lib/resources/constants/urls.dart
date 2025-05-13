@@ -19,4 +19,8 @@ class Urls {
   static const String SELECT_ACCOUNT = '/api/v1/select-account';
   static const String REDEEM = '/api/v1/redeem';
   static const String USER_POINTS = '/api/v1/user-points';
+  static const String UNREAD_COUNT = '/api/v1/notifications/unread-count';
+  static const String READ_ALL = '/api/v1/notifications/read-all';
+  static const String NOTIFICATIONS = '/api/v1/notifications';
+  static const String MY_PROFILE = '/api/v1/my-profile';
 }

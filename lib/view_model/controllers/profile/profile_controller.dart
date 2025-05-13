@@ -15,20 +15,21 @@ class ProfileController extends GetxController {
   XFile? file;
   Uint8List? imageBytes;
 
-  void onGetProfile() {
-    UserModel user = AuthManager.instance.user;
-    CompaniesModel company = AuthManager.instance.company;
+  Future<ProfileModel?> onGetProfile() async {
+    ProfileModel? profile  = await ProfileRepository.getProfile();
 
-    firstNameCtrl.text = user.firstName?.capitalizeFirstLetter ?? "";
-    lastNameCtrl.text = user.lastName?.capitalizeFirstLetter ?? "";
-    phoneCtrl.text = company.phone ?? "";
+    firstNameCtrl.text = profile?.firstName?.capitalizeFirstLetter ?? "";
+    lastNameCtrl.text = profile?.lastName?.capitalizeFirstLetter ?? "";
+    phoneCtrl.text = profile?.phone ?? "";
     if (phoneCtrl.text.isNotEmpty &&
         phoneCtrl.text.startsWith("0") &&
         phoneCtrl.text.length >= 11) {
       phoneCtrl.text = phoneCtrl.text.substring(1);
     }
-    emailCtrl.text = user.email ?? "";
-    profileImage = user.profileImage ?? "";
+    emailCtrl.text = profile?.email ?? "";
+    profileImage = profile?.profileImage ?? "";
+
+    return profile;
   }
 
   void toggleUpdateProfileBtnEnaled() {
@@ -78,6 +79,7 @@ class ProfileController extends GetxController {
         Get.find<UserDashboardController>().update(['user_dash_welcome_card']);
         file = null;
         onGetProfile();
+        update(['profile_widget']);
         toggleUpdateProfileBtnEnaled.call();
         CustomSnackBar.successSnackBar(message: Strings.PROFILE_UPDATE);
       }
@@ -92,7 +94,6 @@ class ProfileController extends GetxController {
     lastNameCtrl = TextEditingController();
     phoneCtrl = TextEditingController();
     emailCtrl = TextEditingController();
-    onGetProfile();
     super.onInit();
   }
 }

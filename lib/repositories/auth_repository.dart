@@ -10,7 +10,11 @@ class AuthRepository {
     final response = await apiService.postApi(
       Urls.LOGIN,
       returnResponse: true,
-      body: {"cnic": cnic, "password": password},
+      body: {
+        "cnic": cnic,
+        "password": password,
+        "device_token": AuthManager.instance.getDeviceToken(),
+      },
     );
 
     if (!(response as ApiResponse).status) {

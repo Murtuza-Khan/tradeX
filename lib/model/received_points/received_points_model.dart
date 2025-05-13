@@ -50,12 +50,14 @@ class ReceivedPointsDataModel {
   int? id;
   int? points;
   String? from;
+  String? title;
   DateTime? dateTime;
 
   ReceivedPointsDataModel({
     this.id,
     this.points,
     this.from,
+    this.title,
     this.dateTime,
   });
 
@@ -73,6 +75,7 @@ class ReceivedPointsDataModel {
       'id': id,
       'points': points,
       'from': from,
+      'title': title,
       'date_time': dateTime,
     };
   }
@@ -82,6 +85,7 @@ class ReceivedPointsDataModel {
       id: map['id'] as int?,
       points: map['points'] as int?,
       from: map['from'] as String?,
+      title: map['title'] as String?,
       dateTime: map['date_time'] != null
           ? DateTime.parse((map['date_time']).toString().split('.')[0])
           : null,
