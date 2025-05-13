@@ -195,12 +195,8 @@ class FirebaseApi {
   // }
 
   Future<void> initPushNotification() async {
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+    await toggleIosForgroundNotification(false);
+    await Future.delayed(Durations.short2);
 
     FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
     FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
@@ -237,6 +233,7 @@ class FirebaseApi {
             channelDescription: _androidChannel.description,
             styleInformation: bigPictureStyle,
             icon: '@mipmap/ic_launcher',
+            largeIcon: FilePathAndroidBitmap(bigPicturePath),
             color: AppColors.primary,
           );
         } else {
@@ -276,15 +273,30 @@ class FirebaseApi {
               : null,
         );
 
+        final platformChannelSpecifics = NotificationDetails(iOS: iosDetails);
+
+        await toggleIosForgroundNotification(true);
+
         await _localNotifications.show(
           notification.hashCode,
           notification.title,
           notification.body,
-          NotificationDetails(iOS: iosDetails),
+          platformChannelSpecifics,
           payload: jsonEncode(message.toMap()),
         );
+        await Future.delayed(Durations.short2);
+        await toggleIosForgroundNotification(false);
       }
     });
+  }
+
+  Future<void> toggleIosForgroundNotification(bool value) async {
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: value,
+      badge: value,
+      sound: value,
+    );
   }
 
   Future<String> _downloadAndSaveFile(String url, String fileName) async {
