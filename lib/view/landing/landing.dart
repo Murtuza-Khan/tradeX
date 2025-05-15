@@ -1,7 +1,33 @@
 import '../../resources/exports/index.dart';
 
-class Landing extends GetView<LandingController> {
+class Landing extends StatefulWidget {
   const Landing({super.key});
+
+  @override
+  State<Landing> createState() => _LandingState();
+}
+
+class _LandingState extends State<Landing> with WidgetsBindingObserver {
+  final controller = Get.find<LandingController>();
+
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed) {
+      await LandingController.instance.getNotificationCount();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +48,7 @@ class Landing extends GetView<LandingController> {
   }
 
   CustomAppBar _buildAppBar(BuildContext context) {
-    return CustomAppBar(
+    return CustomAppBar( 
       title: (AuthManager.instance.company.name ?? "").capitalizeFirstLetter,
       onTap: () {},
       showLogo: true,

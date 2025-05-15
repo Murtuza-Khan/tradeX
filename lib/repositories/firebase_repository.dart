@@ -1,12 +1,109 @@
 import '../resources/exports/index.dart';
 import 'package:http/http.dart' as http;
 
-Future<void> handleBackgroundMessage(RemoteMessage message) async {}
+final FlutterLocalNotificationsPlugin _backLocalNotifications =
+    FlutterLocalNotificationsPlugin();
+
+final androidChannel = const AndroidNotificationChannel(
+  "high_importance_channel",
+  "High Importance Notification",
+  description: "This channel is used for important notifications",
+  importance: Importance.defaultImportance,
+);
+
+Future<(String, Map<String, dynamic>?)> getInitNotif() async {
+  (String, Map<String, dynamic>?) data =
+      ((AuthManager.instance.isLoggedIn ? Routes.LANDING : Routes.LOGIN), null);
+
+  if (data.$1 == Routes.LANDING) {
+    Get.lazyPut(() => LandingController(), fenix: true);
+    await LandingController.instance.getNotificationCount();
+  }
+  return data;
+}
+
+@pragma('vm:entry-point')
+Future<void> handleBackgroundMessage(RemoteMessage message) async {
+  CustomLogger.configure();
+  await GetStorage.init(Strings.CACHE_BOX_KEY);
+  await GetStorage.init().then(
+    (value) async {
+      await Get.putAsync(() async => AuthManager(), permanent: true);
+      await Get.putAsync(
+        () async => ConnectivityStreamService(),
+        permanent: true,
+      );
+    },
+  );
+
+  await _initializeFlutterLocalNotifications();
+
+  final title = message.data['title'] ?? 'Delta';
+  final body = message.data['body'] ?? 'New message';
+  final imageUrl = message.data['image'];
+
+  AndroidNotificationDetails androidDetails;
+
+  if (imageUrl != null && imageUrl.isNotEmpty) {
+    final bigPicturePath = await FirebaseApi.downloadAndSaveFile(
+      imageUrl,
+      'bigImage.jpg',
+    );
+
+    androidDetails = AndroidNotificationDetails(
+      androidChannel.id,
+      androidChannel.name,
+      channelDescription: androidChannel.description,
+      icon: '@mipmap/ic_launcher',
+      largeIcon: FilePathAndroidBitmap(bigPicturePath),
+      color: AppColors.primary,
+    );
+  } else {
+    androidDetails = AndroidNotificationDetails(
+      androidChannel.id,
+      androidChannel.name,
+      channelDescription: androidChannel.description,
+      icon: '@mipmap/ic_launcher',
+      color: AppColors.primary,
+    );
+  }
+
+  await _backLocalNotifications.show(
+    DateTime.now().millisecondsSinceEpoch ~/ 1000,
+    title,
+    body,
+    NotificationDetails(android: androidDetails),
+    payload: jsonEncode(message.data),
+  );
+}
+
+Future<void> _initializeFlutterLocalNotifications() async {
+  final ios = DarwinInitializationSettings(
+    requestAlertPermission: false,
+    requestBadgePermission: false,
+    requestSoundPermission: false,
+    notificationCategories: FirebaseApi.darwinNotificationCategories,
+  );
+
+  const android = AndroidInitializationSettings('@mipmap/ic_launcher');
+  final settings = InitializationSettings(android: android, iOS: ios);
+
+  await _backLocalNotifications.initialize(settings);
+}
+
+void backgroundNotificationHandler(NotificationResponse notificationResponse) {
+  FirebaseApi.selectNotificationStream.add(notificationResponse.payload);
+  final message = RemoteMessage.fromMap(
+    jsonDecode(notificationResponse.payload!),
+  );
+
+  FirebaseApi.handleMessage(message);
+}
 
 class FirebaseApi {
   final _firebaseMessaging = FirebaseMessaging.instance;
 
-  final StreamController<String?> selectNotificationStream =
+  static final StreamController<String?> selectNotificationStream =
       StreamController<String?>.broadcast();
 
   final StreamController<FirebaseNotification>
@@ -17,7 +114,7 @@ class FirebaseApi {
   static const String darwinNotificationCategoryPlain = 'plainCategory';
   static const String navigationActionId = 'id_3';
 
-  final List<DarwinNotificationCategory> darwinNotificationCategories =
+  static final List<DarwinNotificationCategory> darwinNotificationCategories =
       <DarwinNotificationCategory>[
     DarwinNotificationCategory(
       darwinNotificationCategoryText,
@@ -62,18 +159,15 @@ class FirebaseApi {
     )
   ];
 
-  final _androidChannel = const AndroidNotificationChannel(
-    "high_importance_channel",
-    "High Importance Notification",
-    description: "This channel is used for important notifications",
-    importance: Importance.defaultImportance,
-  );
-
   final _localNotifications = FlutterLocalNotificationsPlugin();
 
-  void handleMessage(RemoteMessage? message) {
+  static void handleMessage(RemoteMessage? message) {
     if (message == null) return;
-    Get.toNamed(Routes.LANDING);
+    if (AuthManager.instance.isLoggedIn) {
+      Get.toNamed(Routes.LANDING);
+    } else {
+      Get.toNamed(Routes.LOGIN);
+    }
   }
 
   Future initLocalNotifications() async {
@@ -91,11 +185,6 @@ class FirebaseApi {
       settings,
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) async {
-        ApiResult result = await NotificationRepository.readAllNotifications();
-        if (result == ApiResult.success) {
-          Get.lazyPut(() => LandingController(), fenix: true);
-          LandingController.instance.getNotificationCount();
-        }
         switch (notificationResponse.notificationResponseType) {
           case NotificationResponseType.selectedNotification:
             selectNotificationStream.add(notificationResponse.payload);
@@ -108,148 +197,67 @@ class FirebaseApi {
             break;
         }
       },
+      onDidReceiveBackgroundNotificationResponse: backgroundNotificationHandler,
     );
 
     final platform = _localNotifications.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();
 
-    await platform?.createNotificationChannel(_androidChannel);
+    await platform?.createNotificationChannel(androidChannel);
   }
 
-  // Future<dynamic> initPushNotification() async {
-  //   await FirebaseMessaging.instance
-  //       .setForegroundNotificationPresentationOptions(
-  //     alert: true,
-  //     badge: true,
-  //     sound: true,
-  //   );
-
-  //   FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
-  //   FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
-  //   FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
-
-  //   FirebaseMessaging.onMessage.listen((message) async {
-  //     final notification = message.notification;
-  //     final android = message.notification?.android;
-
-  //     if (notification == null || android == null) return;
-
-  //     final imageUrl = Platform.isAndroid
-  //         ? notification.android?.imageUrl
-  //         : notification.apple?.imageUrl;
-
-  //     AndroidNotificationDetails androidDetails;
-
-  //     if (Platform.isAndroid) {
-  //       if (imageUrl != null && imageUrl.isNotEmpty) {
-  //         final bigPicturePath =
-  //             await _downloadAndSaveFile(imageUrl, 'bigImage.jpg');
-  //         final bigPictureStyle = BigPictureStyleInformation(
-  //           FilePathAndroidBitmap(
-  //             "${dotenv.get("BASE_URL")}/website/assets/img/transparent.png",
-  //           ),
-  //           largeIcon: FilePathAndroidBitmap(bigPicturePath),
-  //           contentTitle: notification.title,
-  //           summaryText: notification.body,
-  //         );
-
-  //         androidDetails = AndroidNotificationDetails(
-  //           _androidChannel.id,
-  //           _androidChannel.name,
-  //           channelDescription: _androidChannel.description,
-  //           styleInformation: bigPictureStyle,
-  //           icon: '@mipmap/ic_launcher',
-  //           color: AppColors.primary,
-  //         );
-  //       } else {
-  //         androidDetails = AndroidNotificationDetails(
-  //           _androidChannel.id,
-  //           _androidChannel.name,
-  //           channelDescription: _androidChannel.description,
-  //           icon: '@mipmap/ic_launcher',
-  //           color: AppColors.primary,
-  //         );
-  //       }
-  //       await _localNotifications.show(
-  //         notification.hashCode,
-  //         notification.title,
-  //         notification.body,
-  //         NotificationDetails(android: androidDetails),
-  //         payload: jsonEncode(message.toMap()),
-  //       );
-  //     } else {
-  //       final iosDetails = DarwinNotificationDetails(
-  //         attachments: imageUrl != null
-  //             ? [DarwinNotificationAttachment(imageUrl)]
-  //             : null,
-  //       );
-  //       await _localNotifications.show(
-  //         notification.hashCode,
-  //         notification.title,
-  //         notification.body,
-  //         NotificationDetails(iOS: iosDetails),
-  //         payload: jsonEncode(message.toMap()),
-  //       );
-  //     }
-  //   });
-  // }
-
   Future<void> initPushNotification() async {
-    await toggleIosForgroundNotification(false);
-    await Future.delayed(Durations.short2);
+    if (Platform.isIOS) {
+      await toggleIosForgroundNotification(false);
+      await Future.delayed(Durations.long1);
+    }
 
     FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
     FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
 
     FirebaseMessaging.onMessage.listen((message) async {
-      final notification = message.notification;
-      final android = message.notification?.android;
+      if (AuthManager.instance.isLoggedIn) {
+        Get.lazyPut(() => LandingController(), fenix: true);
+        await LandingController.instance.getNotificationCount();
+      }
 
-      if (notification == null) return;
-
-      final imageUrl = Platform.isAndroid
-          ? notification.android?.imageUrl
-          : notification.apple?.imageUrl;
+      final title = message.data['title'] ?? 'Delta';
+      final body = message.data['body'] ?? 'New essage';
+      final imageUrl = message.data['image'];
 
       // ---------- ANDROID ----------
-      if (Platform.isAndroid && android != null) {
+      if (Platform.isAndroid) {
         AndroidNotificationDetails androidDetails;
 
         if (imageUrl != null && imageUrl.isNotEmpty) {
-          final bigPicturePath =
-              await _downloadAndSaveFile(imageUrl, 'bigImage.jpg');
-          final bigPictureStyle = BigPictureStyleInformation(
-            FilePathAndroidBitmap(
-                "${dotenv.get("BASE_URL")}/website/assets/img/transparent.png"), // transparent image as placeholder
-            largeIcon: FilePathAndroidBitmap(bigPicturePath),
-            contentTitle: notification.title,
-            summaryText: notification.body,
+          final bigPicturePath = await downloadAndSaveFile(
+            imageUrl,
+            'bigImage.jpg',
           );
 
           androidDetails = AndroidNotificationDetails(
-            _androidChannel.id,
-            _androidChannel.name,
-            channelDescription: _androidChannel.description,
-            styleInformation: bigPictureStyle,
+            androidChannel.id,
+            androidChannel.name,
+            channelDescription: androidChannel.description,
             icon: '@mipmap/ic_launcher',
             largeIcon: FilePathAndroidBitmap(bigPicturePath),
             color: AppColors.primary,
           );
         } else {
           androidDetails = AndroidNotificationDetails(
-            _androidChannel.id,
-            _androidChannel.name,
-            channelDescription: _androidChannel.description,
+            androidChannel.id,
+            androidChannel.name,
+            channelDescription: androidChannel.description,
             icon: '@mipmap/ic_launcher',
             color: AppColors.primary,
           );
         }
 
         await _localNotifications.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
+          DateTime.now().millisecondsSinceEpoch ~/ 1000,
+          title,
+          body,
           NotificationDetails(android: androidDetails),
           payload: jsonEncode(message.toMap()),
         );
@@ -261,7 +269,7 @@ class FirebaseApi {
         if (imageUrl != null && imageUrl.isNotEmpty) {
           try {
             attachmentPath =
-                await _downloadAndSaveFile(imageUrl, 'ios_image.jpg');
+                await downloadAndSaveFile(imageUrl, 'ios_image.jpg');
           } catch (e) {
             MacLog.printR("Failed to download image for iOS: $e");
           }
@@ -278,13 +286,13 @@ class FirebaseApi {
         await toggleIosForgroundNotification(true);
 
         await _localNotifications.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
+          DateTime.now().millisecondsSinceEpoch ~/ 1000,
+          title,
+          body,
           platformChannelSpecifics,
           payload: jsonEncode(message.toMap()),
         );
-        await Future.delayed(Durations.short2);
+        await Future.delayed(Durations.long1);
         await toggleIosForgroundNotification(false);
       }
     });
@@ -299,7 +307,7 @@ class FirebaseApi {
     );
   }
 
-  Future<String> _downloadAndSaveFile(String url, String fileName) async {
+  static Future<String> downloadAndSaveFile(String url, String fileName) async {
     final directory = await getApplicationDocumentsDirectory();
     final filePath = '${directory.path}/$fileName';
     final response = await http.get(Uri.parse(url));

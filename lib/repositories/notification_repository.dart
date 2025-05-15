@@ -10,7 +10,6 @@ class NotificationRepository {
   }
   
   static Future<ApiResult> readAllNotifications() async {
-    MacLog.printG("Called..........");
     final response = await apiService.postApi(Urls.READ_ALL);
     if (response is bool) return ApiResult.fail;
     return ApiResult.success;

@@ -2,11 +2,13 @@ import 'resources/exports/index.dart';
 
 Future<void> main() async {
   await InitializationService.init();
-  runApp(const MyApp());
+  (String, Map<String, dynamic>?) route = await getInitNotif();
+  runApp(MyApp(route: route));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final (String, Map<String, dynamic>?) route;
+  const MyApp({super.key, required this.route});
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +41,12 @@ class MyApp extends StatelessWidget {
               ],
             );
           },
-          onGenerateRoute: Pages.onGenerateRoute,
-          initialRoute: (AuthManager.instance.getIntroViewInfo() ?? false)
-              ? AuthManager.instance.isLoggedIn
-                  ? Routes.LANDING
-                  : Routes.LOGIN
-              : Routes.ON_BOARDING,
+          onGenerateRoute: (settings) => Pages.onGenerateRoute(
+            route.$2 != null
+                ? RouteSettings(name: settings.name, arguments: route.$2)
+                : settings,
+          ),
+          initialRoute: route.$1,
           defaultTransition: Transition.rightToLeft,
           smartManagement: SmartManagement.full,
         ),

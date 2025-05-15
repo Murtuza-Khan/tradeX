@@ -8,12 +8,19 @@ class Notifications extends GetView<NotificationsController> {
     return Scaffold(
       appBar: CustomAppBar(
         title: Strings.NOTIFICATIONS,
-        actions: GestureDetector(
-          onTap: () => controller.onReadAll(),
-          child: Text(
-            "Read All",
-            style: context.titleLarge.copyWith(color: AppColors.primary),
-          ).paddingOnly(right: 16),
+        actions: GetBuilder<LandingController>(
+          id: "new_notification_badge",
+          key: ValueKey(GlobalHelper.getRandomId()),
+          builder: (_) {
+            return PreventMultiTap(
+              intervalMs: 600,
+              onSafeTap: () => controller.onReadAll(),
+              child: Text(
+                "Read All",
+                style: context.titleLarge.copyWith(color: AppColors.primary),
+              ).paddingOnly(right: 16),
+            );
+          },
         ),
       ),
       body: CustomPagination<NotificationModel>(

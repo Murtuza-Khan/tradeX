@@ -42,9 +42,11 @@ class LandingController extends GetxController
     CustomDialog.showConfirmationDialog(
       message: Strings.ARE_YOU_SURE,
       onTapConfirm: () async {
-        await AuthManager.instance.logout();
+        onNavigate(0, Routes.HOME);
         initialize();
         update(['bottom_nav_bar', 'side_menu_items']);
+        await Future.delayed(Durations.medium3);
+        await AuthManager.instance.logout();
         Get.offAllNamed(Routes.LOGIN);
       },
     );

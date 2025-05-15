@@ -84,7 +84,7 @@ class Home extends GetView<HomeController> {
                       _buildPointsCard(
                         context,
                         title: Strings.REDEEMED_POINTS,
-                        cardColor: AppColors.primary.light(amount: 0.53),
+                        cardColor: AppColors.white,
                         subTitle: GlobalHelper.formatedNumber(
                           value: controller.receivedPoints.redeemedPoints ?? 0,
                         ),
