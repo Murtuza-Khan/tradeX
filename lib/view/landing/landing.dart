@@ -52,15 +52,15 @@ class _LandingState extends State<Landing> with WidgetsBindingObserver {
       title: (AuthManager.instance.company.name ?? "").capitalizeFirstLetter,
       onTap: () {},
       showLogo: true,
-      // leading: SizedBox(),
-      leading: GestureDetector(
-        onTap: () => GlobalHelper.getAccessToken(),
-        child: Container(
-          height: 40,
-          width: 40,
-          color: AppColors.primary,
-        ),
-      ),
+      leading: SizedBox(),
+      // leading: GestureDetector(
+      //   onTap: () => GlobalHelper.getAccessToken(), 
+      //   child: Container(
+      //     height: 40,
+      //     width: 40, 
+      //     color: AppColors.primary,
+      //   ),
+      // ),
       actions: Row(
         children: [
           _buildAppBarActions(

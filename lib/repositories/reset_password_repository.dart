@@ -14,6 +14,7 @@ class ResetPasswordRepository {
     );
 
     if (response is bool) return ApiResult.fail;
+    MacLog.printG(response);
     AuthManager.instance.rememberCredentials.value = true;
     Session session = Session.fromJson(response);
     await AuthManager.instance.login(session);

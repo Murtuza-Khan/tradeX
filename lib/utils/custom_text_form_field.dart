@@ -235,7 +235,7 @@ class CustomTextFormField extends StatelessWidget {
           validator: (value) {
             if (isRequired && showValidator) {
               if (value?.trim().isEmpty ?? true) {
-                return '${(requiredErrorMessage ?? labelText)} is required.';
+                return '${(requiredErrorMessage ?? labelText)} are required.';
               }
 
               if (validator != null) return validator!(value?.trim());
@@ -250,7 +250,7 @@ class CustomTextFormField extends StatelessWidget {
             return null;
           },
           autofillHints: autofillHints,
-          keyboardType: keyboardType ?? TextInputType.text,
+          keyboardType: keyboardType ?? TextInputType.number,
           onChanged: onChanged,
           obscureText: obscureText ?? false,
           style: textStyle ??

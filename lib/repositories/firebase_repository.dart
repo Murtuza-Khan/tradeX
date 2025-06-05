@@ -56,6 +56,7 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
       channelDescription: androidChannel.description,
       icon: '@mipmap/ic_launcher',
       largeIcon: FilePathAndroidBitmap(bigPicturePath),
+      styleInformation: BigTextStyleInformation(body),
       color: AppColors.primary,
     );
   } else {
@@ -64,6 +65,7 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
       androidChannel.name,
       channelDescription: androidChannel.description,
       icon: '@mipmap/ic_launcher',
+      styleInformation: BigTextStyleInformation(body),
       color: AppColors.primary,
     );
   }
@@ -236,21 +238,23 @@ class FirebaseApi {
             'bigImage.jpg',
           );
 
-          androidDetails = AndroidNotificationDetails(
+          androidDetails = AndroidNotificationDetails( 
             androidChannel.id,
             androidChannel.name,
             channelDescription: androidChannel.description,
             icon: '@mipmap/ic_launcher',
             largeIcon: FilePathAndroidBitmap(bigPicturePath),
             color: AppColors.primary,
+            styleInformation: BigTextStyleInformation(body),
           );
-        } else {
+        } else { 
           androidDetails = AndroidNotificationDetails(
             androidChannel.id,
             androidChannel.name,
             channelDescription: androidChannel.description,
             icon: '@mipmap/ic_launcher',
             color: AppColors.primary,
+            styleInformation: BigTextStyleInformation(body),
           );
         }
 

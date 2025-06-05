@@ -9,7 +9,8 @@ class RedeemRewardsController extends GetxController {
   int currentIndex = 0;
   RxInt points = 0.obs;
 
-  String get getButtonText => pointsCtrl.text.isNotEmpty && pointsCtrl.text != "0"
+  String get getButtonText => pointsCtrl.text.isNotEmpty &&
+          pointsCtrl.text != "0"
       ? "( ${convertPointsIntoPkr().getNumFormattedCurrency()} ) ${Strings.REDEEM_NOW}"
       : Strings.REDEEM_NOW;
 
@@ -58,24 +59,30 @@ class RedeemRewardsController extends GetxController {
 
   Future<void> redeemPoints() async {
     if (formKey.currentState?.validate() ?? false) {
-      RedeemHistory? redeemVoucher = await RedeemRewardsRepository.redeemPoints(
-        data: {
-          "account_id": AuthManager.instance.company.id,
-          "points": pointsCtrl.text,
+      CustomDialog.showConfirmationDialog(
+        message: "Are you sure you want to redeem ${pointsCtrl.text} points ?",
+        onTapConfirm: () async {
+          RedeemHistory? redeemVoucher =
+              await RedeemRewardsRepository.redeemPoints(
+            data: {
+              "account_id": AuthManager.instance.company.id,
+              "points": pointsCtrl.text,
+            },
+          );
+          if (redeemVoucher != null) {
+            Future.delayed(Duration(milliseconds: 700), () {
+              currentIndex = 1;
+              update(['update_success_icon']);
+            });
+            CustomDialog.showDialog(
+              height: 350,
+              width: double.maxFinite,
+              barrierDismissible: false,
+              content: RedeemPointsDialogContent(points: redeemVoucher),
+            );
+          }
         },
       );
-      if (redeemVoucher != null) {
-        Future.delayed(Duration(milliseconds: 700), () {
-          currentIndex = 1;
-          update(['update_success_icon']);
-        });
-        CustomDialog.showDialog(
-          height: 350,
-          width: double.maxFinite,
-          barrierDismissible: false,
-          content: RedeemPointsDialogContent(points: redeemVoucher),
-        );
-      }
     }
   }
 
