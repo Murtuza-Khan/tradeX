@@ -75,34 +75,48 @@ class RedeemRewards extends GetView<RedeemRewardsController> {
                   const SpaceH12(),
                   _buildAvailablePoints(context),
                   const SpaceH12(),
-                  CustomTextFormField(
-                    controller: controller.pointsCtrl,
-                    textCapitalization: TextCapitalization.none,
-                    isRequired: true,
-                    height: Sizes.HEIGHT_20,
-                    labelText: Strings.POINTS,
-                    labelColor: AppColors.black,
-                    prefixIcon: EneftyIcons.card_outline,
-                    prefixIconColor: AppColors.black,
-                    textColor: AppColors.black,
-                    hintText: "Min 1,000",
-                    cursorColor: AppColors.black,
-                    enableBorderColor: AppColors.black,
-                    focusBorderColor: AppColors.primary,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.number,
-                    autofillHints: const [AutofillHints.email],
-                    onChanged: controller.onPointsChanged,
-                    validator: (value) {
-                      if (value == null) return null;
-                      if (int.parse(value) >
-                          ((controller.userPoints.awardedPoints?.value ?? 0) -
-                              (controller.userPoints.redeemedPoints?.value ??
-                                  0))) {
-                        controller.points.value = 0;
-                        return "Points can't be grater than ${GlobalHelper.formatedNumber(value: (controller.userPoints.awardedPoints?.value ?? 0) - (controller.userPoints.redeemedPoints?.value ?? 0))}";
-                      } else {}
-                      return null;
+                  GetBuilder<RedeemRewardsController>(
+                    id: "points_txt_field",
+                    builder: (_) {
+                      return CustomTextFormField(
+                        controller: controller.pointsCtrl,
+                        textCapitalization: TextCapitalization.none,
+                        isRequired: true,
+                        enabled: controller.points.value > 0,
+                        height: Sizes.HEIGHT_20,
+                        labelText: Strings.POINTS,
+                        labelColor: controller.points.value > 0
+                            ? AppColors.black
+                            : AppColors.disabled,
+                        prefixIcon: EneftyIcons.card_outline,
+                        prefixIconColor: controller.points.value > 0
+                            ? AppColors.black
+                            : AppColors.disabled,
+                        textColor: AppColors.black,
+                        hintText: "Min 1,000",
+                        cursorColor: AppColors.black,
+                        enableBorderColor: controller.points.value > 0
+                            ? AppColors.black
+                            : AppColors.disabled,
+                        focusBorderColor: AppColors.primary,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.number,
+                        autofillHints: const [AutofillHints.email],
+                        onChanged: controller.onPointsChanged,
+                        validator: (value) {
+                          if (value == null) return null;
+                          if (int.parse(value) >
+                              ((controller.userPoints.awardedPoints?.value ??
+                                      0) -
+                                  (controller
+                                          .userPoints.redeemedPoints?.value ??
+                                      0))) {
+                            controller.points.value = 0;
+                            return "Points can't be grater than ${GlobalHelper.formatedNumber(value: (controller.userPoints.awardedPoints?.value ?? 0) - (controller.userPoints.redeemedPoints?.value ?? 0))}";
+                          } else {}
+                          return null;
+                        },
+                      );
                     },
                   ),
                   SpaceH10(),
@@ -209,14 +223,8 @@ class RedeemRewards extends GetView<RedeemRewardsController> {
 
   Widget _buildAvailablePoints(BuildContext context) {
     return CustomFutureBuilder(
-      future: RedeemRewardsRepository.userPoints(),
+      future: controller.getUserPoints(),
       customLoader: CustomLoading.spinKitThreeBouncePrimary,
-      data: (userPoints) {
-        controller.userPoints = userPoints ?? UserPoints();
-        controller.points.value =
-            (controller.userPoints.awardedPoints?.value ?? 0) -
-                (controller.userPoints.redeemedPoints?.value ?? 0);
-      },
       hasDataBuilder: (_, __) {
         return Obx(
           () => CustomRichText(

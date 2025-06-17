@@ -58,6 +58,16 @@ class RedeemRewardsController extends GetxController {
     update(['redeem_btn']);
   }
 
+  Future<UserPoints> getUserPoints() async {
+    points.value = 0;
+    update(['points_txt_field']);
+    userPoints = await RedeemRewardsRepository.userPoints() ?? UserPoints();
+    points.value = (userPoints.awardedPoints?.value ?? 0) -
+        (userPoints.redeemedPoints?.value ?? 0);
+    update(['points_txt_field']);
+    return userPoints;
+  }
+
   Future<void> redeemPoints() async {
     if (formKey.currentState?.validate() ?? false) {
       CustomDialog.showConfirmationDialog(
