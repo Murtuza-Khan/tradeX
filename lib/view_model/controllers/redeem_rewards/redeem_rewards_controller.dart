@@ -8,6 +8,7 @@ class RedeemRewardsController extends GetxController {
 
   int currentIndex = 0;
   RxInt points = 0.obs;
+  bool isLoading = false;
 
   String get getButtonText => pointsCtrl.text.isNotEmpty &&
           pointsCtrl.text != "0"
@@ -63,6 +64,9 @@ class RedeemRewardsController extends GetxController {
         message: "Are you sure you want to redeem ${pointsCtrl.text} points ?",
         onTapConfirm: () async {
           Get.close(1);
+          isLoading = true;
+          update(['redeem_btn']);
+
           RedeemHistory? redeemVoucher =
               await RedeemRewardsRepository.redeemPoints(
             data: {
@@ -70,6 +74,7 @@ class RedeemRewardsController extends GetxController {
               "points": pointsCtrl.text,
             },
           );
+
           if (redeemVoucher != null) {
             Future.delayed(Duration(milliseconds: 700), () {
               currentIndex = 1;
@@ -82,6 +87,11 @@ class RedeemRewardsController extends GetxController {
               content: RedeemPointsDialogContent(points: redeemVoucher),
             );
           }
+
+          points.value = 0;
+          pointsCtrl.clear();
+          isLoading = false;
+          update(['redeem_btn']);
         },
       );
     }

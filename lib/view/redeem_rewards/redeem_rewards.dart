@@ -133,6 +133,7 @@ class RedeemRewards extends GetView<RedeemRewardsController> {
                         backgroundColor: AppColors.primary,
                         textColor: AppColors.white,
                         text: controller.getButtonText,
+                        isLoading: controller.isLoading,
                         onTapAsync: () async => controller.redeemPoints(),
                         radius: Sizes.RADIUS_12,
                         constraints: const BoxConstraints(minHeight: 55),
