@@ -28,7 +28,7 @@
 			remoteGlobalIDString = 97C146ED1CF9000F007C117D;
 			remoteInfo = Runner;
 		};
-		E2E9BC7F2DD34C0800D0102C /* PBXContainerItemProxy */ = {
+		E2A4C3B72E013933000F1D41 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
 			proxyType = 1;
@@ -267,7 +267,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				E2E9BC802DD34C0800D0102C /* PBXTargetDependency */,
+				E2A4C3B82E013933000F1D41 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -535,10 +535,10 @@
 			target = 97C146ED1CF9000F007C117D /* Runner */;
 			targetProxy = 331C8085294A63A400263BE5 /* PBXContainerItemProxy */;
 		};
-		E2E9BC802DD34C0800D0102C /* PBXTargetDependency */ = {
+		E2A4C3B82E013933000F1D41 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E2E9BC792DD34C0800D0102C /* ImageNotificationService */;
-			targetProxy = E2E9BC7F2DD34C0800D0102C /* PBXContainerItemProxy */;
+			targetProxy = E2A4C3B72E013933000F1D41 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

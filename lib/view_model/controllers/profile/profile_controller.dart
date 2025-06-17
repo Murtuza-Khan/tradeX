@@ -15,9 +15,14 @@ class ProfileController extends GetxController {
   XFile? file;
   Uint8List? imageBytes;
 
-  Future<ProfileModel?> onGetProfile() async {
-    ProfileModel? profile  = await ProfileRepository.getProfile();
+  late ProfileModel? profile;
 
+  Future<void> getProfile() async {
+    profile = await ProfileRepository.getProfile();
+  }
+
+  Future<ProfileModel?> onGetProfile() async {
+    await getProfile();
     firstNameCtrl.text = profile?.firstName?.capitalizeFirstLetter ?? "";
     lastNameCtrl.text = profile?.lastName?.capitalizeFirstLetter ?? "";
     phoneCtrl.text = profile?.phone ?? "";
@@ -33,9 +38,9 @@ class ProfileController extends GetxController {
   }
 
   void toggleUpdateProfileBtnEnaled() {
-    if (firstNameCtrl.text.trim() == AuthManager.instance.user.firstName &&
-        lastNameCtrl.text.trim() == AuthManager.instance.user.lastName &&
-        emailCtrl.text.trim() == AuthManager.instance.user.email &&
+    if (firstNameCtrl.text.trim() == profile?.firstName &&
+        lastNameCtrl.text.trim() == profile?.lastName &&
+        emailCtrl.text.trim() == profile?.email &&
         file == null) {
       isUpdateProfileBtnEnabled.value = false;
     } else {
@@ -65,6 +70,7 @@ class ProfileController extends GetxController {
           "first_name": firstNameCtrl.text.trim(),
           "last_name": lastNameCtrl.text.trim(),
           "email": emailCtrl.text,
+          "client_id": AuthManager.instance.company.id,
         },
       );
       if (result != null) {

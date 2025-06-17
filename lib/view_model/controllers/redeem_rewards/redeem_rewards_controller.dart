@@ -62,6 +62,7 @@ class RedeemRewardsController extends GetxController {
       CustomDialog.showConfirmationDialog(
         message: "Are you sure you want to redeem ${pointsCtrl.text} points ?",
         onTapConfirm: () async {
+          Get.close(1);
           RedeemHistory? redeemVoucher =
               await RedeemRewardsRepository.redeemPoints(
             data: {
