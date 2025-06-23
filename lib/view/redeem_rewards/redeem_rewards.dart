@@ -206,7 +206,7 @@ class RedeemRewards extends GetView<RedeemRewardsController> {
               ).paddingSymmetric(horizontal: 16.0),
               SpaceH20(),
               CustomButton.solid(
-                backgroundColor: AppColors.primary,
+                backgroundColor: AppColors.primary, 
                 textColor: AppColors.white,
                 text: Strings.CONTINUE,
                 onTap: () => Get.back(),

@@ -48,78 +48,83 @@ class Home extends GetView<HomeController> {
             ),
           ).shadow(radius: 0),
         ],
-        ListView.separated(
-          padding: EdgeInsets.only(
-            left: 16,
-            right: 16,
-            top: 16,
-            bottom: (controller.receivedPoints.receivedPoints ?? []).isEmpty
-                ? 0
-                : Platform.isAndroid
-                    ? 105
-                    : 80,
-          ),
-          itemCount: (controller.receivedPoints.receivedPoints ?? []).isEmpty
-              ? 1
-              : (controller.receivedPoints.receivedPoints ?? []).length,
-          shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
-          itemBuilder: (_, index) {
-            return Column(
-              children: [
-                if (index == 0) ...[
-                  Row(
-                    children: [
-                      _buildPointsCard(
-                        context,
-                        title: Strings.AVAILABLE_POINTS,
-                        subTitle: GlobalHelper.formatedNumber(
-                          value: (controller.receivedPoints.awardedPoints ??
-                                  0) -
-                              ((controller.receivedPoints.redeemedPoints ?? 0)),
-                        ),
-                        icon: EneftyIcons.star_outline,
-                      ).expanded(),
-                      SpaceW16(),
-                      _buildPointsCard(
-                        context,
-                        title: Strings.REDEEMED_POINTS,
-                        cardColor: AppColors.white,
-                        subTitle: GlobalHelper.formatedNumber(
-                          value: controller.receivedPoints.redeemedPoints ?? 0,
-                        ),
-                        icon: EneftyIcons.ticket_star_outline,
-                      ).expanded(),
-                    ],
-                  ),
-                  if ((controller.receivedPoints.receivedPoints ?? [])
-                      .isNotEmpty) ...[
-                    SpaceH24(),
-                    _buildViewAllBtn(context),
-                  ],
-                  SpaceH16(),
-                ],
-                if ((controller.receivedPoints.receivedPoints ?? [])
-                    .isNotEmpty) ...[
-                  _buildCard(
-                    context,
-                    (controller.receivedPoints.receivedPoints ?? [])[index],
-                  ).shadow(radius: 12.0),
-                ]
-              ],
-            );
-          },
-          separatorBuilder: (_, __) => SpaceH16(),
-        ).expanded(),
-        if ((controller.receivedPoints.receivedPoints ?? []).isEmpty) ...[
-          NoContent(
-            backgroundColor: AppColors.backgroundColor,
-            title: Strings.NO_RECORD_FOUND,
-            subtitle: "No information is currently available",
-          ),
-          SizedBox(height: Get.height * 0.23),
-        ],
+        _buildCards(context).expanded(),
+        SizedBox(
+          height: !controller.isReceivedPointsEmpty
+              ? 0
+              : (Platform.isAndroid ? 90 : 80),
+        ),
       ],
+    );
+  }
+
+  ListView _buildCards(BuildContext context) {
+    return ListView.separated(
+      padding: EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 16,
+        bottom: controller.isReceivedPointsEmpty
+            ? 0
+            : Platform.isAndroid
+                ? 105
+                : 80,
+      ),
+      itemCount: controller.isReceivedPointsEmpty
+          ? 1
+          : (controller.receivedPoints.receivedPoints ?? []).length,
+      shrinkWrap: true,
+      physics: AlwaysScrollableScrollPhysics(),
+      itemBuilder: (_, index) {
+        return Column(
+          children: [
+            if (index == 0) ...[
+              Row(
+                children: [
+                  _buildPointsCard(
+                    context,
+                    title: Strings.AVAILABLE_POINTS,
+                    subTitle: GlobalHelper.formatedNumber(
+                      value: (controller.receivedPoints.awardedPoints ?? 0) -
+                          ((controller.receivedPoints.redeemedPoints ?? 0)),
+                    ),
+                    icon: EneftyIcons.star_outline,
+                  ).expanded(),
+                  SpaceW16(),
+                  _buildPointsCard(
+                    context,
+                    title: Strings.REDEEMED_POINTS,
+                    cardColor: AppColors.white,
+                    subTitle: GlobalHelper.formatedNumber(
+                      value: controller.receivedPoints.redeemedPoints ?? 0,
+                    ),
+                    icon: EneftyIcons.ticket_star_outline,
+                  ).expanded(),
+                ],
+              ),
+              if (!controller.isReceivedPointsEmpty) ...[
+                SpaceH24(),
+                _buildViewAllBtn(context),
+              ],
+              SpaceH16(),
+            ],
+            if (!controller.isReceivedPointsEmpty) ...[
+              _buildCard(
+                context,
+                (controller.receivedPoints.receivedPoints ?? [])[index],
+              ).shadow(radius: 12.0),
+            ],
+            if (controller.isReceivedPointsEmpty) ...[
+              NoContent(
+                backgroundColor: AppColors.backgroundColor,
+                title: Strings.NO_RECORD_FOUND,
+                subtitle: "No information is currently available",
+              ),
+            ],
+          ],
+        );
+      },
+      separatorBuilder: (_, __) => SpaceH16(),
     );
   }
 
