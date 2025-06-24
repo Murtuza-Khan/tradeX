@@ -235,7 +235,7 @@ class CustomTextFormField extends StatelessWidget {
           validator: (value) {
             if (isRequired && showValidator) {
               if (value?.trim().isEmpty ?? true) {
-                return '${(requiredErrorMessage ?? labelText)} are required.';
+                return '${(requiredErrorMessage ?? labelText)} is required.';
               }
 
               if (validator != null) return validator!(value?.trim());

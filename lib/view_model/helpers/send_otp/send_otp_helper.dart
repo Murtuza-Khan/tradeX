@@ -14,9 +14,12 @@ class SendOtpHelper {
       CustomSnackBar.successSnackBar(
         message: "${kDebugMode ? "${otp.$2} " : ""}${Strings.PLEASE_VERIFY}",
       );
-      if (Get.currentRoute != Routes.OTP) {
-        Get.toNamed(Routes.OTP);
+      if (Get.currentRoute == Routes.OTP) return;
+      
+      if (Get.previousRoute == Routes.FORGOT_PASSWORD) {
+        Get.close(1); // to close numbers list dialog
       }
+      Get.toNamed(Routes.OTP);
     }
   }
 }

@@ -58,7 +58,7 @@ class AuthRepository {
       Urls.FORGET_PASSWORD,
       body: {"cnic": cnic},
     );
-    if (response is bool) [];
+    if (response is bool) return [];
     return UserMobileNumbers.listFromJson(response);
   }
 }

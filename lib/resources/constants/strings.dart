@@ -95,7 +95,7 @@ class Strings {
   static const String SWITCH_ACCOUNT_WBSN = "Switch Account";
 
   // Forgot password
-  static const String SEND_OTP = "Send Otp";
+  static const String SEND_OTP = "Send OTP";
 
   // Received Points
   static const String SENDER_NAME = "Sender Name";
@@ -115,7 +115,7 @@ class Strings {
   static const String SIGNUP = "Sign up";
   static const String LOGIN_INTO_YOUR_ACCOUNT = "Login to your account";
   static const String EMAIL = "Email";
-  static const String CNIC = "Cnic";
+  static const String CNIC = "CNIC";
   static const String ENTER_A_VALID = "Enter a valid email";
   static const String PASSWORD = "Password";
   static const String OLD_PASSWORD = "Old Password";
@@ -129,8 +129,8 @@ class Strings {
       "Enter your Email or Phone in the field below to proceed";
 
   // Forget Password
-  static const String PLEASE_ENTER_PHONE =
-      "Please enter your phone number to reset password.";
+  static const String PLEASE_ENTER_CNIC =
+      "Please enter your CNIC number to reset password.";
   static const String SELECT_A_PHONE = "Please select a phone number first";
 
   // Reset Password
@@ -147,10 +147,10 @@ class Strings {
 
 // OTP
   static const String CONTINUE = "Continue";
-  static const String VERIFY_OTP = "Verify Otp";
-  static const String OTP_VERIFIED = "Otp verified successfully";
+  static const String VERIFY_OTP = "Verify OTP";
+  static const String OTP_VERIFIED = "OTP verified successfully";
   static const String RESEND = "Resend";
-  static const String ENTER_OTP = "Enter Otp";
+  static const String ENTER_OTP = "Enter OTP";
   static const String FILL_THE_DETAILS =
       "Fill the details below to reset your password";
   static const String ONE_TIME_PASS =

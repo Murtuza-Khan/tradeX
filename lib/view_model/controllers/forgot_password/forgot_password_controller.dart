@@ -12,13 +12,7 @@ class ForgotPasswordController extends GetxController {
       numbers = await AuthRepository.forgetPassword(
         cnic: cnicCtrl.text.replaceAll("-", ""),
       );
-      if (numbers.isEmpty) {
-        CustomSnackBar.errorSnackBar(message: Strings.SOMETHING_WENT_WRONG);
-      }
-      if (numbers.length == 1) {
-        await SendOtpHelper.sendOtp(numbers[0].mobile ?? "");
-        SendOtpHelper.phone = numbers[0].mobile ?? "";
-      } else {
+      if (numbers.isNotEmpty) {
         await CustomDialog.showFullScreenDialog(content: NumbersList());
       }
     }
@@ -29,7 +23,6 @@ class ForgotPasswordController extends GetxController {
     if (index == -1) {
       return CustomSnackBar.errorSnackBar(message: Strings.SELECT_A_PHONE);
     } else {
-      if (numbers.length > 1) Get.close(1);
       SendOtpHelper.phone = numbers[index].mobile ?? "";
       await SendOtpHelper.sendOtp(numbers[index].mobile ?? "");
     }
