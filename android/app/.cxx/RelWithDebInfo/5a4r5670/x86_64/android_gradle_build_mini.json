@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/giftkarte/development/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/giftkarte/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/giftkarte/Desktop/Flutter apps/tradex/android/app/.cxx/RelWithDebInfo/5a4r5670/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/giftkarte/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/giftkarte/Desktop/Flutter apps/tradex/android/app/.cxx/RelWithDebInfo/5a4r5670/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

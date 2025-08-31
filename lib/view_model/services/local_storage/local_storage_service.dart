@@ -1,66 +1,66 @@
 import '../../../resources/exports/index.dart';
 
 enum CacheManagerKeys {
-  token,
-  sessionData,
-  appLanguage,
-  deviceToken,
-  appIntroViewed
+  deltaToken,
+  deltaSessionData,
+  deltaAppLanguage,
+  deltaDeviceToken,
+  deltaAppIntroViewed
 }
 
 class LocalStorageService extends GetxService {
   Future<bool> saveIntroViewInfo(bool isViewed) async {
     final box = GetStorage(Strings.CACHE_BOX_KEY);
-    await box.write(CacheManagerKeys.appIntroViewed.toString(), isViewed);
+    await box.write(CacheManagerKeys.deltaAppIntroViewed.toString(), isViewed);
     return true;
   }
 
   bool? getIntroViewInfo() {
     final box = GetStorage(Strings.CACHE_BOX_KEY);
-    return box.read(CacheManagerKeys.appIntroViewed.toString());
+    return box.read(CacheManagerKeys.deltaAppIntroViewed.toString());
   }
 
   Future<void> removeIntroViewInfo() async {
     final box = GetStorage(Strings.CACHE_BOX_KEY);
-    await box.remove(CacheManagerKeys.appIntroViewed.toString());
+    await box.remove(CacheManagerKeys.deltaAppIntroViewed.toString());
   }
 
   Future<bool> saveDeviceToken(String? token) async {
     final box = GetStorage(Strings.CACHE_BOX_KEY);
-    await box.write(CacheManagerKeys.deviceToken.toString(), token ?? "");
+    await box.write(CacheManagerKeys.deltaDeviceToken.toString(), token ?? "");
     return true;
   }
 
   String? getDeviceToken() {
     final box = GetStorage(Strings.CACHE_BOX_KEY);
-    return box.read(CacheManagerKeys.deviceToken.toString());
+    return box.read(CacheManagerKeys.deltaDeviceToken.toString());
   }
 
   Future<bool> saveDefaultLanguage(String? language) async {
     final box = GetStorage(Strings.CACHE_BOX_KEY);
-    await box.write(CacheManagerKeys.appLanguage.toString(), language ?? "en");
+    await box.write(
+        CacheManagerKeys.deltaAppLanguage.toString(), language ?? "en");
     return true;
   }
 
   String? getDefaultLanguage() {
     final box = GetStorage(Strings.CACHE_BOX_KEY);
-    return box.read(CacheManagerKeys.appLanguage.toString());
+    return box.read(CacheManagerKeys.deltaAppLanguage.toString());
   }
 
   Future<bool> saveToken(String? token) async {
     final box = GetStorage(Strings.CACHE_BOX_KEY);
-    await box.write(CacheManagerKeys.token.toString(), token);
+    await box.write(CacheManagerKeys.deltaToken.toString(), token);
     return true;
   }
 
   Future<bool> saveSession(Session? session) async {
     final box = GetStorage(Strings.CACHE_BOX_KEY);
-    await box.write(CacheManagerKeys.sessionData.toString(), session?.toJson());
+    await box.write(
+        CacheManagerKeys.deltaSessionData.toString(), session?.toJson());
     if (Platform.isAndroid) {
-      log.f(session);
       log.e("SAVING SESSION : ${session?.toJson()}");
     } else {
-      MacLog.printM(session);
       MacLog.printG("SAVING SESSION : ${session?.toJson()}");
     }
     return true;
@@ -68,26 +68,32 @@ class LocalStorageService extends GetxService {
 
   String? getToken() {
     final box = GetStorage(Strings.CACHE_BOX_KEY);
-    return box.read(CacheManagerKeys.token.toString());
+    return box.read(CacheManagerKeys.deltaToken.toString());
   }
 
   Session? getSessionData() {
-    final box = GetStorage(Strings.CACHE_BOX_KEY);
-    if (Platform.isAndroid) {
-      log.w("RESTORE SESSION : ${Session.fromJson(
-        box.read(CacheManagerKeys.sessionData.toString()),
-      ).toJson()}");
-    } else {
-      MacLog.printG(("RESTORE SESSION : ${Session.fromJson(
-        box.read(CacheManagerKeys.sessionData.toString()),
-      ).toJson()}"));
+    try {
+      final box = GetStorage(Strings.CACHE_BOX_KEY);
+      if (Platform.isAndroid) {
+        log.w("RESTORE SESSION : ${Session.fromJson(
+          box.read(CacheManagerKeys.deltaSessionData.toString()),
+        ).toJson()}");
+      } else {
+        MacLog.printO(("RESTORE SESSION : ${Session.fromJson(
+          box.read(CacheManagerKeys.deltaSessionData.toString()),
+        ).toJson()}"));
+      }
+      return Session.fromJson(
+          box.read(CacheManagerKeys.deltaSessionData.toString()));
+    } catch (e) {
+      MacLog.printR("Session is empty!");
+      return null;
     }
-    return Session.fromJson(box.read(CacheManagerKeys.sessionData.toString()));
   }
 
   Future<void> removeToken() async {
     final box = GetStorage(Strings.CACHE_BOX_KEY);
-    await box.remove(CacheManagerKeys.token.toString());
-    await box.remove(CacheManagerKeys.sessionData.toString());
+    await box.remove(CacheManagerKeys.deltaToken.toString());
+    await box.remove(CacheManagerKeys.deltaSessionData.toString());
   }
 }

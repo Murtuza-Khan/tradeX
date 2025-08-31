@@ -7,3 +7,4 @@ part 'currency_extension.dart';
 part 'double_extension.dart';
 part 'string_extension.dart';
 part 'date_extension.dart';
+part 'color_extension.dart';

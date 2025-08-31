@@ -39,10 +39,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (showLogo) ...[
-            // ImageService.image(Assets.APP_LOGO, scale: 3.0),
-          ],
-          _buildTitleAndSubTitle(context),
+          // if (showLogo) ...[
+          // ImageService.image(Assets.APP_LOGO, scale: 3.0),
+          // ],
+          _buildTitleAndSubTitle(context).flexible(),
         ],
       ),
       centerTitle: true,

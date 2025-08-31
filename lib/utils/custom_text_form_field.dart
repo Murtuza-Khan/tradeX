@@ -250,7 +250,7 @@ class CustomTextFormField extends StatelessWidget {
             return null;
           },
           autofillHints: autofillHints,
-          keyboardType: keyboardType ?? TextInputType.text,
+          keyboardType: keyboardType ?? TextInputType.number,
           onChanged: onChanged,
           obscureText: obscureText ?? false,
           style: textStyle ??

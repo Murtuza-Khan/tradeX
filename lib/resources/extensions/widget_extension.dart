@@ -12,13 +12,17 @@ extension WidgetExtensions on Widget {
       animationDuration: Duration(milliseconds: durationInMilli),
       curve: Curves.linear,
       direction: Direction.horizontal,
-      offset: -0.5,
+      offset: 0.5,
       child: this,
     );
   }
 
   Widget align({AlignmentGeometry? align}) {
     return Align(alignment: align ?? Alignment.center, child: this);
+  }
+
+  Widget clipRRect({required BorderRadius radius}) {
+    return ClipRRect(borderRadius: radius, child: this);
   }
 
   Widget shadow({
@@ -32,7 +36,7 @@ extension WidgetExtensions on Widget {
         borderRadius: BorderRadius.circular(radius),
         boxShadow: [
           BoxShadow(
-            color: color ?? AppColors.black.withOpacity(0.2),
+            color: color ?? AppColors.black.withValues(alpha:0.2),
             offset: offset ?? const Offset(0.0, 4.0),
             blurRadius: blurRadius ?? 5.0,
           ),

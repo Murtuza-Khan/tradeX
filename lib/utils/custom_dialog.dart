@@ -3,6 +3,22 @@ import '../resources/exports/index.dart';
 class CustomDialog {
   static const Duration animationDuration = Durations.medium3;
 
+  static Future<T?> showFullScreenDialog<T>({required Widget content}) {
+    var dialog = Dialog.fullscreen(child: content);
+
+    return showGeneralDialog<T>(
+      context: Get.context!,
+      barrierLabel: '',
+      transitionDuration: animationDuration,
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return PanaraAnimations.grow(animation, secondaryAnimation, child);
+      },
+      pageBuilder: (animation, secondaryAnimation, child) {
+        return dialog;
+      },
+    );
+  }
+
   static Future<T?> showDialog<T>({
     required Widget content,
     bool barrierDismissible = true,
@@ -186,6 +202,8 @@ class CustomDialog {
             margin: EdgeInsets.zero,
             padding: padding,
             noImage: noImage,
+            dialogHeight: height ?? 340,
+            dialogWidth: width ?? 340,
           ),
           height: height,
           width: width,
@@ -264,7 +282,7 @@ class CustomDialog {
       alignment: alignment ?? Alignment.center,
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Sizes.RADIUS_6),
+        borderRadius: BorderRadius.circular(Sizes.RADIUS_14),
       ),
       child: Container(
         constraints: BoxConstraints(
@@ -275,10 +293,10 @@ class CustomDialog {
         ),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(Sizes.RADIUS_6),
+          borderRadius: BorderRadius.circular(Sizes.RADIUS_14),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(Sizes.RADIUS_6),
+          borderRadius: BorderRadius.circular(Sizes.RADIUS_14),
           child: child,
         ),
       ),

@@ -1,8 +1,35 @@
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+import 'package:googleapis_auth/auth_io.dart' as auth;
+
 import '../../../resources/exports/index.dart';
 
 class GlobalHelper {
   static Set<int> setOfInts = {};
+
+  static Widget loadingWidget({Color? color}) {
+    return Platform.isAndroid
+        ? Center(
+            child: CircularProgressIndicator(
+              color: color ?? AppColors.white,
+              strokeWidth: 2,
+            ),
+          )
+        : Center(
+            child: CupertinoActivityIndicator(
+              color: color ?? AppColors.white,
+              radius: 12,
+            ),
+          );
+  }
+
+  static String formatedNumber({int? value}) {
+    int? points = value ?? 0;
+    return points < 999999999
+        ? points.getFormattedCurrency(showSymbol: false)
+        : points.getCompactCurrency();
+  }
 
   static int getRandomId() {
     int value = Random().nextInt(99999999);
@@ -29,6 +56,34 @@ class GlobalHelper {
       charCodes.add(charCode);
     }
     return base64Encode(Uint8List.fromList(charCodes));
+  }
+
+  static Future<void> launch(String url, {String? failUrl}) async {
+    try {
+      if (url.isEmpty) {
+        return CustomSnackBar.errorSnackBar(message: Strings.COULD_NOT_LAUNCH);
+      }
+      bool canLaunch = await canLaunchUrl(Uri.parse(url));
+      if (canLaunch) {
+        await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+      } else {
+        await launchUrl(Uri.parse(
+            "https://play.google.com/store/apps/details?id=com.ionic.giftkarte"));
+      }
+    } catch (_) {
+      MacLog.printM(failUrl);
+
+      if ((failUrl ?? '').isEmpty) {
+        return CustomSnackBar.errorSnackBar(
+          message: Strings.COULD_NOT_LAUNCH,
+        );
+      }
+      if (!await launchUrl(Uri.parse(failUrl!))) {
+        return CustomSnackBar.errorSnackBar(
+          message: Strings.COULD_NOT_LAUNCH,
+        );
+      }
+    }
   }
 
   static dynamic decrypt(String encryptedData) {
@@ -75,4 +130,28 @@ class GlobalHelper {
     'y',
     'z',
   ];
+
+  static Future<String> getAccessToken() async {
+    try {
+      http.Client client = await auth.clientViaServiceAccount(
+        auth.ServiceAccountCredentials.fromJson(Secrets.serviceAccountJson),
+        Secrets.scopes,
+      );
+
+      auth.AccessCredentials credentials =
+          await auth.obtainAccessCredentialsViaServiceAccount(
+        auth.ServiceAccountCredentials.fromJson(Secrets.serviceAccountJson),
+        Secrets.scopes,
+        client,
+      );
+
+      client.close();
+
+      MacLog.printY(credentials.accessToken.data);
+      return credentials.accessToken.data;
+    } catch (e) {
+      MacLog.printR(e);
+      return "";
+    }
+  }
 }

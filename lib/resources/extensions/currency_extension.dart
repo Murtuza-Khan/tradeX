@@ -26,6 +26,17 @@ extension CurrencyStringX on Object? {
   }
 }
 
+extension NumToCurrency on num {
+  String getNumFormattedCurrency({bool showSymbol = true}) {
+    return NumberFormat.currency(
+      decimalDigits: 2,
+      symbol: showSymbol ? Strings.PKR : '',
+    ).format(this);
+  }
+
+  String getCompactCurrency() => NumberFormat.compact().format(this);
+}
+
 extension IntToCurrency on int {
   String getFormattedCurrency({bool showSymbol = true}) {
     return NumberFormat.currency(
@@ -51,7 +62,8 @@ extension StringToCurrency on String {
       return "${price.substring(0, price.length - 1)}000000000";
     } else if (price.toUpperCase().endsWith("T")) {
       String priceNew = "${price.substring(0, price.length - 1)}000000000000";
-      MacLog.printG("${price.length}, ${price.length - 1}, ${price.substring(0, price.length - 1)}");
+      MacLog.printG(
+          "${price.length}, ${price.length - 1}, ${price.substring(0, price.length - 1)}");
       return priceNew;
     } else {
       return price;

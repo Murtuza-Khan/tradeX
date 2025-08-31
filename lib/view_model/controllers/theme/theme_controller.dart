@@ -7,7 +7,7 @@ class ThemeController {
         isDarkMode: false,
         brightness: Brightness.light,
         swatchColors: MaterialColor(
-          accentColor.value,
+          accentColor.getColorHex,
           AppTheme.getSwatch(accentColor),
         ),
         primaryColor: accentColor,

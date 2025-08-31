@@ -2,8 +2,8 @@
 part of 'constants.dart';
 
 class Strings {
-  static const String APP_NAME = "";
-  static const String CACHE_BOX_KEY = 'cacheBoxKey';
+  static const String APP_NAME = "TradeX";
+  static const String CACHE_BOX_KEY = 'deltaCacheBoxKey';
 
   // Fonts Name
   static const String POPPINS = 'Poppins';
@@ -19,6 +19,20 @@ class Strings {
   static const String OPEN_DATA_SETTINGS = 'Open Data Settings';
   static const String OPEN_WIFI_SETTINGS = 'Open Wifi Settings';
   static const String YOU_ARE_OFFLINE = "You're Offline.";
+  static const String NO_RECORD_FOUND = "No Record Found !!";
+  static const String POWERED_BY = "Powered by";
+
+// On Boarding
+  static const String YOUR_GATEWAY = "Your Gateway to Exclusive Offers";
+  static const String UNLOCK_REWARDS = "Unlock Rewards Effortlessly";
+  static const String DISCOVER_AND_REDEEM =
+      "Discover and Redeem Rewards Instantly";
+  static const String REWARDZONE_BRINGS =
+      "RewardZone brings all your favorite brand rewards to one convenient place. Discover exclusive deals, track your points, and redeem rewards with just a few taps. Start saving and enjoying more today!";
+  static const String CLAIMIT_MAKES =
+      "ClaimIt makes redeeming rewards simple and stress-free. Browse offers from top companies, save them to your wallet, and redeem directly from the app. Turning points into perks has never been easier!";
+  static const String WITH_PERKPOINT =
+      "With PerkPoint, access a world of rewards from different companies in one app. From dining deals to shopping discounts, enjoy exclusive perks and maximize your loyalty benefits like never before.";
 
 // Dashboard
   static const String CONTACT_US = "Contact Us";
@@ -29,10 +43,18 @@ class Strings {
   static const String DISCLAIMER = "Disclaimer";
   static const String LOGOUT = "Logout";
   static const String WELCOME = "Welcome";
+  static const String TO_DELTA = "To Delta";
   static const String CLOSE_MENU = "Close Menu";
+
+
+// Dashboard
+  static const String NOTIFICATIONS = "Notifications";
 
 // Home
   static const String BACK = "Back";
+  static const String HI = "Hi";
+  static const String ACCOUNT = "Account";
+  static const String HERE_YOU = "Here you can find all your E-Gift Cards";
   static const String FROM_CAMERA = "From Camera";
   static const String FROM_GALLERY = "From Gallery";
   static const String VIEW_ALL = "View All";
@@ -43,7 +65,47 @@ class Strings {
   static const String HOME = "Home";
   static const String LOGIN_SIGNUP = "Login / Signup";
   static const String PROFILE = "Profile";
-  static const String USER_DASHBOARD = "User Dashboard";
+  static const String UPDATE = "Update";
+  static const String DASHBOARD = "Dashboard";
+  static const String TOTAL_POINTS = "Total Points";
+  static const String AVAILABLE_POINTS = "Available Points";
+  static const String REDEEMED_POINTS = "Redeemed Points";
+  static const String CHANGE_PASSWORD = "Change Password";
+  static const String REDEEME = "Redeem";
+  static const String REDEEME_HISTORY = "Redeem History";
+  static const String SWITCH_ACCOUNT = "Switch\nAccount";
+  static const String REDEEM_POINTS = "Redeem Points";
+  static const String DATE = "Date";
+  static const String POINTS = "Points";
+  static const String HERE = "Here";
+  static const String CLICK = "Click";
+  static const String FOR_COMPLETE = "for complete list of partner brands";
+  static const String ISSUED_BY = "Issued By";
+  static const String TITLE = "Title";
+  static const String RECEIVED_POINTS = "Received Points";
+  static const String CLICK_HERE = "Click Here";
+  static const String PLEASE_SELECT_THE =
+      "Please enter the points to redeem and click ";
+  static const String REDEEM_NOW = "Redeem Now";
+  static const String BUTTON = " button";
+  static const String YOU_MAY_CONVERT =
+      "You may convert your points into GiftKarte Universal e-Gift Card, for more details on the usage please. ";
+
+  // Switch Account
+  static const String SWITCH_ACCOUNT_WBSN = "Switch Account";
+
+  // Forgot password
+  static const String SEND_OTP = "Send OTP";
+
+  // Received Points
+  static const String SENDER_NAME = "Sender Name";
+
+  // Redeemed Rewards History
+  static const String HISTORY = "History";
+  static const String REQUEST_ID = "Request ID";
+  static const String POINTS_REDEEMED = "Points redeemed";
+  static const String VOUCHER_CODE = "Voucher Code";
+  static const String TAP_TO_VIEW = "Tap to view your reward voucher on giftkarte app";
 
   // Login
   static const String PLEASE_LOGIN = "Please Login";
@@ -53,19 +115,31 @@ class Strings {
   static const String SIGNUP = "Sign up";
   static const String LOGIN_INTO_YOUR_ACCOUNT = "Login to your account";
   static const String EMAIL = "Email";
+  static const String CNIC = "CNIC";
   static const String ENTER_A_VALID = "Enter a valid email";
   static const String PASSWORD = "Password";
+  static const String OLD_PASSWORD = "Old Password";
+  static const String NEW_PASSWORD = "New Password";
   static const String CONFIRM_PASSWORD = "Confirm Password";
-  static const String FORGOT_PASSWORD = "Forget Password";
+  static const String CONFIRM = "Confirm";
+  static const String FORGOT_PASSWORD = "Forgot Password";
   static const String REMEMBER_ME = "Remember Me";
   static const String ARE_YOU_SURE = "Are you sure you want to logout ?";
   static const String ENTER_YOUR_EMAIL =
       "Enter your Email or Phone in the field below to proceed";
 
+  // Forget Password
+  static const String PLEASE_ENTER_CNIC =
+      "Please enter your CNIC number to reset password.";
+  static const String SELECT_A_PHONE = "Please select a phone number first";
+
+  // Reset Password
+  static const String RESET_PASSWORD = "Reset password";
+
   // Sign Up
   static const String SIGNUP_CREATE_ACCOUNT = "Sign up - Create Account";
   static const String FIRST_NAME = "First Name";
-  static const String NAME = "Name";
+  static const String NAME = "First Name";
   static const String LAST_NAME = "Last Name";
   static const String MOBILE = "Mobile";
   static const String ALREADY_HAVE_AN_ACCOUNT = "Already have an account ? ";
@@ -73,8 +147,12 @@ class Strings {
 
 // OTP
   static const String CONTINUE = "Continue";
+  static const String VERIFY_OTP = "Verify OTP";
+  static const String OTP_VERIFIED = "OTP verified successfully";
   static const String RESEND = "Resend";
-  static const String ENTER_OTP = "Enter Otp";
+  static const String ENTER_OTP = "Enter OTP";
+  static const String FILL_THE_DETAILS =
+      "Fill the details below to reset your password";
   static const String ONE_TIME_PASS =
       "Enter the One-Time Password (OTP) sent to your registered phone/Email to verify your account.";
 
@@ -82,9 +160,19 @@ class Strings {
   static const String DELETE_ACCOUNT = "Delete Account";
   static const String SEND = "Send";
   static const String SAVE = "Save";
+  static const String SUPPLIER = "Supplier";
 
   // Search
   static const String SEARCH = "Search";
+
+  // Change Password
+  static const String TO_CHANGE_PASSWORD =
+      "Fill the details below to change your password";
+
+  // Redeem Rewards
+  static const String REDEEM_POINTS_INTO = "Redeem points into Giftkarte";
+  static const String REDEEM_A_GIFTKARET =
+      "Redeem a Giftkaret voucher and unlock shopping across 170+ top brands! Simply enter your points below and click 'Proceed' to get started.";
 
   // Voucher Details
   static const String PKR = "PKR ";
@@ -108,6 +196,7 @@ class Strings {
 // Cart
   static const String CART = "Cart";
   static const String PROCEED_TO_CHECKOUT = "Proceed To Checkout";
+  static const String PROCEED = "Proceed";
   static const String TOTAL = "Total";
   static const String YOUR_CART_IS_EMPTY = "Your Cart Is Empty";
   static const String LOOKS_LIKE =
@@ -196,6 +285,9 @@ class Strings {
   static const String ORDER_PLACED_SUCCESSFULLY = 'Order placed successfully';
   static const String ORDER_PLACED = 'Your order has been placed successfully';
   static const String HAS_BEEN_ACTIVATED = 'has been activated';
+  static const String ACCOUNT_SWITCHED = 'Account switched successfully';
+  static const String PASSWORD_CHANGED = 'Password changed successfully';
+  static const String PROFILE_UPDATE = 'Profile update successfully';
   static const String PLEASE_WAIT_YOUR_PAYMENT =
       'Please wait your payment is finalizing';
   static const String ARE_YOU_SURE_BACK = 'Are you sure you want to go back?';
@@ -203,4 +295,9 @@ class Strings {
       'Are you sure you want to delete your account?';
   static const String PLEASE_VERIFY =
       'An otp has been sent to your registered phone number, please verify';
+  static const String PROVIDED_DATA = 'Provided data is null';
+  static const String SELECT_A_NUMBER =
+      'Please select a number to which you would like to sent the OTP.';
+  static const String PASSWORD_RESET_SUCCESSFULLY =
+      'Password reset successfully';
 }

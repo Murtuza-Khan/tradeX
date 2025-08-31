@@ -7,24 +7,38 @@ class ImagePickerService {
     double? maxWidth,
     double? maxHeight,
     int? quality,
+    int maxSizeInMB = 10,
   }) async {
     try {
+      final int maxFileSize = maxSizeInMB * 1024 * 1024; // 2 MB in bytes
+
       final XFile? image = await ImagePicker().pickImage(
         source: imageSource,
         maxWidth: maxWidth,
         maxHeight: maxHeight,
-        imageQuality: quality,
+        imageQuality: 25,
+        preferredCameraDevice: CameraDevice.rear,
       );
 
       if (image != null) {
         String ext = p.extension(image.path);
-        log.w(ext);
         if (image.mimeType == 'image/jpeg' ||
             image.mimeType == 'image/jpg' ||
             image.mimeType == 'image/png' ||
+            image.mimeType == 'image/webp' ||
+            image.mimeType == 'image/svg' ||
             ext == ".jpg" ||
             ext == ".jpeg" ||
-            ext == ".png") {
+            ext == ".png" ||
+            ext == ".webp" ||
+            ext == "svg") {
+          int imageSize = await image.length();
+          if (imageSize > maxFileSize) {
+            CustomSnackBar.errorToast(
+              message: "Image size is grater than $maxSizeInMB MB",
+            );
+            return null;
+          }
           return image;
         } else {
           CustomSnackBar.toast(message: 'Invalid File Format.');
@@ -62,7 +76,7 @@ class ImagePickerService {
               image = await pickImage(imageSource: ImageSource.camera);
               Get.back<XFile>(result: image);
             },
-            leading: const Icon(
+            leading: Icon(
               Icons.camera_alt_outlined,
               color: AppColors.primary,
             ),
@@ -73,7 +87,7 @@ class ImagePickerService {
               image = await pickImage(imageSource: ImageSource.gallery);
               Get.back<XFile>(result: image);
             },
-            leading: const Icon(Icons.image_outlined, color: AppColors.primary),
+            leading: Icon(Icons.image_outlined, color: AppColors.primary),
             title: Text(Strings.FROM_GALLERY, style: Get.context!.bodyLarge),
           ),
         ],

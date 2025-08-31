@@ -45,7 +45,7 @@ class CustomFutureBuilder<T> extends StatelessWidget {
           if (snapshot.hasError || snapshot.data == null) {
             return reloadWidget ??
                 NoContent(
-                  title: errorTitle ?? "Content Not Found !!",
+                  title: errorTitle ?? Strings.NO_RECORD_FOUND,
                   subtitle: errorSubtitle!,
                   padding: noContentPadding ?? 32,
                   showBackground: showNoContentBackground,
@@ -54,7 +54,7 @@ class CustomFutureBuilder<T> extends StatelessWidget {
             if (snapshot.data == [] || GetUtils.isBlank(snapshot.data)!) {
               return reloadWidget ??
                   NoContent(
-                    title: errorTitle ?? "Content Not Found !!",
+                    title: errorTitle ?? Strings.NO_RECORD_FOUND,
                     subtitle: errorSubtitle!,
                     padding: noContentPadding ?? 32,
                     showBackground: showNoContentBackground,
@@ -75,7 +75,7 @@ class CustomFutureBuilder<T> extends StatelessWidget {
           return Center(
             child: Text(
               'State: ${snapshot.connectionState}',
-              style: const TextStyle(color: AppColors.primary),
+              style: TextStyle(color: AppColors.primary),
             ),
           );
         }

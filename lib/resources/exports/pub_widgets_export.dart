@@ -48,3 +48,7 @@ export 'package:url_launcher/url_launcher.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:firebase_messaging/firebase_messaging.dart';
 export 'package:flutter_local_notifications/flutter_local_notifications.dart';
+export 'package:adaptive_theme/adaptive_theme.dart';
+export 'package:appcheck/appcheck.dart';
+export 'package:simple_ripple_animation/simple_ripple_animation.dart';
+export 'package:path_provider/path_provider.dart';

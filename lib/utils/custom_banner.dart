@@ -5,14 +5,14 @@ enum BannerPosition { topRight, topLeft }
 class CustomBanner extends StatelessWidget {
   final String? label;
   final Widget child;
-  final Color bannerColor;
+  final Color? bannerColor;
   final double bannerWidth;
   final BannerPosition position;
 
   const CustomBanner({
     super.key,
     required this.child,
-    this.bannerColor = AppColors.primary,
+    this.bannerColor,
     this.label,
     this.bannerWidth = 100.0,
     this.position = BannerPosition.topLeft,
@@ -58,7 +58,6 @@ class CustomBanner extends StatelessWidget {
           ),
         );
 
-      case BannerPosition.topLeft:
       default:
         return Positioned(
           top: -25.0,
@@ -106,7 +105,7 @@ class CustomBanner extends StatelessWidget {
             child: Container(
               height: 20.0,
               width: 20.0,
-              color: darken(bannerColor, 0.2),
+              color: darken(bannerColor ?? AppColors.primary, 0.2),
             ),
           ),
         ),
@@ -119,7 +118,7 @@ class CustomBanner extends StatelessWidget {
             child: Container(
               height: 20.0,
               width: 20.0,
-              color: darken(bannerColor, 0.2),
+              color: darken(bannerColor ?? AppColors.primary, 0.2),
             ),
           ),
         ),
@@ -208,14 +207,14 @@ class _CustomRightBannerClipper extends CustomClipper<Path> {
 class CustomBannerShimmer extends StatelessWidget {
   final String? label;
   final Widget child;
-  final Color bannerColor;
+  final Color? bannerColor;
   final double bannerWidth;
   final BannerPosition position;
 
   const CustomBannerShimmer({
     super.key,
     required this.child,
-    this.bannerColor = AppColors.primary,
+    this.bannerColor,
     this.label,
     this.bannerWidth = 100.0,
     this.position = BannerPosition.topLeft,
@@ -258,7 +257,6 @@ class CustomBannerShimmer extends StatelessWidget {
           ),
         );
 
-      case BannerPosition.topLeft:
       default:
         return Positioned(
           top: -25.0,
@@ -302,7 +300,7 @@ class CustomBannerShimmer extends StatelessWidget {
             child: Container(
               height: 20.0,
               width: 20.0,
-              color: darken(bannerColor, 0.2),
+              color: darken(bannerColor ?? AppColors.primary, 0.2),
             ),
           ),
         ),
@@ -315,7 +313,7 @@ class CustomBannerShimmer extends StatelessWidget {
             child: Container(
               height: 20.0,
               width: 20.0,
-              color: darken(bannerColor, 0.2),
+              color: darken(bannerColor ?? AppColors.primary, 0.2),
             ),
           ),
         ),

@@ -13,15 +13,25 @@ class AuthManager extends LocalStorageService implements GetxService {
 
   String get token => session.value?.token ?? '';
 
+  AppColorsModel get appColorsModel =>
+      session.value?.appColors ?? AppColorsModel();
+  set appColorsModel(AppColorsModel? colors) =>
+      session.value?.appColors = colors;
+
   UserModel get user => session.value?.user ?? UserModel();
+  set user(UserModel? user) => session.value?.user = user;
+
+  CompaniesModel get company => session.value?.company ?? CompaniesModel();
+  set company(CompaniesModel? company) => session.value?.company = company;
 
   String get defaultLanguage => getDefaultLanguage() ?? "en";
-
   String get deviceToken => getDeviceToken() ?? "";
 
   Future<void> login(Session? session) async {
     _isLoggedIn.value = true;
     if (rememberCredentials.value) await saveToken(session?.token);
+    AppColors.initializeAppColors(session?.appColors ?? AppColorsModel());
+    AdaptiveTheme.of(Get.context!).setTheme(light: ThemeController().getTheme);
     await saveCurrentSession(session: session);
   }
 
@@ -47,14 +57,44 @@ class AuthManager extends LocalStorageService implements GetxService {
     return false;
   }
 
+  Future<bool> saveAndUpdateSession({
+    UserModel? user,
+    CompaniesModel? company,
+    AppColorsModel? appColors,
+  }) async {
+    Session? savedSession = getSessionData();
+    if (savedSession == null) return false;
+    if (user == null && company == null && appColors == null) {
+      CustomSnackBar.errorSnackBar(message: Strings.PROVIDED_DATA);
+      return false;
+    }
+
+    if (user != null) this.user = user;
+    if (company != null) this.company = company;
+    if (appColors != null) appColorsModel = appColors;
+
+    Session? session = this.session.value?.copyWith(
+          user: this.user,
+          company: this.company,
+          appColors: appColorsModel,
+        );
+    bool saved = await saveSession(session);
+    if (!saved) return false;
+
+    this.session.value = session;
+    return true;
+  }
+
   Future<void> saveCurrentSession({
     Object? id,
     UserModel? user,
+    CompaniesModel? company,
     Session? session,
   }) async {
     if (session != null) this.session.value = session;
     this.session.update((session) {
       if (user != null) session!.user = user;
+      if (company != null) session!.company = company;
     });
     if (rememberCredentials.value) await saveSession(this.session.value);
   }

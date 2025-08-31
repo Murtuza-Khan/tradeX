@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1039496907837",
+    "project_id": "giftkarte-tradex",
+    "storage_bucket": "giftkarte-tradex.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039496907837:android:a35a86d54c1a02dcd46e54",
+        "android_client_info": {
+          "package_name": "com.giftkarte.tradex"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE2K6sxCEZt9xm4uEVaZvp3EjkfGj5j28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

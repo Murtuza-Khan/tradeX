@@ -14,6 +14,11 @@ class InputFormat {
     LengthLimitingTextInputFormatter(17),
   ];
   
+  static final cnicCount = <TextInputFormatter>[
+    FilteringTextInputFormatter.digitsOnly,
+    LengthLimitingTextInputFormatter(13),
+  ];
+
   static final phoneNumber = <TextInputFormatter>[
     FilteringTextInputFormatter.digitsOnly,
     LengthLimitingTextInputFormatter(11),
@@ -71,5 +76,28 @@ class UpperCaseTextFormatter extends TextInputFormatter {
   String capitalize(String value) {
     if (value.trim().isEmpty) return "";
     return value.toUpperCase();
+  }
+}
+
+class CnicInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final digitsOnly = newValue.text.replaceAll(RegExp(r'\D'), '');
+
+    String formatted = '';
+    for (int i = 0; i < digitsOnly.length; i++) {
+      if (i == 5 || i == 12) {
+        formatted += '-';
+      }
+      formatted += digitsOnly[i];
+    }
+
+    return TextEditingValue(
+      text: formatted,
+      selection: TextSelection.collapsed(offset: formatted.length),
+    );
   }
 }

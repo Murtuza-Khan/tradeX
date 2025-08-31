@@ -10,22 +10,25 @@ class LoginForm extends GetView<LoginController> {
       child: Column(
         children: [
           CustomTextFormField(
-            controller: controller.emailCtrl,
+            controller: controller.cnicCtrl,
             textCapitalization: TextCapitalization.none,
             isRequired: true,
             height: Sizes.HEIGHT_20,
-            labelText: Strings.EMAIL,
+            labelText: Strings.CNIC,
             labelColor: AppColors.black,
-            prefixIcon: EneftyIcons.sms_outline,
+            prefixIcon: EneftyIcons.card_outline,
             prefixIconColor: AppColors.black,
             textColor: AppColors.black,
             cursorColor: AppColors.black,
             enableBorderColor: AppColors.black,
             focusBorderColor: AppColors.primary,
             textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.number,
             autofillHints: const [AutofillHints.email],
-            validator: Validators.emailValidator.call,
+            inputFormatters: [
+              ...InputFormat.cnicCount,
+              CnicInputFormatter(),
+            ],
           ),
           const SpaceH10(),
           Obx(
@@ -65,28 +68,6 @@ class LoginForm extends GetView<LoginController> {
             onTapAsync: () async => controller.login(),
             radius: Sizes.RADIUS_12,
             constraints: const BoxConstraints(minHeight: 55),
-          ),
-          const SpaceH30(),
-          GestureDetector(
-            onTap: () => Get.offNamed(Routes.SIGNUP),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  Strings.DONT_HAVE_ACCOUNT,
-                  style: context.titleMedium.copyWith(color: AppColors.black),
-                ),
-                const SpaceW10(),
-                Text(
-                  Strings.SIGNUP,
-                  style: context.titleLarge.copyWith(
-                    color: AppColors.primary,
-                    decoration: TextDecoration.underline,
-                    decorationColor: AppColors.primary,
-                  ),
-                ),
-              ],
-            ),
           ),
           const SpaceH16(),
         ],
@@ -128,9 +109,9 @@ class LoginForm extends GetView<LoginController> {
         ),
         const Spacer(),
         TextButton(
-          onPressed: () {},
+          onPressed: () => Get.toNamed(Routes.FORGOT_PASSWORD),
           child: Text(
-            Strings.FORGOT_PASSWORD.tr,
+            "${Strings.FORGOT_PASSWORD} ?",
             style: context.bodyLarge.copyWith(
               color: AppColors.primary,
               fontWeight: FontWeight.w600,

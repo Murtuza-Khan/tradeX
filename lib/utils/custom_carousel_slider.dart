@@ -120,7 +120,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
                 activeIndex: selectedIndex,
                 count: data.length,
                 axisDirection: Axis.horizontal,
-                effect: const ExpandingDotsEffect(
+                effect: ExpandingDotsEffect(
                   spacing: 8.0,
                   radius: 4.0,
                   dotWidth: 6.0,

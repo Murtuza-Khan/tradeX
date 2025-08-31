@@ -72,13 +72,22 @@ class OtpScreen extends GetView<OtpController> {
                     ],
                   ),
                   const SpaceH20(),
-                  CustomButton.solid(
-                    backgroundColor: AppColors.primary,
-                    textColor: AppColors.white,
-                    text: Strings.CONTINUE,
-                    onTapAsync: () => controller.verfyOtp(),
-                    radius: 6,
-                    constraints: const BoxConstraints(minHeight: 55),
+                  GetBuilder<OtpController>(
+                    id: 'confirm_otp_button',
+                    builder: (_) {
+                      return CustomButton.solid(
+                        backgroundColor:
+                            (controller.otpTimer?.isActive ?? false)
+                                ? AppColors.primary
+                                : AppColors.disabled,
+                        textColor: AppColors.white,
+                        text: Strings.VERIFY_OTP,
+                        isEnabled: controller.otpTimer?.isActive ?? false,
+                        onTapAsync: () => controller.verfyOtp(),
+                        radius: 6,
+                        constraints: const BoxConstraints(minHeight: 55),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -90,9 +99,9 @@ class OtpScreen extends GetView<OtpController> {
   }
 
   Widget _buildPinField() {
-    const focusedBorderColor = AppColors.primary;
-    final fillColor = AppColors.primaryLight.withOpacity(0.25);
-    const borderColor = AppColors.primary;
+    Color focusedBorderColor = AppColors.primary;
+    Color borderColor = AppColors.primary;
+    final fillColor = AppColors.primaryLight.withValues(alpha: 0.25);
 
     final defaultPinTheme = PinTheme(
       width: 70,
@@ -109,7 +118,7 @@ class OtpScreen extends GetView<OtpController> {
       obscuringWidget: Container(
         width: 20.0,
         height: 20.0,
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
           shape: BoxShape.circle,
           color: AppColors.primary,
         ),

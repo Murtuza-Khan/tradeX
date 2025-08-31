@@ -5,13 +5,15 @@ class NoContent extends StatelessWidget {
   final String subtitle;
   final double padding;
   final bool showBackground;
+  final Color? backgroundColor;
 
   const NoContent({
     super.key,
     required this.title,
     required this.subtitle,
     this.padding = 0,
-    this.showBackground = false,
+    this.showBackground = true,
+    this.backgroundColor,
   });
 
   @override
@@ -23,7 +25,8 @@ class NoContent extends StatelessWidget {
           bottomRight: showBackground ? const Radius.circular(55) : Radius.zero,
         ),
         child: Container(
-          color: showBackground ? AppColors.white : Colors.transparent,
+          color: backgroundColor ??
+              (showBackground ? AppColors.backgroundColor : Colors.transparent),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SingleChildScrollView(
@@ -31,12 +34,15 @@ class NoContent extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: padding),
+                  SpaceH20(),
+                  AnimatedEmtyWidget(),
+                  SizedBox(height: 35),
                   Text(
                     title,
                     style: Get.textTheme.headlineLarge!.copyWith(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.black.withOpacity(0.45),
+                      color: AppColors.black.withValues(alpha: 0.45),
                     ),
                   ),
                   Padding(
@@ -46,7 +52,7 @@ class NoContent extends StatelessWidget {
                       style: Get.textTheme.bodySmall!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: AppColors.black.withOpacity(0.45),
+                        color: AppColors.black.withValues(alpha: 0.45),
                       ),
                       textAlign: TextAlign.center,
                     ),
