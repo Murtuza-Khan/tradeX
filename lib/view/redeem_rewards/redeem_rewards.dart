@@ -103,6 +103,7 @@ class RedeemRewards extends GetView<RedeemRewardsController> {
                         keyboardType: TextInputType.number,
                         autofillHints: const [AutofillHints.email],
                         onChanged: controller.onPointsChanged,
+                        inputFormatters: [RemoveDecimalInputFormatter()],
                         validator: (value) {
                           if (value == null) return null;
                           if (int.parse(value) >
@@ -206,7 +207,7 @@ class RedeemRewards extends GetView<RedeemRewardsController> {
               ).paddingSymmetric(horizontal: 16.0),
               SpaceH20(),
               CustomButton.solid(
-                backgroundColor: AppColors.primary, 
+                backgroundColor: AppColors.primary,
                 textColor: AppColors.white,
                 text: Strings.CONTINUE,
                 onTap: () => Get.back(),

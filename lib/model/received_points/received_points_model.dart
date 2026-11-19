@@ -1,8 +1,8 @@
 import '../../resources/exports/index.dart';
 
 class ReceivedPointsModel {
-  int? awardedPoints;
-  int? redeemedPoints;
+  num? awardedPoints;
+  num? redeemedPoints;
   String? logo;
   String? banner;
   AppColorsModel? appColors;
@@ -32,8 +32,8 @@ class ReceivedPointsModel {
 
   factory ReceivedPointsModel.fromMap(Map<String, dynamic> map) {
     return ReceivedPointsModel(
-      awardedPoints: map['awarded_points'] as int?,
-      redeemedPoints: map['redeemed_points'] as int?,
+      awardedPoints: map['awarded_points'] as num?,
+      redeemedPoints: map['redeemed_points'] as num?,
       logo: map['logo'] as String?,
       banner: map['banner'] as String?,
       receivedPoints: ReceivedPointsDataModel.listFromJson(

@@ -1,10 +1,11 @@
-import '../resources/exports/index.dart';
+import '../resources/exports/index.dart' hide ThemeData;
+import 'package:material_ui/material_ui.dart' as material_ui;
 
-AppBarTheme appBarTheme({
+material_ui.AppBarTheme appBarTheme({
   required Color primaryColor,
   required Color appBarColor,
 }) =>
-    AppBarTheme(
+    material_ui.AppBarTheme(
       backgroundColor: appBarColor,
       elevation: 0,
       iconTheme: IconThemeData(color: primaryColor),
@@ -15,18 +16,18 @@ AppBarTheme appBarTheme({
       ),
     );
 
-ScrollbarThemeData scrollbarTheme({
+material_ui.ScrollbarThemeData scrollbarTheme({
   required Color primaryColor,
 }) =>
-    ScrollbarThemeData(
+    material_ui.ScrollbarThemeData(
       trackColor: WidgetStateProperty.all(primaryColor),
     );
 
-DataTableThemeData dataTableTheme({
+material_ui.DataTableThemeData dataTableTheme({
   required Color primaryColor,
   required Color textColor,
 }) =>
-    DataTableThemeData(
+    material_ui.DataTableThemeData(
       columnSpacing: 24,
       headingRowColor: WidgetStateProperty.all(primaryColor),
       decoration: BoxDecoration(

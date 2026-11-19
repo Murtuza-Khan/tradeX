@@ -48,7 +48,11 @@ class OtpController extends GetxController {
       SwitchAccountHelper.company = CompaniesModel();
       SendOtpHelper.switchAccountPhone = null;
       Get.close(2);
-      LandingController.instance.onNavigate(0, Routes.HOME);
+      if (LandingController.instance.selectedIndex == 0) {
+        Get.find<HomeController>().update(['refresh_home_data']);
+      } else {
+        LandingController.instance.onNavigate(0, Routes.HOME);
+      }
     } else {
       CustomSnackBar.successSnackBar(message: Strings.OTP_VERIFIED);
       Get.offNamed(Routes.PASSWORD_RESET, arguments: {"token": result.$2});

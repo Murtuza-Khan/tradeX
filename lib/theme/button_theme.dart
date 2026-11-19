@@ -1,11 +1,12 @@
-import '../resources/exports/index.dart';
+import '../resources/exports/index.dart' hide ThemeData;
+import 'package:material_ui/material_ui.dart' as material_ui;
 
-ButtonThemeData buttonTheme({
+material_ui.ButtonThemeData buttonTheme({
   required Color primaryColor,
 }) =>
-    const ButtonThemeData(
+    const material_ui.ButtonThemeData(
       padding: EdgeInsets.all(Sizes.PADDING_20),
-      colorScheme: ColorScheme.light(),
+      colorScheme: material_ui.ColorScheme.light(),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(Sizes.RADIUS_12)),
       ),
@@ -13,11 +14,11 @@ ButtonThemeData buttonTheme({
       minWidth: double.infinity,
     );
 
-ElevatedButtonThemeData elevatedButtonTheme({
+material_ui.ElevatedButtonThemeData elevatedButtonTheme({
   required Color primaryColor,
 }) =>
-    ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
+    material_ui.ElevatedButtonThemeData(
+      style: material_ui.ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(Sizes.PADDING_20),
         foregroundColor: primaryColor,
         minimumSize: const Size(double.infinity, Sizes.HEIGHT_32),
@@ -27,19 +28,19 @@ ElevatedButtonThemeData elevatedButtonTheme({
       ),
     );
 
-TextButtonThemeData textButtonTheme({
+material_ui.TextButtonThemeData textButtonTheme({
   required Color primaryColor,
 }) =>
-    TextButtonThemeData(
-      style: TextButton.styleFrom(foregroundColor: primaryColor),
+    material_ui.TextButtonThemeData(
+      style: material_ui.TextButton.styleFrom(foregroundColor: primaryColor),
     );
 
-OutlinedButtonThemeData outlinedButtonTheme({
+material_ui.OutlinedButtonThemeData outlinedButtonTheme({
   required Color primaryColor,
   required Color borderColor,
 }) {
-  return OutlinedButtonThemeData(
-    style: OutlinedButton.styleFrom(
+  return material_ui.OutlinedButtonThemeData(
+    style: material_ui.OutlinedButton.styleFrom(
       padding: const EdgeInsets.all(Sizes.PADDING_20),
       foregroundColor: primaryColor,
       minimumSize: const Size(double.infinity, Sizes.HEIGHT_32),

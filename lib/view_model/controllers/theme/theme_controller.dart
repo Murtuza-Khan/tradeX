@@ -1,12 +1,13 @@
-import '../../../resources/exports/index.dart';
+import '../../../resources/exports/index.dart' hide ThemeData;
+import 'package:material_ui/material_ui.dart' as material_ui;
 
 class ThemeController {
   Color accentColor = AppColors.primary;
 
-  ThemeData get getTheme => AppTheme.build(
+  material_ui.ThemeData get getTheme => AppTheme.build(
         isDarkMode: false,
         brightness: Brightness.light,
-        swatchColors: MaterialColor(
+        swatchColors: material_ui.MaterialColor(
           accentColor.getColorHex,
           AppTheme.getSwatch(accentColor),
         ),

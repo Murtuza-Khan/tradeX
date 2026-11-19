@@ -1,4 +1,5 @@
-import '../resources/exports/index.dart';
+import '../resources/exports/index.dart' hide ThemeData;
+import 'package:material_ui/material_ui.dart' as material_ui;
 
 class AppTheme {
   const AppTheme._();
@@ -36,15 +37,15 @@ class AppTheme {
     };
   }
 
-  static ThemeData build({
+  static material_ui.ThemeData build({
     required bool isDarkMode,
     required Brightness brightness,
-    required MaterialColor swatchColors,
+    required material_ui.MaterialColor swatchColors,
     required Color primaryColor,
   }) =>
-      ThemeData.from(
+      material_ui.ThemeData.from(
         colorScheme:
-            ColorScheme.fromSwatch(primarySwatch: swatchColors).copyWith(
+            material_ui.ColorScheme.fromSwatch(primarySwatch: swatchColors).copyWith(
           surface: const Color(0xfff2f2f7),
           error: AppColors.error,
         ),
@@ -59,7 +60,7 @@ class AppTheme {
         canvasColor: const Color(0xffe5e5ea),
         cardColor: const Color(0xFFF1F3F6),
         dividerColor: const Color(0xff686868),
-        progressIndicatorTheme: const ProgressIndicatorThemeData(
+        progressIndicatorTheme: const material_ui.ProgressIndicatorThemeData(
           color: Color(0xFF40A76A),
         ),
         inputDecorationTheme: inputDecorationTheme(
@@ -84,12 +85,12 @@ class AppTheme {
           primaryColor: primaryColor,
           textColor: swatchColors.shade400,
         ),
-        bottomSheetTheme: BottomSheetThemeData(
+        bottomSheetTheme: material_ui.BottomSheetThemeData(
           backgroundColor: AppColors.backgroundColor,
           modalBackgroundColor: AppColors.backgroundColor,
           surfaceTintColor: Colors.white,
         ),
-        dialogTheme: DialogThemeData(
+        dialogTheme: material_ui.DialogThemeData(
           backgroundColor: AppColors.backgroundColor,
           surfaceTintColor: AppColors.white,
         ),

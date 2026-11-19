@@ -38,7 +38,7 @@ extension ContextExtension on BuildContext {
   Color get textColor => theme.textTheme.titleLarge!.color!;
   Color get progressIndicatorColor => theme.progressIndicatorTheme.color!;
 
-  InputDecorationTheme get inputDecorationTheme => theme.inputDecorationTheme;
+  InputDecorationThemeData get inputDecorationTheme => theme.inputDecorationTheme;
 
   InputBorder get enabledBorder => inputDecorationTheme.enabledBorder!;
   InputBorder get focusedBorder => inputDecorationTheme.focusedBorder!;

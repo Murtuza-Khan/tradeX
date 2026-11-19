@@ -18,7 +18,7 @@ class ForgotPassword extends GetView<ForgotPasswordController> {
               style: context.headlineMedium.copyWith(color: AppColors.primary),
             ),
             Text(Strings.PLEASE_ENTER_CNIC, style: context.bodyLarge),
-            SpaceH20(),
+            SpaceH20() ,
             CustomTextFormField(
               controller: controller.cnicCtrl,
               fillColor: AppColors.white,

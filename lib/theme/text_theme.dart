@@ -1,4 +1,5 @@
-import '../resources/exports/index.dart';
+import '../resources/exports/index.dart' hide ThemeData;
+import 'package:material_ui/material_ui.dart' as material_ui;
 
 const _superBold = FontWeight.w900;
 const _extraBold = FontWeight.w800;
@@ -8,7 +9,7 @@ const _medium = FontWeight.w500;
 const _regular = FontWeight.w400;
 const _light = FontWeight.w300;
 
-TextTheme buildTextTheme({required Color textColor}) => TextTheme(
+material_ui.TextTheme buildTextTheme({required Color textColor}) => material_ui.TextTheme(
       displayLarge: TextStyle(
         fontSize: Sizes.TEXT_SIZE_96,
         color: textColor,

@@ -85,8 +85,9 @@ class Home extends GetView<HomeController> {
                     context,
                     title: Strings.AVAILABLE_POINTS,
                     subTitle: GlobalHelper.formatedNumber(
-                      value: (controller.receivedPoints.awardedPoints ?? 0) -
-                          ((controller.receivedPoints.redeemedPoints ?? 0)),
+                      value: ((controller.receivedPoints.awardedPoints ?? 0) -
+                              ((controller.receivedPoints.redeemedPoints ?? 0)))
+                          .toInt(),
                     ),
                     icon: EneftyIcons.star_outline,
                   ).expanded(),
@@ -96,7 +97,8 @@ class Home extends GetView<HomeController> {
                     title: Strings.REDEEMED_POINTS,
                     cardColor: AppColors.white,
                     subTitle: GlobalHelper.formatedNumber(
-                      value: controller.receivedPoints.redeemedPoints ?? 0,
+                      value: (controller.receivedPoints.redeemedPoints ?? 0)
+                          .toInt(),
                     ),
                     icon: EneftyIcons.ticket_star_outline,
                   ).expanded(),

@@ -1,11 +1,18 @@
 import 'resources/exports/index.dart';
+import 'package:flutter/material.dart' as flutter;
+import 'package:material_ui/material_ui.dart' as mui;
 
 Future<void> main() async {
   await InitializationService.init();
   (String, Map<String, dynamic>?) route = await getInitNotif();
   runApp(MyApp(route: route));
 }
-
+flutter.ThemeData convertTheme(mui.ThemeData theme) {
+  return flutter.ThemeData(
+    brightness: flutter.Brightness.light,
+    primaryColor: theme.primaryColor,
+  );
+}
 class MyApp extends StatelessWidget {
   final (String, Map<String, dynamic>?) route;
   const MyApp({super.key, required this.route});
@@ -19,7 +26,7 @@ class MyApp extends StatelessWidget {
         builder: (theme, darkTheme) => GetMaterialApp(
           title: Strings.APP_NAME,
           debugShowCheckedModeBanner: false,
-          theme: theme,
+          theme: convertTheme(theme),
           builder: (context, widget) {
             return ResponsiveWrapper.builder(
               MediaQuery(

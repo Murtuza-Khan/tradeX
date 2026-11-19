@@ -13,7 +13,7 @@ class InputFormat {
     FilteringTextInputFormatter.digitsOnly,
     LengthLimitingTextInputFormatter(17),
   ];
-  
+
   static final cnicCount = <TextInputFormatter>[
     FilteringTextInputFormatter.digitsOnly,
     LengthLimitingTextInputFormatter(13),
@@ -98,6 +98,21 @@ class CnicInputFormatter extends TextInputFormatter {
     return TextEditingValue(
       text: formatted,
       selection: TextSelection.collapsed(offset: formatted.length),
+    );
+  }
+}
+
+class RemoveDecimalInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final newText = newValue.text.split('.').first;
+
+    return newValue.copyWith(
+      text: newText,
+      selection: TextSelection.collapsed(offset: newText.length),
     );
   }
 }
