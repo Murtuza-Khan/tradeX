@@ -9,7 +9,7 @@ class InitializationService {
 
     CustomLogger.configure();
     log.i(Flavor.environment);
-    await dotenv.load(fileName: ".env");
+    await dotenv.load(fileName: "env");
 
     LicenseRegistry.addLicense(() async* {
       final license =
