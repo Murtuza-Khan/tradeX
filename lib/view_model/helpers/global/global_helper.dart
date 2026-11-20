@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:http/http.dart' as http;
 import 'package:googleapis_auth/auth_io.dart' as auth;
 
@@ -61,7 +61,8 @@ class GlobalHelper {
   static Future<void> launch(String url, {String? failUrl}) async {
     try {
       if (url.isEmpty) {
-        return CustomSnackBar.errorSnackBar(message: Strings.COULD_NOT_LAUNCH);
+        CustomSnackBar.errorSnackBar(message: Strings.COULD_NOT_LAUNCH);
+        return;
       }
       bool canLaunch = await canLaunchUrl(Uri.parse(url));
       if (canLaunch) {

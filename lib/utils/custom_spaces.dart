@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class SpaceH2 extends StatelessWidget {
   const SpaceH2({super.key});

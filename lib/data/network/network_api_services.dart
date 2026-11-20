@@ -141,7 +141,8 @@ class NetworkApiServices extends BaseApiServices {
           orElse: () => "",
         );
         if (key.isEmpty) {
-          return CustomSnackBar.errorSnackBar(message: data['message']);
+          CustomSnackBar.errorSnackBar(message: data['message']);
+          return;
         }
 
         dynamic decodedData = jsonDecode(response.body);
@@ -210,7 +211,8 @@ class NetworkApiServices extends BaseApiServices {
           orElse: () => "",
         );
         if (key.isEmpty) {
-          return CustomSnackBar.errorSnackBar(message: data['message']);
+          CustomSnackBar.errorSnackBar(message: data['message']);
+          return;
         }
 
         dynamic decodedData = jsonDecode(response.body);

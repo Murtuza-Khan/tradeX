@@ -1,7 +1,7 @@
 import '../resources/exports/index.dart';
 
 class CustomSnackBar {
-  static successSnackBar({
+  static Future<void> successSnackBar({
     required String message,
     String title = Strings.SUCCESS,
     Duration? duration,
@@ -22,7 +22,7 @@ class CustomSnackBar {
     );
   }
 
-  static errorSnackBar({
+  static Future<void> errorSnackBar({
     required String message,
     String title = Strings.ERROR,
     Color? color,
@@ -45,7 +45,7 @@ class CustomSnackBar {
     );
   }
 
-  static toast({
+  static Future<void> toast({
     String? title,
     required String message,
     Color? color,
@@ -70,7 +70,7 @@ class CustomSnackBar {
     );
   }
 
-  static errorToast({
+  static Future<void> errorToast({
     String? title,
     required String message,
     Color? color,
@@ -187,13 +187,13 @@ class CustomSnackBar {
     );
   }
 
-  static get restrictedAccess => errorToast(message: Strings.RESTRICTED_ACCESS);
+  static dynamic get restrictedAccess => errorToast(message: Strings.RESTRICTED_ACCESS);
 
-  static get offline => CustomSnackBar.errorSnackBar(
+  static dynamic get offline => CustomSnackBar.errorSnackBar(
         message: Strings.OFFLINE_MESSAGE,
       );
 
-  static get unsupportedPlatform => errorSnackBar(
+  static dynamic get unsupportedPlatform => errorSnackBar(
         message: Strings.NOT_SUPPORTED,
       );
 }

@@ -1,5 +1,5 @@
 // Flutter Default
-export 'package:flutter/material.dart';
+export 'package:material_ui/material_ui.dart';
 export 'dart:async';
 export 'dart:io';
 export 'dart:convert';
@@ -18,7 +18,7 @@ export 'package:responsive_framework/responsive_framework.dart';
 
 // packages
 export 'package:logger/logger.dart';
-export 'package:flutter_html/flutter_html.dart' hide OnTap, Marker;
+// export 'package:flutter_html/flutter_html.dart' hide OnTap, Marker;
 export 'package:slide_countdown/slide_countdown.dart';
 export 'package:cached_network_image/cached_network_image.dart';
 export 'package:intl/intl.dart' hide TextDirection;

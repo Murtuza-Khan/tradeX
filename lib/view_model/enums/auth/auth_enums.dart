@@ -9,7 +9,7 @@ enum UserVerificationStatus {
 
   const UserVerificationStatus({this.id, this.value});
 
-  static getStatus(int? id) {
+  static UserVerificationStatus getStatus(int? id) {
     return UserVerificationStatus.values.firstWhere(
       (element) => element.id == id,
       orElse: () => UserVerificationStatus.notVerified,

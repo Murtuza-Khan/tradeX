@@ -1,18 +1,21 @@
+import 'package:cupertino_ui/cupertino_ui.dart';
+
 import 'resources/exports/index.dart';
-import 'package:flutter/material.dart' as flutter;
-import 'package:material_ui/material_ui.dart' as mui;
+import 'package:flutter/material.dart' as material;
 
 Future<void> main() async {
   await InitializationService.init();
   (String, Map<String, dynamic>?) route = await getInitNotif();
   runApp(MyApp(route: route));
 }
-flutter.ThemeData convertTheme(mui.ThemeData theme) {
-  return flutter.ThemeData(
-    brightness: flutter.Brightness.light,
+
+material.ThemeData convertTheme(ThemeData theme) {
+  return material.ThemeData(
+    brightness: material.Brightness.light,
     primaryColor: theme.primaryColor,
   );
 }
+
 class MyApp extends StatelessWidget {
   final (String, Map<String, dynamic>?) route;
   const MyApp({super.key, required this.route});
@@ -24,6 +27,10 @@ class MyApp extends StatelessWidget {
         light: ThemeController().getTheme,
         initial: AdaptiveThemeMode.light,
         builder: (theme, darkTheme) => GetMaterialApp(
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
           title: Strings.APP_NAME,
           debugShowCheckedModeBanner: false,
           theme: convertTheme(theme),

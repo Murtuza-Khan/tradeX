@@ -71,10 +71,10 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
   }
 
   await _backLocalNotifications.show(
-    DateTime.now().millisecondsSinceEpoch ~/ 1000,
-    title,
-    body,
-    NotificationDetails(android: androidDetails),
+    id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+    title: title,
+    body: body,
+    notificationDetails: NotificationDetails(android: androidDetails),
     payload: jsonEncode(message.data),
   );
 }
@@ -90,7 +90,7 @@ Future<void> _initializeFlutterLocalNotifications() async {
   const android = AndroidInitializationSettings('@mipmap/ic_launcher');
   final settings = InitializationSettings(android: android, iOS: ios);
 
-  await _backLocalNotifications.initialize(settings);
+  await _backLocalNotifications.initialize(settings: settings);
 }
 
 void backgroundNotificationHandler(NotificationResponse notificationResponse) {
@@ -184,7 +184,7 @@ class FirebaseApi {
     final settings = InitializationSettings(android: android, iOS: ios);
 
     await _localNotifications.initialize(
-      settings,
+      settings: settings,
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) async {
         switch (notificationResponse.notificationResponseType) {
@@ -196,6 +196,8 @@ class FirebaseApi {
             handleMessage(message);
             break;
           case NotificationResponseType.selectedNotificationAction:
+            break;
+          case NotificationResponseType.notificationDismissed:
             break;
         }
       },
@@ -225,7 +227,7 @@ class FirebaseApi {
       }
 
       final title = message.data['title'] ?? 'Delta';
-      final body = message.data['body'] ?? 'New essage';
+      final body = message.data['body'] ?? 'New message';
       final imageUrl = message.data['image'];
 
       // ---------- ANDROID ----------
@@ -238,7 +240,7 @@ class FirebaseApi {
             'bigImage.jpg',
           );
 
-          androidDetails = AndroidNotificationDetails( 
+          androidDetails = AndroidNotificationDetails(
             androidChannel.id,
             androidChannel.name,
             channelDescription: androidChannel.description,
@@ -247,7 +249,7 @@ class FirebaseApi {
             color: AppColors.primary,
             styleInformation: BigTextStyleInformation(body),
           );
-        } else { 
+        } else {
           androidDetails = AndroidNotificationDetails(
             androidChannel.id,
             androidChannel.name,
@@ -259,10 +261,10 @@ class FirebaseApi {
         }
 
         await _localNotifications.show(
-          DateTime.now().millisecondsSinceEpoch ~/ 1000,
-          title,
-          body,
-          NotificationDetails(android: androidDetails),
+          id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+          title: title,
+          body: body,
+          notificationDetails: NotificationDetails(android: androidDetails),
           payload: jsonEncode(message.toMap()),
         );
       }
@@ -290,10 +292,10 @@ class FirebaseApi {
         await toggleIosForgroundNotification(true);
 
         await _localNotifications.show(
-          DateTime.now().millisecondsSinceEpoch ~/ 1000,
-          title,
-          body,
-          platformChannelSpecifics,
+          id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+          title: title,
+          body: body,
+          notificationDetails: platformChannelSpecifics,
           payload: jsonEncode(message.toMap()),
         );
         await Future.delayed(Durations.long1);
@@ -324,7 +326,8 @@ class FirebaseApi {
     try {
       String? fcmToken;
       _firebaseMessaging.requestPermission();
-      fcmToken = await _firebaseMessaging.getToken();
+      await _firebaseMessaging.register();
+      _firebaseMessaging.onRegistered.listen((token) => fcmToken = token);
       AuthManager.instance.saveDeviceToken(fcmToken);
       log.f("FCM TOKEN :: ${AuthManager.instance.deviceToken}");
       await initPushNotification();

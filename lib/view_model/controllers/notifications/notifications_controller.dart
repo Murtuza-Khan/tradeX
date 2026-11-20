@@ -10,7 +10,7 @@ class NotificationsController extends GetxController {
     ApiResult result = await NotificationRepository.readAllNotifications();
     if (result == ApiResult.success) {
       LandingController.instance.getNotificationCount();
-      pagingCtrl.itemList?.clear();
+      pagingCtrl.items?.clear();
       pagingCtrl.refresh();
     }
   }

@@ -71,7 +71,7 @@ class Strings {
   static const String AVAILABLE_POINTS = "Available Points";
   static const String REDEEMED_POINTS = "Redeemed Points";
   static const String CHANGE_PASSWORD = "Change Password";
-  static const String REDEEME = "Redeem";
+  static const String REDEEM = "Redeem";
   static const String REDEEME_HISTORY = "Redeem History";
   static const String SWITCH_ACCOUNT = "Switch\nAccount";
   static const String REDEEM_POINTS = "Redeem Points";

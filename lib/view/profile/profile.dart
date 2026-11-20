@@ -1,4 +1,5 @@
 import '../../resources/exports/index.dart';
+import 'package:flutter/material.dart' as material;
 
 class Profile extends GetView<ProfileController> {
   const Profile({super.key});
@@ -31,7 +32,7 @@ class Profile extends GetView<ProfileController> {
     );
   }
 
-  Center _buildProfileWidget(BuildContext context) {
+  Widget _buildProfileWidget(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -57,7 +58,7 @@ class Profile extends GetView<ProfileController> {
               keyboardType: TextInputType.name,
               validator: Validators.isValidString.call,
               onChanged: (_) {
-                controller.toggleUpdateProfileBtnEnaled.call();
+                controller.toggleUpdateProfileBtnEnabled.call();
               },
             ),
             SpaceH12(),
@@ -78,7 +79,7 @@ class Profile extends GetView<ProfileController> {
               keyboardType: TextInputType.name,
               validator: Validators.isValidString.call,
               onChanged: (_) {
-                controller.toggleUpdateProfileBtnEnaled.call();
+                controller.toggleUpdateProfileBtnEnabled.call();
               },
             ),
             SpaceH12(),
@@ -99,7 +100,7 @@ class Profile extends GetView<ProfileController> {
               keyboardType: TextInputType.emailAddress,
               validator: Validators.emailValidator.call,
               onChanged: (_) {
-                controller.toggleUpdateProfileBtnEnaled.call();
+                controller.toggleUpdateProfileBtnEnabled.call();
               },
             ),
             SpaceH16(),
@@ -112,7 +113,7 @@ class Profile extends GetView<ProfileController> {
                     color: AppColors.disabled,
                   ),
                   enabled: false,
-                  decoration: InputDecoration(
+                  decoration: material.InputDecoration(
                     contentPadding: EdgeInsets.symmetric(vertical: 20.0),
                     labelText: Strings.PHONE_NUMBER,
                     labelStyle: context.titleMedium.copyWith(

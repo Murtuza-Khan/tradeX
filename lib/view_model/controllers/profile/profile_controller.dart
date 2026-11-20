@@ -37,7 +37,7 @@ class ProfileController extends GetxController {
     return profile;
   }
 
-  void toggleUpdateProfileBtnEnaled() {
+  void toggleUpdateProfileBtnEnabled() {
     if (firstNameCtrl.text.trim() == profile?.firstName &&
         lastNameCtrl.text.trim() == profile?.lastName &&
         emailCtrl.text.trim() == profile?.email &&
@@ -53,7 +53,7 @@ class ProfileController extends GetxController {
       XFile? tempFile = await ImagePickerService.showImagePickerSheet(context);
       if (tempFile != null) {
         file = tempFile;
-        toggleUpdateProfileBtnEnaled.call();
+        toggleUpdateProfileBtnEnabled.call();
         imageBytes = await file?.readAsBytes();
       }
       update(['profile_image', 'update_save_profile_btn']);
@@ -86,7 +86,7 @@ class ProfileController extends GetxController {
         file = null;
         onGetProfile();
         update(['profile_widget']);
-        toggleUpdateProfileBtnEnaled.call();
+        toggleUpdateProfileBtnEnabled.call();
         CustomSnackBar.successSnackBar(message: Strings.PROFILE_UPDATE);
       }
     }

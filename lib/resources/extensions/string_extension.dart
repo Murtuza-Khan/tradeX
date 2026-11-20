@@ -37,11 +37,12 @@ extension StringConversions on String {
   }
 
   bool toBool() {
-    return (toLowerCase() == "true" || toLowerCase() == "1")
-        ? true
-        : (toLowerCase() == "false" || toLowerCase() == "0"
-            ? false
-            : throwsUnsupportedError);
+    final value = toLowerCase();
+
+    if (value == "true" || value == "1") return true;
+    if (value == "false" || value == "0") return false;
+
+    throw UnsupportedError("Invalid boolean value");
   }
 
   T stringToEnum<T>({required Iterable<T> values, T Function()? orElse}) {
@@ -53,7 +54,7 @@ extension StringConversions on String {
     );
   }
 
-  get throwsUnsupportedError => null;
+  Null get throwsUnsupportedError => null;
 }
 
 extension StringConversionsX on String? {

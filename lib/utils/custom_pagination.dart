@@ -1,7 +1,6 @@
 import '../resources/exports/index.dart';
 
 typedef OnCardTap = Function(int id);
-
 typedef CustomChild<T> = Widget Function(
   BuildContext context,
   int index,
@@ -12,9 +11,7 @@ typedef CustomChild<T> = Widget Function(
 );
 
 typedef LoadedData<T> = Function(T?);
-
 typedef ComapreFn<T> = bool Function(T, T);
-
 typedef SortFn<T> = int Function(T, T);
 
 class CustomPagination<T> extends StatefulWidget {
@@ -121,7 +118,7 @@ class CustomPagination<T> extends StatefulWidget {
   /// Note: to see the implemantation of [COMAPRE_FN] goto
   ///
   /// [HOME_POST_SCREEN] in [IGNITE] app
-  final ComapreFn? comapreFn;
+  final ComapreFn? compareFn;
 
   /// use [should_Refresh_List] to reload items in the list
   ///
@@ -171,7 +168,6 @@ class CustomPagination<T> extends StatefulWidget {
 
   /// Use [PAGINATED_LIST_KEY] if the list is inside a [Map<String, dynamic>]
   final String? paginatedListKey;
-
   const CustomPagination({
     super.key,
     this.isDataInGrid = false,
@@ -191,7 +187,7 @@ class CustomPagination<T> extends StatefulWidget {
     this.customItems,
     this.scrollToTop,
     this.data,
-    this.comapreFn,
+    this.compareFn,
     this.shouldRefreshList,
     this.showScrollBar = true,
     this.customFirstChild,
@@ -205,7 +201,6 @@ class CustomPagination<T> extends StatefulWidget {
     required this.apiUrl,
     required this.initList,
   });
-
   @override
   State<CustomPagination> createState() => _CustomPaginationState();
 }
@@ -218,8 +213,6 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
   late int itemCount;
   late Filters initialFilter;
 
-  PagingStatus pagingStatus = PagingStatus.loadingFirstPage;
-
   final Duration _stopTypingDuration = Duration(milliseconds: 1000);
   Timer? _typingTimer;
 
@@ -231,43 +224,42 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
   RxBool isWidgetAutoRebuilding = false.obs;
   int randomBuildCount = 0;
 
-  Future<void> _fetchPage(int pageKey) async {
+  // The package now asks for the next key instead of using appendPage/appendLastPage.
+  bool _hasNextPage = true;
+
+  Future<List<T>> _fetchPage(int pageKey) async {
     try {
       isFinalPage = (false, -1);
-      final newItems = await _getList(pageKey);
-      if (mounted) {
-        items.addAll(newItems as List<T>);
-        itemCount += newItems.length;
-        if (widget.data != null) widget.data?.call(items);
 
-        final isLastPage = newItems.length < (widget.pageSize ?? Urls.PAGESIZE);
-        if (isLastPage ||
-            newItems.length <= (widget.pageSize ?? Urls.PAGESIZE)) {
-          isFinalPage = (true, items.length - 1);
-        }
-        if (isLastPage ||
-            (widget.pageIndex != null &&
-                (widget.pageIndex ?? 1) <= (pageKey + 1))) {
-          _pagingController.appendLastPage(newItems);
-        } else {
-          final nextPageKey = pageKey + 1;
-          _pagingController.appendPage(newItems, nextPageKey.toInt());
-        }
-        _removeDuplicateItems();
+      final List<T> newItems = await _getList(pageKey);
+      if (!mounted) return <T>[];
 
-        if (widget.listSorting != null) {
-          (_pagingController.itemList ?? []).sort(
-            (a, b) => widget.listSorting!.call(a, b),
-          );
-        }
+      items.addAll(newItems);
+      itemCount += newItems.length;
+      widget.data?.call(items);
+
+      final pageSize = widget.pageSize ?? Urls.PAGESIZE;
+      final isLastPage = newItems.length < pageSize;
+
+      // Kept from the previous implementation.
+      if (isLastPage || newItems.length <= pageSize) {
+        isFinalPage = (true, items.length - 1);
       }
+
+      final reachedPageLimit =
+          widget.pageIndex != null && (widget.pageIndex ?? 1) <= (pageKey + 1);
+      _hasNextPage = !(isLastPage || reachedPageLimit);
+
+      // PagingController appends the returned page automatically in v5.
+      final uniquePageItems = _removeDuplicateItems(newItems);
+      return _sortNewPageAndExistingPages(uniquePageItems);
     } catch (error) {
       MacLog.printR(error);
-      _pagingController.error = error;
+      rethrow;
     }
   }
 
-  _getList(int pageIndex) async {
+  Future<List<T>> _getList(int pageIndex) async {
     try {
       BaseApiServices apiService = NetworkApiServices();
       List<T> itemsList = [];
@@ -281,6 +273,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
       if (widget.showSearchBar && _searchCtrl.text.isNotEmpty) {
         queryParameters["search"] = _searchCtrl.text;
       }
+
       if ((widget.dummyData ?? []).isEmpty) {
         queryParameters["page"] = (widget.pageIndex ?? pageIndex).toString();
         queryParameters["limit"] =
@@ -288,6 +281,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
         queryParameters["post_type_id"] = widget.filter.id.toString();
         queryParameters["accountId"] =
             AuthManager.instance.company.id.toString();
+
         final response = widget.isGetApi
             ? await apiService.getApi(
                 widget.apiUrl,
@@ -299,20 +293,26 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
 
         if (mounted) {
           setState(
-            () => itemsList = widget.initList(widget.paginatedListKey != null
-                ? response['received_points']
-                : response) as List<T>,
+            () => itemsList = widget.initList(
+              widget.paginatedListKey != null
+                  ? response['received_points']
+                  : response,
+            ) as List<T>,
           );
         }
+
         isLoading.value = false;
         // await Future.delayed(Duration(hours: 1));
         return itemsList;
       } else {
         if (mounted) {
           await Future.delayed(Duration(seconds: 1));
-          setState(() =>
-              itemsList = widget.initList(widget.dummyData ?? []) as List<T>);
+          setState(
+            () =>
+                itemsList = widget.initList(widget.dummyData ?? []) as List<T>,
+          );
         }
+
         isLoading.value = false;
         // await Future.delayed(Duration(hours: 1));
         return itemsList;
@@ -324,22 +324,147 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
       } else {
         MacLog.printR("This is CUSTOM_PAGINATION error :: $e");
       }
+      rethrow;
     }
   }
 
-  void _removeDuplicateItems() {
+  // Returns only items that are not already present in previously loaded pages.
+  // The controller itself appends this returned page to PagingState.pages.
+  List<T> _removeDuplicateItems(List<T> newItems) {
     try {
-      List<T> pgItems = _pagingController.itemList ?? [];
-      for (int i = 0; i < pgItems.length; i++) {
-        int idnex = uniqueItems.indexWhere(
-          (e) => (e as dynamic).id == (pgItems[i] as dynamic).id,
+      final existingItems = _pagingController.value.items ?? <T>[];
+
+      // Keep the uniqueItems cache in sync with items inserted externally.
+      for (final existingItem in existingItems) {
+        final existingIndex = uniqueItems.indexWhere(
+          (item) => (item as dynamic).id == (existingItem as dynamic).id,
         );
-        if (idnex == -1) uniqueItems.add(pgItems[i]);
+        if (existingIndex == -1) uniqueItems.add(existingItem);
       }
-      _pagingController.itemList = uniqueItems;
+
+      final List<T> pageItems = [];
+      for (final item in newItems) {
+        final existingIndex = uniqueItems.indexWhere(
+          (element) => (element as dynamic).id == (item as dynamic).id,
+        );
+        if (existingIndex == -1) {
+          uniqueItems.add(item);
+          pageItems.add(item);
+        }
+      }
+
+      return pageItems;
     } catch (e) {
       MacLog.printR(e);
+      return newItems;
     }
+  }
+
+  // Rebuilds the flat item collection while retaining the page/key structure
+  // required by infinite_scroll_pagination 5.x.
+  void _setPagingItems(List<T> updatedItems) {
+    // Previously itemList and uniqueItems referenced the same list. Keep that
+    // relationship explicit now that PagingState stores nested page lists.
+    uniqueItems
+      ..clear()
+      ..addAll(updatedItems);
+
+    final currentState = _pagingController.value;
+    final currentPages = currentState.pages ?? <List<T>>[];
+    final currentKeys = List<int>.from(currentState.keys ?? <int>[]);
+
+    if (currentPages.isEmpty) {
+      final keys = currentKeys.isEmpty ? <int>[0] : currentKeys;
+      _pagingController.value = currentState.copyWith(
+        pages: <List<T>>[List<T>.from(updatedItems)],
+        keys: keys,
+      );
+      return;
+    }
+
+    final currentItemCount = currentPages.fold<int>(
+      0,
+      (count, page) => count + page.length,
+    );
+    final extraItems = updatedItems.length > currentItemCount
+        ? updatedItems.length - currentItemCount
+        : 0;
+
+    final List<List<T>> updatedPages = [];
+    var offset = 0;
+
+    for (var index = 0; index < currentPages.length; index++) {
+      final pageLength =
+          currentPages[index].length + (index == 0 ? extraItems : 0);
+      final availableItems = updatedItems.length - offset;
+      final takeCount =
+          pageLength < availableItems ? pageLength : availableItems;
+
+      updatedPages.add(
+        updatedItems.skip(offset).take(takeCount).toList(),
+      );
+      offset += takeCount;
+    }
+
+    if (offset < updatedItems.length) {
+      if (updatedPages.isEmpty) {
+        updatedPages.add(updatedItems.sublist(offset));
+      } else {
+        updatedPages[0] = [
+          ...updatedPages[0],
+          ...updatedItems.skip(offset),
+        ];
+      }
+    }
+
+    // Normally the key/page counts already match. This also keeps manually
+    // inserted items valid when the state has not fetched an API page yet.
+    while (currentKeys.length < updatedPages.length) {
+      currentKeys.add(currentKeys.isEmpty ? 0 : currentKeys.last + 1);
+    }
+    if (currentKeys.length > updatedPages.length) {
+      currentKeys.removeRange(updatedPages.length, currentKeys.length);
+    }
+
+    _pagingController.value = currentState.copyWith(
+      pages: updatedPages,
+      keys: currentKeys,
+    );
+  }
+
+  // Keeps the previous global sorting behavior while preserving the page
+  // boundaries required by the v5 PagingState.
+  List<T> _sortNewPageAndExistingPages(List<T> newPageItems) {
+    final sorting = widget.listSorting;
+    if (sorting == null || newPageItems.isEmpty) return newPageItems;
+
+    final currentState = _pagingController.value;
+    final currentPages = currentState.pages ?? <List<T>>[];
+    final sortedItems = List<T>.from(currentState.items ?? <T>[])
+      ..addAll(newPageItems);
+
+    sortedItems.sort((a, b) => sorting.call(a, b));
+
+    var offset = 0;
+    final sortedExistingPages = <List<T>>[];
+    for (final page in currentPages) {
+      final end = offset + page.length;
+      sortedExistingPages.add(sortedItems.sublist(offset, end));
+      offset = end;
+    }
+
+    // Keep the cache in the same order as the old controller.itemList.
+    uniqueItems
+      ..clear()
+      ..addAll(sortedItems);
+
+    // The controller will append the returned final page after this callback.
+    // Updating the existing pages synchronously is supported by v5 PagingController.
+    _pagingController.value = currentState.copyWith(
+      pages: sortedExistingPages,
+    );
+
+    return sortedItems.sublist(offset);
   }
 
   void _scrollToTop() {
@@ -359,6 +484,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
     _typingTimer = Timer(_stopTypingDuration, () {
       uniqueItems.clear();
       items.clear();
+      _hasNextPage = true;
       _pagingController.refresh();
     });
   }
@@ -380,7 +506,8 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
         color: AppColors.black,
         onRefresh: () async {
           items.clear();
-          _pagingController.itemList?.clear();
+          uniqueItems.clear();
+          _hasNextPage = true;
           _pagingController.refresh();
         },
         child: child,
@@ -390,79 +517,65 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
     }
   }
 
-  void _fetchPagingStatus(PagingStatus status) {
-    setState(() => pagingStatus = status);
-  }
-
   @override
   void initState() {
+    super.initState();
     itemCount = 0;
     refreshCount = 0.obs;
     initialFilter = widget.filter;
     _searchCtrl = TextEditingController();
     _scrlController = ScrollController();
-    _pagingController = PagingController(firstPageKey: 1);
-    _pagingController.addPageRequestListener(_fetchPage);
-    _pagingController.addStatusListener(_fetchPagingStatus);
-    super.initState();
+
+    _pagingController = PagingController<int, T>(
+      getNextPageKey: (state) {
+        if (!_hasNextPage) return null;
+        final keys = state.keys;
+        if (keys == null || keys.isEmpty) return 1;
+        return keys.last + 1;
+      },
+      fetchPage: _fetchPage,
+    );
   }
 
   @override
   void didUpdateWidget(covariant CustomPagination oldWidget) {
-    if (widget.comapreFn != null) {
-      if ((widget.customItems ?? []).isNotEmpty &&
-          (_pagingController.itemList ?? []).isNotEmpty) {
+    final currentItems = List<T>.from(_pagingController.value.items ?? <T>[]);
+
+    if (widget.compareFn != null) {
+      if ((widget.customItems ?? []).isNotEmpty && currentItems.isNotEmpty) {
         for (int i = 0; i < (widget.customItems ?? []).length; i++) {
-          for (int j = 0; j < (_pagingController.itemList ?? []).length; j++) {
-            bool shouldUpdate = widget.comapreFn?.call(
-                    (_pagingController.itemList ?? [])[j],
-                    (widget.customItems ?? [])[i]) ??
+          for (int j = 0; j < currentItems.length; j++) {
+            final bool shouldUpdate = widget.compareFn
+                    ?.call(currentItems[j], widget.customItems![i]) ??
                 false;
+
             if (shouldUpdate) {
-              setState(() {
-                (_pagingController.itemList ?? [])[j] =
-                    (widget.customItems ?? [])[i];
-              });
+              currentItems[j] = widget.customItems![i];
+              _setPagingItems(currentItems);
               return;
-            } else {
-              if (j == (_pagingController.itemList ?? []).length - 1) {
-                if ((_pagingController.itemList ?? []).length >=
-                    (widget.pageSize ?? Urls.PAGESIZE)) {
-                  setState(() {
-                    (_pagingController.itemList ?? []).removeAt(
-                      (_pagingController.itemList ?? []).length - 1,
-                    );
-                  });
-                }
-                setState(() {
-                  _pagingController.itemList?.insert(
-                    0,
-                    (widget.customItems ?? [])[i],
-                  );
-                });
-                _fetchPagingStatus(PagingStatus.completed);
-                return;
+            } else if (j == currentItems.length - 1) {
+              if (currentItems.length >= (widget.pageSize ?? Urls.PAGESIZE)) {
+                currentItems.removeAt(currentItems.length - 1);
               }
+              currentItems.insert(0, widget.customItems![i]);
+              _setPagingItems(currentItems);
+              return;
             }
           }
         }
       }
     }
-    if (widget.comapreFn == null ||
-        (_pagingController.itemList ?? []).isEmpty) {
-      setState(() {
-        _pagingController.itemList?.insertAll(
-          0,
-          ((widget.customItems ?? []) as List<T>),
-        );
-      });
-      _fetchPagingStatus(PagingStatus.completed);
+
+    if (widget.compareFn == null || currentItems.isEmpty) {
+      currentItems.insertAll(0, (widget.customItems ?? []).cast<T>());
+      _setPagingItems(currentItems);
     }
 
     if (widget.filter != initialFilter) {
       initialFilter = widget.filter;
       items.clear();
-      _pagingController.itemList?.clear();
+      uniqueItems.clear();
+      _hasNextPage = true;
       _pagingController.refresh();
     }
 
@@ -472,7 +585,6 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
 
   @override
   void dispose() {
-    _pagingController.removePageRequestListener(_fetchPage);
     _pagingController.dispose();
     _searchCtrl.dispose();
     _typingTimer?.cancel();
@@ -481,66 +593,74 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: widget.backgroundColor,
-      child: Column(
-        children: [
-          if (widget.showSearchBar && itemCount != 0) ...[
-            SpaceH12(),
-            CustomTextFormField(
-              controller: _searchCtrl,
-              textCapitalization: TextCapitalization.none,
-              height: Sizes.HEIGHT_20,
-              labelText: Strings.SEARCH,
-              labelColor: AppColors.black,
-              prefixIcon: EneftyIcons.search_normal_2_outline,
-              prefixIconColor: AppColors.black,
-              textColor: AppColors.black,
-              cursorColor: AppColors.black,
-              enableBorderColor: AppColors.black,
-              focusBorderColor: AppColors.primary,
-              suffixIconColor: AppColors.black,
-              suffixIcon: _searchCtrl.text.isEmpty
-                  ? null
-                  : EneftyIcons.close_circle_outline,
-              onSuffixTap: () => _searchCtrl.clear(),
-              textInputAction: TextInputAction.next,
-              onChanged: (_) => _onSearch(),
-              keyboardType: TextInputType.name,
-            ).paddingSymmetric(horizontal: 16.0),
-          ],
-          if (pagingStatus == PagingStatus.noItemsFound) ...[
-            if (widget.customFirstChild != null) ...[
-              widget.customFirstChild
-                      ?.call(isWidgetAutoRebuilding.value)
-                      .paddingSymmetric(horizontal: 16.0) ??
-                  SizedBox(),
-              SizedBox(height: 80),
-              NoContent(
-                title: Strings.NO_RECORD_FOUND,
-                subtitle: "No information is currently available",
-                showBackground: false,
-              ).expanded(),
+    return PagingListener<int, T>(
+      controller: _pagingController,
+      builder: (context, state, fetchNextPage) {
+        return Container(
+          color: widget.backgroundColor,
+          child: Column(
+            children: [
+              if (widget.showSearchBar && itemCount != 0) ...[
+                SpaceH12(),
+                CustomTextFormField(
+                  controller: _searchCtrl,
+                  textCapitalization: TextCapitalization.none,
+                  height: Sizes.HEIGHT_20,
+                  labelText: Strings.SEARCH,
+                  labelColor: AppColors.black,
+                  prefixIcon: EneftyIcons.search_normal_2_outline,
+                  prefixIconColor: AppColors.black,
+                  textColor: AppColors.black,
+                  cursorColor: AppColors.black,
+                  enableBorderColor: AppColors.black,
+                  focusBorderColor: AppColors.primary,
+                  suffixIconColor: AppColors.black,
+                  suffixIcon: _searchCtrl.text.isEmpty
+                      ? null
+                      : EneftyIcons.close_circle_outline,
+                  onSuffixTap: () => _searchCtrl.clear(),
+                  textInputAction: TextInputAction.next,
+                  onChanged: (_) => _onSearch(),
+                  keyboardType: TextInputType.name,
+                ).paddingSymmetric(horizontal: 16.0),
+              ],
+              if (state.status == PagingStatus.noItemsFound) ...[
+                if (widget.customFirstChild != null) ...[
+                  widget.customFirstChild
+                          ?.call(isWidgetAutoRebuilding.value)
+                          .paddingSymmetric(horizontal: 16.0) ??
+                      SizedBox(),
+                  SizedBox(height: 80),
+                  NoContent(
+                    title: Strings.NO_RECORD_FOUND,
+                    subtitle: "No information is currently available",
+                    showBackground: false,
+                  ).expanded(),
+                ],
+              ],
+              widget.isDataInGrid
+                  ? _buildGridView(state, fetchNextPage).expanded()
+                  : _buildListView(state, fetchNextPage).expanded(),
             ],
-          ],
-          widget.isDataInGrid
-              ? _buildGridView().expanded()
-              : _buildListView().expanded(),
-        ],
-      ),
+          ),
+        );
+      },
     );
   }
 
-  Widget _buildListView() {
+  Widget _buildListView(
+    PagingState<int, T> state,
+    VoidCallback fetchNextPage,
+  ) {
+    final itemLength = state.items?.length ?? 0;
+
     return refreshIndicatorWidget(
       child: SizedBox(
         height: widget.scrollDirection == Axis.vertical
             ? null
             : widget.heightOfListViewItem,
         child: Align(
-          alignment: (_pagingController.itemList?.length ?? 0) == 0
-              ? Alignment.center
-              : Alignment.topCenter,
+          alignment: itemLength == 0 ? Alignment.center : Alignment.topCenter,
           child: RawScrollbar(
             controller: _scrlController,
             thumbVisibility: widget.showScrollBar,
@@ -549,8 +669,9 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
                 widget.showScrollBar ? AppColors.primary : Colors.transparent,
             crossAxisMargin: widget.showScrollBar ? 4 : 0,
             radius: widget.showScrollBar ? Radius.circular(8.0) : null,
-            child: PagedListView.separated(
-              pagingController: _pagingController,
+            child: PagedListView<int, T>.separated(
+              state: state,
+              fetchNextPage: fetchNextPage,
               padding: widget.padding,
               shrinkWrap: true,
               scrollDirection: widget.scrollDirection,
@@ -570,7 +691,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
                       widget.child(
                         context,
                         index,
-                        index == (_pagingController.itemList ?? []).length - 1,
+                        index == itemLength - 1,
                         _scrlController,
                         item,
                         _pagingController,
@@ -617,7 +738,12 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
     );
   }
 
-  Widget _buildGridView() {
+  Widget _buildGridView(
+    PagingState<int, T> state,
+    VoidCallback fetchNextPage,
+  ) {
+    final itemLength = state.items?.length ?? 0;
+
     return refreshIndicatorWidget(
       child: Center(
         child: RawScrollbar(
@@ -628,9 +754,10 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
               widget.showScrollBar ? AppColors.primary : Colors.transparent,
           crossAxisMargin: widget.showScrollBar ? 4 : 0,
           radius: widget.showScrollBar ? Radius.circular(8.0) : null,
-          child: PagedGridView(
+          child: PagedGridView<int, T>(
             addAutomaticKeepAlives: true,
-            pagingController: _pagingController,
+            state: state,
+            fetchNextPage: fetchNextPage,
             padding: const EdgeInsets.all(Sizes.PADDING_12),
             addRepaintBoundaries: true,
             shrinkWrap: true,
@@ -674,7 +801,7 @@ class _CustomPaginationState<T> extends State<CustomPagination> {
               itemBuilder: (context, item, index) => widget.child(
                 context,
                 index,
-                index == (_pagingController.itemList ?? []).length - 1,
+                index == itemLength - 1,
                 _scrlController,
                 item,
                 _pagingController,

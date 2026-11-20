@@ -33,19 +33,47 @@ extension ContextExtension on BuildContext {
   Color get onPrimary => theme.colorScheme.onPrimary;
   Color get errorColor => theme.colorScheme.error;
 
-  Color get fillColor => theme.inputDecorationTheme.fillColor!;
+  Color get fillColor => theme.inputDecorationTheme.fillColor ?? Colors.white;
+
   Color get iconColor1 => theme.iconTheme.color!;
   Color get textColor => theme.textTheme.titleLarge!.color!;
   Color get progressIndicatorColor => theme.progressIndicatorTheme.color!;
 
-  InputDecorationThemeData get inputDecorationTheme => theme.inputDecorationTheme;
+  InputDecorationThemeData get inputDecorationTheme =>
+      theme.inputDecorationTheme;
 
-  InputBorder get enabledBorder => inputDecorationTheme.enabledBorder!;
-  InputBorder get focusedBorder => inputDecorationTheme.focusedBorder!;
-  InputBorder get errorBorder => inputDecorationTheme.errorBorder!;
+  InputBorder get enabledBorder =>
+      inputDecorationTheme.enabledBorder ??
+      const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey),
+      );
+
+  InputBorder get focusedBorder =>
+      inputDecorationTheme.focusedBorder ??
+      const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.blue),
+      );
+
+  InputBorder get errorBorder =>
+      inputDecorationTheme.errorBorder ??
+      const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.red),
+      );
+
   InputBorder get focusedErrorBorder =>
-      inputDecorationTheme.focusedErrorBorder!;
-  InputBorder get disableBorder => inputDecorationTheme.disabledBorder!;
+      inputDecorationTheme.focusedErrorBorder ??
+      const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.red,
+          width: 2,
+        ),
+      );
+
+  InputBorder get disableBorder =>
+      inputDecorationTheme.disabledBorder ??
+      const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey),
+      );
 
   // Context Text Styles
   TextStyle get displayLarge => theme.textTheme.displayLarge!;

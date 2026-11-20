@@ -41,7 +41,7 @@ class AppColors {
   static const Color expired = Colors.redAccent;
   static const Color partiallyRedeemed = Colors.orange;
 
-  static initializeAppColors(AppColorsModel appColors) {
+  static void initializeAppColors(AppColorsModel appColors) {
     AppColorsModel color = appColors;
     primary = color.primaryColor ?? Color(0xFF2b4187);
     secondary = color.secondaryColor ?? Colors.black;

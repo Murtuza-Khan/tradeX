@@ -374,13 +374,15 @@ class _CustomButtonState extends State<CustomButton> {
         ),
         onPressed: widget.isEnabled ? (!isLoading ? onTap : null) : null,
         child: DottedBorder(
-          borderType: BorderType.RRect,
-          color:
-              widget.borderColor ?? widget.backgroundColor ?? AppColors.primary,
-          radius: Radius.circular(widget.radius),
-          dashPattern: const [6, 4],
-          strokeWidth: widget.borderWidth,
-          borderPadding: const EdgeInsets.all(Sizes.PADDING_2),
+          options: RoundedRectDottedBorderOptions(
+            color: widget.borderColor ??
+                widget.backgroundColor ??
+                AppColors.primary,
+            radius: Radius.circular(widget.radius),
+            dashPattern: const [6, 4],
+            strokeWidth: widget.borderWidth,
+            borderPadding: const EdgeInsets.all(Sizes.PADDING_2),
+          ),
           child: Container(
             constraints: widget.constraints,
             padding: widget.padding ?? EdgeInsets.zero,

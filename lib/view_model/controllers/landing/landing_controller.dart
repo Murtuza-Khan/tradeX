@@ -31,7 +31,6 @@ class LandingController extends GetxController
 
   void onNavigate(int index, String route) {
     if (index != selectedIndex) {
-      ScaffoldMessenger.of(Get.context!).clearSnackBars();
       selectedIndex = index;
       Get.offNamed(route, id: Strings.GET_NESTED_KEY_1);
       update(['bottom_nav_bar', 'redeem_history']);
@@ -63,7 +62,7 @@ class LandingController extends GetxController
       ),
       BottomNavBarModel(
         id: 1,
-        title: Strings.REDEEME,
+        title: Strings.REDEEM,
         icon: EneftyIcons.ticket_star_outline,
         isVisible: true,
         onTap: () => onNavigate(1, Routes.REDEEM_REWARDS),
